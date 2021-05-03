@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
 import '../css/navbar.css'
@@ -16,16 +17,16 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto py-3 ms-4 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
+                <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/recipes">Recipes</a>
+                <Link className="nav-link" to="/recipes">Recipes</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Blog</a>
+              <Link className="nav-link" to="/blogs">Blog</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">About Us</a>
+                <Link className="nav-link" to="/">About Us</Link>
               </li>
             </ul>
             <form className="d-flex search-form">

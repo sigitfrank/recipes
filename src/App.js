@@ -1,10 +1,8 @@
 import Modal from './screens/auth/Modal'
-import Navbar from './components/Navbar'
 import Routes from './routes/Routes'
 function App() {
   return (<>
     <div className="App pb-5">
-      <Navbar/>
       <Routes/>
     </div>
     <Modal />
