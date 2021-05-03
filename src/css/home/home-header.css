@@ -1,8 +1,8 @@
-.main-header {
+.home .main-header {
     padding: 1rem;
 }
 
-.slogan-div {
+.home .slogan-div {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -11,12 +11,12 @@
     margin-top: 1rem;
 }
 
-.slogan-div p {
+.home .slogan-div p {
     margin-top: 1rem;
     font-size: 0.8rem;
 }
 
-.btn.get-started {
+.home .btn.get-started {
     background: #FF8E5E;
     display: inline-block;
     color: #fff;
@@ -26,7 +26,7 @@
     transition: 0.5s;
 }
 
-.btn.get-started:hover {
+.home .btn.get-started:hover {
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;

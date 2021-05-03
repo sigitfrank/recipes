@@ -1,6 +1,7 @@
 import React from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
+import '../css/navbar.css'
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,7 +19,7 @@ function Navbar() {
                 <a className="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Recipes</a>
+                <a className="nav-link" href="/recipes">Recipes</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/">Blog</a>
@@ -28,11 +29,11 @@ function Navbar() {
               </li>
             </ul>
             <form className="d-flex search-form">
-              <div class="input-group me-3">
-                <button class="btn ms-n5" type="button">
+              <div className="input-group me-3">
+                <button className="btn ms-n5" type="button">
                   <BsSearch />
                 </button>
-                <input class="form-control" type="search" placeholder="ex: Spaghetti carbonara" />
+                <input className="form-control" type="search" placeholder="ex: Spaghetti carbonara" />
               </div>
               <button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>
             </form>

@@ -1,9 +1,9 @@
 import React from 'react'
-
+import '../../css/home/home-header.css'
 function HomeHeader() {
     return (
-        <div className="container header">
-        <section className="row main-header">
+        <div className="container home header">
+        <section className="row home-header">
           <div className="col-md-6">
             <div className="slogan-div">
               <h1>Let's Start Cooking with Best Recipes</h1>

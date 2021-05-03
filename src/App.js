@@ -1,7 +1,3 @@
-
-import './css/navbar.css'
-import './css/main-header.css'
-import './css/content.css'
 import Modal from './screens/auth/Modal'
 import Navbar from './components/Navbar'
 import Routes from './routes/Routes'

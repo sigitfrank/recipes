@@ -1,9 +1,9 @@
 import React from 'react'
-
+import '../../css/home/main-content.css'
 function HomeContent() {
-    return (  <div className="container-fluid content">
+  return (<div className="container-fluid home content">
     <div className="container">
-      <section className="row popular-recipes">
+      <section className="row">
         <div className="recipes-category">
           <h2>Popular Recipes</h2>
           <div className="line"></div>
@@ -30,6 +30,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
+                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
               </div>
             </div>
           </div>
@@ -54,6 +55,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
+                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
               </div>
             </div>
           </div>
@@ -78,14 +80,14 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
+                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
-  </div>
-    )
+  </div>)
 }
 
 export default HomeContent

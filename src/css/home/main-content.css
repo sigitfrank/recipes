@@ -1,34 +1,35 @@
-.content {
+.home.content {
     background: #FFF8F4;
     padding: 1rem;
     margin-top: 2.5rem;
 }
 
-.card-header {
+.home .card-header {
     background: unset;
     border: 0;
 }
 
-.recipes-description {
+.home .recipes-description {
     background: #FFEFE9;
     padding: 1rem;
     border-radius: 0.5rem;
 
 }
 
-.recipes-description ul li {
+.home .recipes-description ul li {
     font-weight: 100;
 }
 
-.recipes-category {
+.home .recipes-category {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 1rem;
 }
 
-.line {
+.home .line {
     height: 2px;
     width: 25%;
     background: #FF8E5E;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }

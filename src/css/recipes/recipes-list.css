@@ -1,0 +1,34 @@
+.recipes-list.content {
+    background: #FFF8F4;
+    padding: 1rem;
+}
+
+.recipes-list .card-header {
+    background: unset;
+    border: 0;
+}
+
+.recipes-list .recipes-description {
+    background: #FFEFE9;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+}
+
+.recipes-list .recipes-description ul li {
+    font-weight: 100;
+}
+
+.recipes-list .recipes-category {
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.recipes-list .line {
+    height: 2px;
+    width: 25%;
+    background: #FF8E5E;
+    margin-bottom: 1rem;
+}

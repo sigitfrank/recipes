@@ -1,6 +1,12 @@
 import React from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-function Login() {
+function Login({ setModalAuth }) {
+
+    const showRegisterModal = (e) => {
+        e.preventDefault()
+        setModalAuth('register')
+    }
+
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
@@ -19,7 +25,7 @@ function Login() {
                     <div className="col-6">
                         <div className="form-check ms-2">
                             <input className="form-check-input" type="checkbox" id="rememberMe" />
-                            <label className="form-check-label" for="rememberMe">
+                            <label className="form-check-label" htmlFor="rememberMe">
                                 Remember Me
                                         </label>
                         </div>
@@ -32,7 +38,7 @@ function Login() {
                 </div>
                 <div className="submit-container text-center">
                     <button className="btn login">Login</button>
-                    <p className="mt-3">Doesn't have an account? <a href="/" className="main-color"> Sign up</a></p>
+                    <p className="mt-3">Doesn't have an account? <a href="/" onClick={(e) => showRegisterModal(e)} className="main-color"> Sign up</a></p>
                 </div>
             </form>
         </div>
