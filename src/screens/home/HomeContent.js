@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import '../../css/home/main-content.css'
 function HomeContent() {
   return (<div className="container-fluid home content">
@@ -30,7 +31,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
-                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
+                <p className="text-center mt-3 mb-0"> <Link to="/recipes/1" className="main-color"> Read more</Link></p>
               </div>
             </div>
           </div>
@@ -55,7 +56,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
-                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
+                <p className="text-center mt-3 mb-0">  <Link to="/recipes/1" className="main-color"> Read more</Link></p>
               </div>
             </div>
           </div>
@@ -80,7 +81,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
-                <p className="text-center mt-3 mb-0"> <a href="/recipes/1" className="main-color"> Read more</a></p>
+                <p className="text-center mt-3 mb-0">  <Link to="/recipes/1" className="main-color"> Read more</Link></p>
               </div>
             </div>
           </div>
