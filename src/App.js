@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './css/navbar.css'
+import './css/main-header.css'
+import './css/content.css'
+import Modal from './screens/auth/Modal'
+import Navbar from './components/Navbar'
+import Routes from './routes/Routes'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return (<>
+    <div className="App pb-5">
+      <Navbar/>
+      <Routes/>
     </div>
-  );
+    <Modal />
+  </>)
 }
 
-export default App;
+export default App

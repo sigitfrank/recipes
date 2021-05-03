@@ -1,0 +1,73 @@
+#SignInModal .modal-content {
+    background: #E5E5E5;
+}
+
+.form-login {
+    padding: 1rem;
+}
+
+
+.form-login input[type='text'],
+.form-login input[type='email'],
+.form-login input[type='password'] {
+    margin: 1rem 0.5rem;
+    border: 0;
+}
+
+.form-login input[type='text']:focus,
+.form-login input[type='email']:focus,
+.form-login input[type='password']:focus {
+    box-shadow: unset;
+    border-bottom: 2px solid #FF8E5E;
+}
+
+.form-login label[for='rememberMe'],
+.form-login input[type='checkbox'],
+.form-login .forgot-password a {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #000;
+}
+
+.form-login label[for='terms-agreement'] {
+    font-size: 0.8rem;
+
+}
+
+
+
+.form-login input[type='checkbox'].form-check-input {
+    transition: 0.5s;
+}
+
+.form-login input[type='checkbox'].form-check-input:checked {
+    background-color: #FF8E5E;
+    border-color: #FF8E5E;
+}
+
+
+.btn.login {
+    background-color: #FF8E5E;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.btn.login:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+.input-password-container {
+    position: relative;
+}
+
+.show-password-icon {
+    position: absolute;
+    right: 0;
+    z-index: 999;
+    top: 50%;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+}

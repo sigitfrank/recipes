@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;500&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+.header {
+  font-family: 'DM Serif Display', serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main-color {
+  color: #FF8E5E;
+}
+
+.main-color:hover {
+  color: #fc5108;
+}

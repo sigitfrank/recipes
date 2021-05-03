@@ -1,0 +1,56 @@
+.navbar-nav {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.navbar-light .navbar-toggler {
+    color: #FF8E5E;
+    border: 1px solid #FF8E5E;
+}
+
+.navbar-light .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.1rem;
+}
+
+.search-form {
+    justify-content: end;
+}
+
+.search-form .input-group {
+    width: 70%;
+}
+
+.search-form .input-group button,
+.search-form .input-group input {
+    border: 0;
+}
+
+.search-form .input-group input:focus {
+    box-shadow: unset;
+    border-bottom: 2px solid #FF8E5E;
+}
+
+
+.search-form .input-group button {
+    background: #fff;
+    color: rgb(187, 187, 187);
+}
+
+
+.search-form .input-group input::placeholder {
+    color: rgb(187, 187, 187);
+}
+
+.btn.sign-in {
+    background-color: #FF8E5E;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.btn.sign-in:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}
