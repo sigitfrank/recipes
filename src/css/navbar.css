@@ -13,44 +13,50 @@
     box-shadow: 0 0 0 0.1rem;
 }
 
-.search-form {
+.navbar-light .search-form {
     justify-content: end;
 }
 
-.search-form .input-group {
+.navbar-light .search-form .input-group {
     width: 70%;
 }
 
-.search-form .input-group button,
-.search-form .input-group input {
+.navbar-light .search-form .input-group button,
+.navbar-light .search-form .input-group input {
     border: 0;
 }
 
-.search-form .input-group input:focus {
+.navbar-light .search-form .input-group input:focus {
     box-shadow: unset;
     border-bottom: 2px solid #FF8E5E;
 }
 
 
-.search-form .input-group button {
+.navbar-light .search-form .input-group button {
     background: #fff;
     color: rgb(187, 187, 187);
 }
 
 
-.search-form .input-group input::placeholder {
+.navbar-light .search-form .input-group input::placeholder {
     color: rgb(187, 187, 187);
 }
 
-.btn.sign-in {
+.navbar-light .btn.sign-in {
     background-color: #FF8E5E;
     color: #fff;
     font-weight: 600;
     transition: 0.5s;
 }
 
-.btn.sign-in:hover {
+.navbar-light .btn.sign-in:hover {
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+.navbar-light .navbar-nav li .active {
+    background: #ececec;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
 }
