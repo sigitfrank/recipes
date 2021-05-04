@@ -27,6 +27,10 @@
     opacity: 1;
 }
 
+.recipes-list .recipes-gallery .card-header span.author {
+    color: #fff;
+}
+
 .recipes-list .recipes-description {
     background: #FFEFE9;
     padding: 1rem;

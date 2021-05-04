@@ -13,7 +13,7 @@ function DetailRecipes() {
                     </div>
                     <div className="col-md-8">
                         <div className="food-gallery">
-                            <img src="/assets/popular-recipes/3.png" alt="food-pic" className="main" />
+                            <img src="https://wallpaperaccess.com/full/271681.jpg" alt="food-pic" className="main" />
                             <div className="small-gallery">
                                 <img src="/assets/popular-recipes/3.png" alt="food-pic" />
                                 <img src="/assets/popular-recipes/3.png" alt="food-pic" />
