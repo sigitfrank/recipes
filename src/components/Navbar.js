@@ -34,10 +34,10 @@ function Navbar() {
               <Link className={`nav-link ${activeMenu === 'Recipes' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Recipes' })} to="/recipes">Recipes</Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'Blog' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Blog' })} to="/blogs">Blog</Link>
+              <Link className={`nav-link ${activeMenu === 'Blog' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Blog' })} to="/blog">Blog</Link>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'About Us' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'About Us' })} to="/">About Us</Link>
+              <Link className={`nav-link ${activeMenu === 'About Us' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'About Us' })} to="/about-us">About Us</Link>
             </li>
           </ul>
           <form className="d-flex search-form" onSubmit={(e)=>e.preventDefault()}>
