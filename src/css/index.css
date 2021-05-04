@@ -31,3 +31,9 @@ a {
 .main-color:hover {
   color: #fc5108;
 }
+
+.bg-half-circle {
+  position: absolute;
+  right: 0;
+  bottom: -100%;
+}
