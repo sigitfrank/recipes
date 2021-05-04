@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../css/recipes/detail-recipes.css'
+import { scrollViewTop } from '../../helpers/scrollViewTop'
 function DetailRecipes() {
+
+    useEffect(() => {
+        scrollViewTop()
+    }, [])
+
     return (<>
         <img src="/assets/bg-half-circle.png" alt="bg-half-circle" className="bg-half-circle" />
         <div className="container-fluid detail-recipes content">
