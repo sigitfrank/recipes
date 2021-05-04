@@ -1,20 +1,26 @@
-import React, {useState} from 'react'
+import React, { useReducer } from 'react'
 import ReactDom from 'react-dom'
+import ModalAuthReducer from '../../reducers/Auth/ModalAuthReducer'
 import Login from './Login'
 import Register from './Register'
 import '../../css/auth/login.css'
-function Modal() {
-    const [modalAuth, setModalAuth] = useState('login')
 
-    const checkModalAuth = ()=>{
-        if(modalAuth === 'login') return <Login setModalAuth={setModalAuth}/>
-        return <Register setModalAuth={setModalAuth}/>
+const intitalAuthState = {
+    isModalLogin: true
+}
+
+function Modal() {
+    const [modalAuthState, modalAuthDispatcher] = useReducer(ModalAuthReducer, intitalAuthState)
+    const { isModalLogin } = modalAuthState
+    const checkModalAuth = () => {
+        if (isModalLogin) return <Login modalAuthDispatcher={modalAuthDispatcher} />
+        return <Register modalAuthDispatcher={modalAuthDispatcher} />
     }
 
     return ReactDom.createPortal(<>
         <div className="modal fade" id="SignInModal" tabIndex="-1" aria-labelledby="SignInModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
-              {checkModalAuth()}
+                {checkModalAuth()}
             </div>
         </div>
     </>, document.querySelector('#modal-signin'))

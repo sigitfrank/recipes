@@ -46,24 +46,24 @@
 }
 
 
-.btn.login {
+.form-login .btn.login {
     background-color: #FF8E5E;
     color: #fff;
     font-weight: 600;
     transition: 0.5s;
 }
 
-.btn.login:hover {
+.form-login .btn.login:hover {
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;
 }
 
-.input-password-container {
+.form-login .input-password-container {
     position: relative;
 }
 
-.show-password-icon {
+.form-login .password-icon {
     position: absolute;
     right: 0;
     z-index: 999;

@@ -12,11 +12,9 @@ const NavbarReducer = (state = {}, action) => {
     }
 
     if (action.type === CHANGE_MENU) {
-        console.log(state)
-        console.log(action)
         return { ...state, activeMenu: action.payload }
     }
     return state
 }
 
-export { NavbarReducer }
+export default NavbarReducer

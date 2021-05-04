@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
 import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES, CHANGE_MENU } from '../action-types/Navbar'
-import { NavbarReducer } from '../reducers/NavbarReducer'
+import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
 
 const initialNavbarState = {

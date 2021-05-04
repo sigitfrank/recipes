@@ -1,13 +1,8 @@
 import React from 'react'
+import { TOGGLE_AUTH_MODAL } from '../../action-types/Auth/Auth'
+
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-function RegisterModal({ setModalAuth }) {
-
-    const showLoginModal = (e) => {
-        e.preventDefault()
-        setModalAuth('login')
-    }
-
-
+function RegisterModal({ modalAuthDispatcher }) {
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Abroad, Sign up to explore</h5>
@@ -18,11 +13,11 @@ function RegisterModal({ setModalAuth }) {
                     <input type="text" className="form-control" placeholder="Name" />
                     <input type="email" className="form-control" placeholder="Email" />
                     <div className="input-password-container">
-                        <AiOutlineEye className="show-password-icon" />
+                        <AiOutlineEye className="password-icon" />
                         <input type="password" className="form-control" placeholder="Password" />
                     </div>
                     <div className="input-password-container">
-                        <AiOutlineEyeInvisible className="show-password-icon" />
+                        <AiOutlineEyeInvisible className="password-icon" />
                         <input type="password" className="form-control" placeholder="Re-enter Password" />
                     </div>
                 </div>
@@ -38,7 +33,7 @@ function RegisterModal({ setModalAuth }) {
                 </div>
                 <div className="submit-container text-center my-3">
                     <button className="btn login">Sign Up</button>
-                    <p className="mt-3">Already Have an Account? <a href="/" onClick={(e) => showLoginModal(e)} className="main-color">Sign In</a></p>
+                    <p className="mt-3">Already Have an Account? <a href="/" onClick={(e)=>{e.preventDefault(); modalAuthDispatcher({type:TOGGLE_AUTH_MODAL})}}  className="main-color">Sign In</a></p>
                 </div>
             </form>
         </div>
