@@ -40,12 +40,12 @@ function Navbar() {
               <Link className={`nav-link ${activeMenu === 'About Us' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'About Us' })} to="/">About Us</Link>
             </li>
           </ul>
-          <form className="d-flex search-form">
+          <form className="d-flex search-form" onSubmit={(e)=>e.preventDefault()}>
             <div className="input-group me-3">
               <button className="btn ms-n5" type="button" onClick={() => navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })}>
                 <BsSearch />
               </button>
-              <input className="form-control" value={search} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
+              <input className="form-control" value={search} onKeyUp={(e)=> e.key === 'Enter' && navbarDispatcher({type:SEARCHING_RECIPES, payload:search})} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
             <button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>
           </form>
