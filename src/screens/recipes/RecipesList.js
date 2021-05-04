@@ -16,6 +16,9 @@ function RecipesList() {
               <div className="card my-3">
                 <div className="card-header">
                   <img src="/assets/popular-recipes/1.png" alt="popular-recipes" className="w-100" />
+                  <div className="overlay">
+                    <span className="author">By: Nabilla Putri Faradila</span>
+                  </div>
                 </div>
                 <div className="card-body">
                   <h4>Spaghetti Carbonara</h4>

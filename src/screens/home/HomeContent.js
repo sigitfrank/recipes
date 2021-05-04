@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import '../../css/home/main-content.css'
+import { Link } from 'react-router-dom'
+import '../../css/home/home-content.css'
 function HomeContent() {
   return (<div className="container-fluid home content">
     <div className="container">
@@ -14,6 +14,9 @@ function HomeContent() {
             <div className="card my-3">
               <div className="card-header">
                 <img src="/assets/popular-recipes/1.png" alt="popular-recipes" className="w-100" />
+                <div className="overlay">
+                  <span className="author">By: Nabilla Putri Faradila</span>
+                </div>
               </div>
               <div className="card-body">
                 <h4>Spaghetti Carbonara</h4>
@@ -39,6 +42,9 @@ function HomeContent() {
             <div className="card my-3">
               <div className="card-header">
                 <img src="/assets/popular-recipes/1.png" alt="popular-recipes" className="w-100" />
+                <div className="overlay">
+                  <span className="author">By: Nabilla Putri Faradila</span>
+                </div>
               </div>
               <div className="card-body">
                 <h4>Spaghetti Carbonara</h4>
@@ -56,7 +62,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
-                <p className="text-center mt-3 mb-0">  <Link to="/recipes/1" className="main-color"> Read more</Link></p>
+                <p className="text-center mt-3 mb-0"> <Link to="/recipes/1" className="main-color"> Read more</Link></p>
               </div>
             </div>
           </div>
@@ -64,6 +70,9 @@ function HomeContent() {
             <div className="card my-3">
               <div className="card-header">
                 <img src="/assets/popular-recipes/1.png" alt="popular-recipes" className="w-100" />
+                <div className="overlay">
+                  <span className="author">By: Nabilla Putri Faradila</span>
+                </div>
               </div>
               <div className="card-body">
                 <h4>Spaghetti Carbonara</h4>
@@ -81,7 +90,7 @@ function HomeContent() {
                     <li> Salt and black pepper to taste</li>
                   </ul>
                 </div>
-                <p className="text-center mt-3 mb-0">  <Link to="/recipes/1" className="main-color"> Read more</Link></p>
+                <p className="text-center mt-3 mb-0"> <Link to="/recipes/1" className="main-color"> Read more</Link></p>
               </div>
             </div>
           </div>
