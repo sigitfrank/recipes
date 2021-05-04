@@ -1,5 +1,5 @@
 
-import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES, CHANGE_MENU } from '../action-types/Navbar'
+import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
 const NavbarReducer = (state = {}, action) => {
     if (action.type === TYPING_SEARCH_RECIPES) {
         return { ...state, search: action.payload }
@@ -10,9 +10,6 @@ const NavbarReducer = (state = {}, action) => {
         return { ...state, search: '' }
     }
 
-    if (action.type === CHANGE_MENU) {
-        return { ...state, activeMenu: action.payload }
-    }
     return state
 }
 

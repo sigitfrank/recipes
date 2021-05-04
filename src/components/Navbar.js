@@ -1,26 +1,25 @@
 import React, { useReducer } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
-import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES, CHANGE_MENU } from '../action-types/Navbar'
+import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
 import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
 
 const initialNavbarState = {
-  activeMenu: 'Home',
   search: ''
 }
 
 function Navbar() {
 
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
-  const { activeMenu, search } = navbarState
+  const { search } = navbarState
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/" >
           <img src="/assets/logo.png" alt="bagi-resep" />
-        </Link>
+        </NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <RiMenu2Fill />
         </button>
@@ -28,16 +27,16 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto py-3 ms-4 mb-lg-0">
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'Home' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Home' })} to="/">Home</Link>
+              <NavLink className="nav-link" exact activeClassName='active' to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'Recipes' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Recipes' })} to="/recipes">Recipes</Link>
+              <NavLink className="nav-link"  activeClassName='active' to="/recipes">Recipes</NavLink>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'Blog' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'Blog' })} to="/blog">Blog</Link>
+              <NavLink className="nav-link" activeClassName='active' to="/blog">Blog</NavLink>
             </li>
             <li className="nav-item">
-              <Link className={`nav-link ${activeMenu === 'About Us' && 'active'}`} onClick={() => navbarDispatcher({ type: CHANGE_MENU, payload: 'About Us' })} to="/about-us">About Us</Link>
+              <NavLink className="nav-link" activeClassName='active' to="/about-us">About Us</NavLink>
             </li>
           </ul>
           <form className="d-flex search-form" onSubmit={(e)=>e.preventDefault()}>
