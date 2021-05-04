@@ -1,5 +1,5 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-export const getPasswordVisibility = (showPassword) => {
+export const togglePassword = (showPassword) => {
     if (showPassword) {
         return {
             type: 'text',

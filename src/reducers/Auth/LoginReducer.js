@@ -1,4 +1,4 @@
-import {TOGGLE_PASSWORD, SET_EMAIL, SET_PASSWORD} from '../../action-types/Auth/Login'
+import {TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN} from '../../action-types/Auth/Login'
 
 const LoginReducer = (state={}, action)=>{
 
@@ -10,8 +10,18 @@ const LoginReducer = (state={}, action)=>{
         return {...state, password:action.payload}
     }
 
-    if(typeof action.event.target.className.baseVal !== 'undefined'){
-        if(action.type===TOGGLE_PASSWORD){
+    if(action.type === SET_REMEMBER_ME){
+        return {...state, rememberMe:!state.rememberMe}
+    }
+
+    if(action.type === DO_LOGIN){
+        alert('Login Process')
+        console.log(state)
+        return state
+    }
+
+    if(action.type===TOGGLE_PASSWORD){
+        if(typeof action.event.target.className.baseVal !== 'undefined'){
             return {...state, showPassword:!state.showPassword }
         }
     }

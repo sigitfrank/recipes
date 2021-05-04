@@ -1,19 +1,14 @@
 import React, { useReducer } from 'react'
 import { TOGGLE_AUTH_MODAL } from '../../action-types/Auth/Auth'
-import { TOGGLE_PASSWORD, SET_EMAIL, SET_PASSWORD } from '../../action-types/Auth/Login'
+import { TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN } from '../../action-types/Auth/Login'
 import LoginReducer from '../../reducers/Auth/LoginReducer'
-import { getPasswordVisibility } from '../../logics/login'
-
-const initialLoginState = {
-    email: '',
-    password: '',
-    showPassword: false,
-}
+import { togglePassword } from '../../helpers/togglePassword'
+import { initialLoginState } from '../../states/Login'
 
 function Login({ modalAuthDispatcher }) {
 
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
-    const { email, password, showPassword } = loginState
+    const { email, password, rememberMe, showPassword } = loginState
 
     return (<div className="modal-content">
         <div className="modal-header pb-0">
@@ -31,9 +26,9 @@ function Login({ modalAuthDispatcher }) {
                     />
 
                     <div className="input-password-container" onClick={(event) => loginDispatcher({ type: TOGGLE_PASSWORD, event })}>
-                        {getPasswordVisibility(showPassword).icon}
+                        {togglePassword(showPassword).icon}
                         <input
-                            type={getPasswordVisibility(showPassword).type}
+                            type={togglePassword(showPassword).type}
                             value={password}
                             className="form-control"
                             placeholder="Password"
@@ -43,7 +38,13 @@ function Login({ modalAuthDispatcher }) {
                 <div className="row">
                     <div className="col-6">
                         <div className="form-check ms-2">
-                            <input className="form-check-input" type="checkbox" id="rememberMe" />
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value={rememberMe}
+                                onChange={() => loginDispatcher({ type: SET_REMEMBER_ME })}
+                                id="rememberMe" />
+
                             <label className="form-check-label" htmlFor="rememberMe">
                                 Remember Me
                                         </label>
@@ -56,7 +57,7 @@ function Login({ modalAuthDispatcher }) {
                     </div>
                 </div>
                 <div className="submit-container text-center">
-                    <button className="btn login">Login</button>
+                    <button className="btn login" type="button" onClick={() => loginDispatcher({ type: DO_LOGIN })}>Login</button>
                     <p className="mt-3">Doesn't have an account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: TOGGLE_AUTH_MODAL }) }} className="main-color"> Sign up</a></p>
                 </div>
             </form>
