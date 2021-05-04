@@ -44,10 +44,7 @@ function Login({ modalAuthDispatcher }) {
                                 value={rememberMe}
                                 onChange={() => loginDispatcher({ type: SET_REMEMBER_ME })}
                                 id="rememberMe" />
-
-                            <label className="form-check-label" htmlFor="rememberMe">
-                                Remember Me
-                                        </label>
+                            <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
                         </div>
                     </div>
                     <div className="col-6">

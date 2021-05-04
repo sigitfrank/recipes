@@ -9,10 +9,10 @@ const RegisterReducer = (state = {}, action) => {
         return { ...state, password: action.payload }
     if (action.type === SET_RE_PASSWORD)
         return { ...state, rePassword: action.payload }
-    if (action.type === SET_TERMS_AGREEMENT){
+    if (action.type === SET_TERMS_AGREEMENT) {
         return { ...state, termAgreements: !state.termAgreements }
     }
-    
+
     if (action.type === DO_REGISTER) {
         alert('Register Process')
         console.log(state)
