@@ -1,7 +1,5 @@
 import { TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN } from '../../action-types/Auth/Login'
-
 const LoginReducer = (state = {}, action) => {
-
     if (action.type === SET_EMAIL) {
         return { ...state, email: action.payload }
     }
