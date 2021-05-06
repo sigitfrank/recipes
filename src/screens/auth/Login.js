@@ -4,12 +4,11 @@ import { TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN } f
 import LoginReducer from '../../reducers/Auth/LoginReducer'
 import { togglePassword } from '../../helpers/togglePassword'
 import { initialLoginState } from '../../states/Login'
-
+import InvalidFeedbackLogin from '../../validations/auth/components/InvalidFeedbackLogin'
 function Login({ modalAuthDispatcher }) {
-
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
-    const { email, password, rememberMe, showPassword } = loginState
-
+    const { email, password, rememberMe, showPassword, errors } = loginState
+    const { eEmail, ePassword } = errors
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
@@ -24,7 +23,9 @@ function Login({ modalAuthDispatcher }) {
                         placeholder="Email"
                         onChange={(e) => loginDispatcher({ type: SET_EMAIL, payload: e.target.value })}
                     />
-
+                    {eEmail.error && <InvalidFeedbackLogin message={eEmail.message} isError={eEmail.error} />}
+                </div>
+                <div className="form-group">
                     <div className="input-password-container" onClick={(event) => loginDispatcher({ type: TOGGLE_PASSWORD, event })}>
                         {togglePassword(showPassword).icon}
                         <input
@@ -33,6 +34,7 @@ function Login({ modalAuthDispatcher }) {
                             className="form-control"
                             placeholder="Password"
                             onChange={(e) => loginDispatcher({ type: SET_PASSWORD, payload: e.target.value })} />
+                       {ePassword.error && <InvalidFeedbackLogin message={ePassword.message} isError={ePassword.error} />}
                     </div>
                 </div>
                 <div className="row">

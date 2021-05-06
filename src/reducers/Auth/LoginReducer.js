@@ -1,16 +1,40 @@
 import { TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN } from '../../action-types/Auth/Login'
-import * as yup from 'yup'
-import { loginSchema } from '../../validations/login'
+import InvalidFeedbackLogin from '../../validations/auth/logic/InvalidFeedbackLogin'
+import { emailValidRegex } from '../../constants/email'
 
 const LoginReducer = (state = {}, action) => {
-    const { email, password, rememberMe, showPassword } = state
     if (action.type === SET_EMAIL) {
+        if (!action.payload) {
+            return InvalidFeedbackLogin(state, action, 'email', 'eEmail', 'Email cannot be empty')
+        }
 
-        return { ...state, email: action.payload }
+        if (!action.payload.match(emailValidRegex)) {
+            return InvalidFeedbackLogin(state, action, 'email', 'eEmail', 'Email must be in valid email format')
+        }
+        return {
+            ...state, email: action.payload, errors: {
+                ...state.errors,
+                eEmail: {
+                    error: false,
+                    message: ''
+                },
+            }
+        }
     }
 
     if (action.type === SET_PASSWORD) {
-        return { ...state, password: action.payload }
+        if (!action.payload) {
+            return InvalidFeedbackLogin(state, action, 'password', 'ePassword', 'Password cannot be empty')
+        }
+        return {
+            ...state, password: action.payload, errors: {
+                ...state.errors,
+                ePassword: {
+                    error: false,
+                    message: ''
+                },
+            }
+        }
     }
 
     if (action.type === SET_REMEMBER_ME) {
@@ -18,12 +42,18 @@ const LoginReducer = (state = {}, action) => {
     }
 
     if (action.type === DO_LOGIN) {
-        console.log(email, password)
-        const validate = loginSchema.isValid({ email: email, password: password })
-        validate.then(res => {
-            console.log(res)
-        })
-        return state
+        const {email, password} = state
+        if (!email) {
+            return InvalidFeedbackLogin(state, action, 'email', 'eEmail', 'Email cannot be empty')
+        }
+
+        if (!email.match(emailValidRegex)) {
+            return InvalidFeedbackLogin(state, action, 'email', 'eEmail', 'Email must be in valid email format')
+        }
+        if (!password) {
+            return InvalidFeedbackLogin(state, action, 'password', 'ePassword', 'Password cannot be empty')
+        }
+        alert('Login Process')
     }
 
     if (action.type === TOGGLE_PASSWORD) {
