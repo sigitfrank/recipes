@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InvalidFeedbackLogin = (state, action, key,keyError, message) => {
+const InvalidFeedbackAuth = (state, action, key, keyError, message) => {
     return {
         ...state,
         [key]: action.payload,
@@ -15,4 +15,4 @@ const InvalidFeedbackLogin = (state, action, key,keyError, message) => {
 }
 
 
-export default InvalidFeedbackLogin
+export default InvalidFeedbackAuth
