@@ -1,0 +1,231 @@
+header.blog {
+    height: 55rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header.blog .description {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 5rem;
+    width: 60%;
+}
+
+header.blog .description h1 {
+    font-size: 7rem;
+}
+
+header.blog .description p {
+    font-weight: 100;
+    width: 70%;
+}
+
+header.blog .description .read {
+    background-color: #FF8E5E;
+    color: #fff;
+    font-weight: 500;
+    transition: 0.5s;
+    cursor: pointer;
+    width: 8rem;
+}
+
+header.blog .description .read:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+section {
+    margin-top: 1rem;
+}
+
+section.category ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+section.category ul li {
+    background-color: #fff;
+    padding: 0.5rem;
+    border: 1px solid #E8E8E8;
+    border-radius: 0.5rem;
+    color: #AFAFAF;
+    cursor: pointer;
+}
+
+section.category ul li.active {
+    color: #FF8E5E;
+}
+
+section.blog-main {
+    margin: 3rem 7rem;
+}
+
+
+section.blog-main {
+    margin-bottom: 3rem;
+}
+
+section.blog-main .blog {
+    margin-bottom: 2rem;
+}
+
+section.blog-main .content .category {
+    color: #AFAFAF;
+    margin-top: 0.7rem;
+    display: inline-block;
+}
+
+section.blog-main .content .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+section.blog-main .content .author {
+    color: #AFAFAF;
+    font-size: 0.9rem;
+    font-weight: 100;
+}
+
+section.blog-main .social-media-links span {
+    font-weight: bold;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+}
+
+section.blog-main .social-media-links ul {
+    list-style-type: none;
+}
+
+section.blog-main .social-media-links ul li {
+    margin: 1rem 0;
+    border: 1px solid #E8E8E8;
+    width: 200px;
+    padding: 0.7rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+section.blog-main .social-media-links ul li .social-icon {
+    color: #FF8E5E;
+    margin-right: 1.2rem;
+    font-size: 1.7rem;
+    transition: 0.5s;
+}
+
+section.blog-main .social-media-links ul li:hover,
+section.blog-main .social-media-links ul li:hover .social-icon {
+    background: #FF8E5E;
+    color: #fff;
+}
+
+
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+
+    section.blog-main {
+        margin: 1rem 1rem;
+    }
+
+    section.blog-main .content .title {
+        font-size: 1.2rem;
+    }
+
+    header.blog {
+        height: 50rem;
+    }
+
+
+    header.blog .description {
+        width: 100%;
+    }
+
+    header.blog .description h1 {
+        font-size: 2rem;
+    }
+
+    header.blog .description p {
+        font-weight: 100;
+        width: 100%;
+    }
+
+}
+
+@media (min-width: 576px) {
+    section.category ul {
+        display: flex;
+    }
+
+    header.blog .description {
+        width: 80%;
+    }
+
+    section.blog-main .content .title {
+        font-size: 1rem;
+    }
+
+    header.blog .description h1 {
+        font-size: 4rem;
+    }
+
+
+    header.blog .description p {
+        font-weight: 100;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    section.category ul {
+        display: flex;
+        justify-content: start;
+    }
+
+    section.blog-main .content .title {
+        font-size: 1.1rem;
+    }
+
+    header.blog .description h1 {
+        font-size: 4rem;
+    }
+
+    header.blog .description {
+        width: 80%;
+    }
+
+}
+
+@media (min-width: 992px) {
+    section.category ul {
+        display: flex;
+        justify-content: center;
+    }
+
+    header.blog {
+        height: 55rem;
+    }
+
+    header.blog .description {
+        width: 70%;
+    }
+
+    header.blog .description h1 {
+        font-size: 5rem;
+    }
+}
+
+@media (min-width: 1200px) {}
+
+@media (min-width: 1400px) {}

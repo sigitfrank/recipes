@@ -88,7 +88,15 @@ const RegisterReducer = (state = {}, action) => {
         if (!state.termAgreements) return InvalidFeedbackAuth(state, termAgreements, 'termAgreements', 'eTermAgreements', 'Terms and Agreements must be checked')
 
         alert('Register Process')
-        return state
+        return {
+            ...state, errors: {
+                ...state.errors,
+                eTermAgreements: {
+                    error: false,
+                    message: ''
+                },
+            }
+        }
     }
 
     if (action.type === TOGGLE_PASSWORD) {

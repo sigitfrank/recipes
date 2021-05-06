@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-
+  background: #E5E5E54A;
 }
 
 h1,
@@ -14,8 +14,7 @@ h2,
 h3,
 h4,
 h5,
-h6,
-header {
+h6 {
   font-family: 'DM Serif Display', serif;
 }
 
