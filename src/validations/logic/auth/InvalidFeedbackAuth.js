@@ -1,5 +1,3 @@
-import React from 'react'
-
 const InvalidFeedbackAuth = (state, action, key, keyError, message) => {
     return {
         ...state,

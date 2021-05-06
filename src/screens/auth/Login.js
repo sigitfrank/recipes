@@ -5,6 +5,7 @@ import LoginReducer from '../../reducers/Auth/LoginReducer'
 import { togglePassword } from '../../helpers/togglePassword'
 import { initialLoginState } from '../../states/Login'
 import InvalidFeedbackAuth from '../../validations/components/auth/InvalidFeedbackAuth'
+
 function Login({ modalAuthDispatcher }) {
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword, errors } = loginState
