@@ -1,8 +1,10 @@
 import { TOGGLE_PASSWORD, SET_EMAIL, SET_REMEMBER_ME, SET_PASSWORD, DO_LOGIN } from '../../action-types/Auth/Login'
 import InvalidFeedbackAuth from '../../validations/logic/auth/InvalidFeedbackAuth'
 import { emailValidRegex } from '../../constants/email'
+import { defalutError } from '../../constants/error'
 
 const LoginReducer = (state = {}, action) => {
+
     if (action.type === SET_EMAIL) {
         if (!action.payload) return InvalidFeedbackAuth(state, action, 'email', 'eEmail', 'Email cannot be empty')
 
@@ -11,10 +13,7 @@ const LoginReducer = (state = {}, action) => {
         return {
             ...state, email: action.payload, errors: {
                 ...state.errors,
-                eEmail: {
-                    error: false,
-                    message: ''
-                },
+                eEmail: defalutError,
             }
         }
     }
@@ -25,10 +24,7 @@ const LoginReducer = (state = {}, action) => {
         return {
             ...state, password: action.payload, errors: {
                 ...state.errors,
-                ePassword: {
-                    error: false,
-                    message: ''
-                },
+                ePassword: defalutError,
             }
         }
     }

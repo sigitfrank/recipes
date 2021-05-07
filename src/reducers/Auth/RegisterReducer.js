@@ -1,6 +1,7 @@
 import { SET_NAME, SET_EMAIL, SET_PASSWORD, SET_RE_PASSWORD, SET_TERMS_AGREEMENT, TOGGLE_PASSWORD, TOGGLE_RE_PASSWORD, DO_REGISTER } from '../../action-types/Auth/Register'
 import InvalidFeedbackAuth from '../../validations/logic/auth/InvalidFeedbackAuth'
 import { emailValidRegex } from '../../constants/email'
+import { defalutError } from '../../constants/error'
 import { countStringLength } from '../../helpers/countStringLength'
 const RegisterReducer = (state = {}, action) => {
     if (action.type === SET_NAME) {
@@ -13,10 +14,7 @@ const RegisterReducer = (state = {}, action) => {
         return {
             ...state, name: action.payload, errors: {
                 ...state.errors,
-                eName: {
-                    error: false,
-                    message: ''
-                },
+                eName:defalutError,
             }
         }
     }
@@ -29,10 +27,7 @@ const RegisterReducer = (state = {}, action) => {
         return {
             ...state, email: action.payload, errors: {
                 ...state.errors,
-                eEmail: {
-                    error: false,
-                    message: ''
-                },
+                eEmail:defalutError,
             }
         }
     }
@@ -44,10 +39,7 @@ const RegisterReducer = (state = {}, action) => {
         return {
             ...state, password: action.payload, errors: {
                 ...state.errors,
-                ePassword: {
-                    error: false,
-                    message: ''
-                },
+                ePassword:defalutError,
             }
         }
     }
@@ -58,10 +50,7 @@ const RegisterReducer = (state = {}, action) => {
         return {
             ...state, rePassword: action.payload, errors: {
                 ...state.errors,
-                eRePassword: {
-                    error: false,
-                    message: ''
-                },
+                eRePassword:defalutError,
             }
         }
     }
@@ -91,10 +80,7 @@ const RegisterReducer = (state = {}, action) => {
         return {
             ...state, errors: {
                 ...state.errors,
-                eTermAgreements: {
-                    error: false,
-                    message: ''
-                },
+                eTermAgreements:defalutError,
             }
         }
     }
