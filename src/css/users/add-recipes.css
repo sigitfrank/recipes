@@ -1,0 +1,191 @@
+form.add-recipes .add-recipes-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1rem;
+}
+
+form.add-recipes .line {
+    height: 2px;
+    background: #FF8E5E;
+    margin-bottom: 1rem;
+}
+
+form.add-recipes .add-recipes-title .line {
+    width: 25%;
+}
+
+form.add-recipes .detail-recipes .line {
+    width: 16%;
+}
+
+form.add-recipes .ingredients .line {
+    width: 15%;
+}
+
+form.add-recipes .steps .line {
+    width: 8%;
+}
+
+form.add-recipes .input-gallery {
+    margin-top: 0.5rem;
+    border: 1px solid #FF8E5E;
+    height: 19.7rem;
+    overflow-y: auto;
+}
+
+form.add-recipes .input-gallery .main-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+form.add-recipes .input-gallery .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem;
+    padding: 1rem;
+    justify-content: center;
+}
+
+form.add-recipes .input-gallery .image-gallery img {
+    width: 90px;
+}
+
+
+form.add-recipes .input-gallery .additional-image .single-additional-image {
+    border: 1px solid #FF8E5E;
+}
+
+form.add-recipes .form-group {
+    margin: 0.5rem 0rem;
+}
+
+form.add-recipes input,
+form.add-recipes textarea,
+form.add-recipes select {
+    border: 0;
+}
+
+form.add-recipes .form-group input:focus,
+form.add-recipes .form-group textarea:focus,
+form.add-recipes .form-group select:focus {
+    box-shadow: unset;
+    border-bottom: 2px solid #FF8E5E;
+}
+
+form.add-recipes .form-group input::placeholder,
+form.add-recipes .form-group textarea::placeholder {
+    color: rgb(187, 187, 187);
+}
+
+form.add-recipes button.btn.add-more {
+    background-color: #FF8E5E;
+    color: #fff;
+    font-weight: 500;
+    transition: 0.5s;
+    width: 7rem;
+    margin: 0.5rem 1rem;
+
+}
+
+form.add-recipes button.btn.add-more:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    form.add-recipes .add-recipes-title .line {
+        width: 65%;
+    }
+
+    form.add-recipes .detail-recipes .line {
+        width: 40%;
+    }
+
+    form.add-recipes .ingredients .line {
+        width: 35%;
+    }
+
+    form.add-recipes .steps .line {
+        width: 20%;
+    }
+}
+
+@media (min-width: 576px) {
+    form.add-recipes .add-recipes-title .line {
+        width: 52%;
+    }
+
+    form.add-recipes .detail-recipes .line {
+        width: 35%;
+    }
+
+    form.add-recipes .ingredients .line {
+        width: 30%;
+    }
+
+    form.add-recipes .steps .line {
+        width: 17%;
+    }
+}
+
+@media (min-width: 768px) {
+    form.add-recipes .add-recipes-title .line {
+        width: 43%;
+    }
+
+    form.add-recipes .detail-recipes .line {
+        width: 27%;
+    }
+
+    form.add-recipes .ingredients .line {
+        width: 25%;
+    }
+
+    form.add-recipes .steps .line {
+        width: 14%;
+    }
+}
+
+@media (min-width: 992px) {
+    form.add-recipes .add-recipes-title .line {
+        width: 35%;
+    }
+
+    form.add-recipes .detail-recipes .line {
+        width: 22%;
+    }
+
+    form.add-recipes .ingredients .line {
+        width: 20%;
+    }
+
+    form.add-recipes .steps .line {
+        width: 11%;
+    }
+}
+
+@media (min-width: 1200px) {
+    form.add-recipes .add-recipes-title .line {
+        width: 27%;
+    }
+
+    form.add-recipes .detail-recipes .line {
+        width: 16%;
+    }
+
+    form.add-recipes .ingredients .line {
+        width: 14%;
+    }
+
+    form.add-recipes .steps .line {
+        width: 9%;
+    }
+}
+
+@media (min-width: 1400px) {}

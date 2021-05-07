@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../css/users/add-recpies.css'
+import '../../css/users/add-recipes.css'
 function AddRecipes() {
     return (<form className="add-recipes">
         {/* Header */}
@@ -36,10 +36,9 @@ function AddRecipes() {
                                 <input type="text" className="form-control" placeholder="ex: Nasi Goreng Tenis" />
                             </div>
                             <div className="form-group">
-                                <textarea name="" id="" cols="30" rows="10" className="form-control">
-                                    Nasi goreng tenis adalah resep turun temurun dari keluarga kelurahan dan
+                                <textarea name="" id="" cols="30" rows="10" className="form-control" placeholder=" Nasi goreng tenis adalah resep turun temurun dari keluarga kelurahan dan
                                     memiliki cita rasa yang unik. Kebanyakan orang ancur bilang ini memiliki rasa sip,
-                                    tapi lebih sip lagi kalau tidak usah dimasak.
+                                    tapi lebih sip lagi kalau tidak usah dimasak.">
                                 </textarea>
                             </div>
                         </div>
@@ -53,8 +52,9 @@ function AddRecipes() {
             <div className="container">
                 <section className="row">
                     <h2 className="mt-3">Detail Recipe</h2>
+                    <div className="line"></div>
                     <div className="form-group recipe-categories">
-                        <input type="text" className="form-control" />
+                        <input type="text" className="form-control" placeholder="ex: Healthy, Lunch, Fish" />
                     </div>
                     <div className="form-group recipe-cook-time">
                         <select name="" id="" className="form-control">
@@ -77,60 +77,40 @@ function AddRecipes() {
         </div>
 
         {/* Ingredients */}
-        <div className="container-fluid Ingredients">
+        <div className="container-fluid ingredients">
             <div className="container">
                 <section className="row">
                     <h2 className="mt-3">Ingredients</h2>
-                    <div className="form-group recipe-categories">
-                        <input type="text" className="form-control" />
+                    <div className="line"></div>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="ex: Onion" />
                     </div>
-                    <div className="form-group recipe-cook-time">
-                        <select name="" id="" className="form-control">
-                            <option value="">Cook Time</option>
-                            <option value="5-15">5-15 Minutes</option>
-                            <option value="15-30">15-30 Minutes</option>
-                            <option value="30"> &gt; 30 Minutes</option>
-                        </select>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="ex: Olive Oil" />
                     </div>
-                    <div className="form-group recipe-serve-plate">
-                        <select name="" id="" className="form-control">
-                            <option value="">Serve Plate(s)</option>
-                            <option value="1-2">1-2</option>
-                            <option value="3-5">3-5</option>
-                            <option value="5"> &gt; 5</option>
-                        </select>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="ex: Fresh Meat" />
                     </div>
+                    <button type="button" class="btn add-more">Add more</button>
                 </section>
             </div>
         </div>
 
-        <div className="container-fluid Steps">
+        <div className="container-fluid steps">
             <div className="container">
                 <section className="row">
                     <h2 className="mt-3">Steps</h2>
-                    <div className="form-group recipe-categories">
-                        <input type="text" className="form-control" />
+                    <div className="line"></div>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Make sure you are not normal people" />
                     </div>
-
-                    <div className="form-group recipe-cook-time">
-                        <select name="" id="" className="form-control">
-                            <option value="">Cook Time</option>
-                            <option value="5-15">5-15 Minutes</option>
-                            <option value="15-30">15-30 Minutes</option>
-                            <option value="30"> &gt; 30 Minutes</option>
-                        </select>
-                        <button className="btn">Add more</button>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="After that, kick out normal people from your home or neighborhood" />
                     </div>
-
-                    <div className="form-group recipe-serve-plate">
-                        <select name="" id="" className="form-control">
-                            <option value="">Serve Plate(s)</option>
-                            <option value="1-2">1-2</option>
-                            <option value="3-5">3-5</option>
-                            <option value="5"> &gt; 5</option>
-                        </select>
-                        <button className="btn">Add more</button>
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Make sure those normal people wouldnt get a food, degree or something good for their life. Let them be a lone wolf." />
                     </div>
+                    <button type="button" class="btn add-more">Add more</button>
                 </section>
             </div>
         </div>

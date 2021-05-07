@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../css/blog/header.css'
+import '../../css/blog/blog.css'
 import Categories from './components/Categories'
 import ListBlogs from './components/ListBlogs'
 import Sidebar from './components/Sidebar'
