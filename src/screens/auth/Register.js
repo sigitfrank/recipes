@@ -4,12 +4,12 @@ import { SET_NAME, SET_EMAIL, SET_PASSWORD, SET_RE_PASSWORD, SET_TERMS_AGREEMENT
 import RegisterReducer from '../../reducers/Auth/RegisterReducer'
 import { togglePassword } from '../../helpers/togglePassword'
 import { initialRegisterState } from '../../states/Register'
-
+import InvalidFeedbackAuth from '../../validations/components/auth/InvalidFeedbackAuth'
 
 function RegisterModal({ modalAuthDispatcher }) {
-
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
-    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements } = registerState
+    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements, errors } = registerState
+    const { eName, eEmail, ePassword, eRePassword, eTermAgreements } = errors
 
     return (<div className="modal-content">
         <div className="modal-header pb-0">
@@ -24,13 +24,14 @@ function RegisterModal({ modalAuthDispatcher }) {
                         value={name}
                         onChange={(event) => registerDispatcher({ type: SET_NAME, payload: event.target.value })}
                         placeholder="Name" />
-
+                    {eName.error && <InvalidFeedbackAuth message={eName.message} isError={eName.error} />}
                     <input
                         type="email"
                         className="form-control"
                         value={email}
                         onChange={(event) => registerDispatcher({ type: SET_EMAIL, payload: event.target.value })}
                         placeholder="Email" />
+                    {eEmail.error && <InvalidFeedbackAuth message={eEmail.message} isError={eEmail.error} />}
 
                     <div className="input-password-container" onClick={(event) => registerDispatcher({ type: TOGGLE_PASSWORD, event })}>
                         {togglePassword(showPassword).icon}
@@ -40,6 +41,7 @@ function RegisterModal({ modalAuthDispatcher }) {
                             value={password}
                             onChange={(event) => registerDispatcher({ type: SET_PASSWORD, payload: event.target.value })}
                             placeholder="Password" />
+                        {ePassword.error && <InvalidFeedbackAuth message={ePassword.message} isError={ePassword.error} />}
                     </div>
 
                     <div className="input-password-container" onClick={(event) => registerDispatcher({ type: TOGGLE_RE_PASSWORD, event })}>
@@ -50,6 +52,7 @@ function RegisterModal({ modalAuthDispatcher }) {
                             value={rePassword}
                             onChange={(event) => registerDispatcher({ type: SET_RE_PASSWORD, payload: event.target.value })}
                             placeholder="Re-enter Password" />
+                        {eRePassword.error && <InvalidFeedbackAuth message={eRePassword.message} isError={eRePassword.error} />}
                     </div>
 
                 </div>
@@ -62,8 +65,8 @@ function RegisterModal({ modalAuthDispatcher }) {
                                 value={termAgreements}
                                 onChange={() => registerDispatcher({ type: SET_TERMS_AGREEMENT })}
                                 id="terms-agreement" />
-
                             <label className="form-check-label" htmlFor="terms-agreement">I agree to all statements in the Terms of Service</label>
+                            {eTermAgreements.error && <InvalidFeedbackAuth message={eTermAgreements.message} isError={eTermAgreements.error} />}
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ function Modal() {
     }
 
     return ReactDom.createPortal(<>
-        <div className="modal fade" id="SignInModal" tabIndex="-1" aria-labelledby="SignInModalLabel" aria-hidden="true">
+        <div className="modal fade pe-0" id="SignInModal" tabIndex="-1" aria-labelledby="SignInModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 {checkModalAuth()}
             </div>
