@@ -9,6 +9,8 @@ import Navbar from '../components/Navbar'
 import Blog from '../screens/blog/Blog'
 import AboutUs from '../screens/about-us/AboutUs'
 
+import AddRecipes from '../screens/users/AddRecipes'
+
 function Routes() {
     return (<BrowserRouter>
         <Navbar />
@@ -31,6 +33,11 @@ function Routes() {
 
         <Route path='/about-us' exact render={() => (
             <AboutUs />
+        )} />
+
+
+        <Route path='/add-recipes' exact render={() => (
+            <AddRecipes />
         )} />
 
     </BrowserRouter>)

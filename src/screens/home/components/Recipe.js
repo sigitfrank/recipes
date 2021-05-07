@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 function Recipe() {
     return (
         <div className="col-md-4 col-sm-12">
-
             <div className="card my-3">
                 <Fade bottom>
                     <div className="card-header">
