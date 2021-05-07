@@ -37,17 +37,10 @@ const RegisterReducer = (state = {}, action) => {
         if (!action.payload) return InvalidFeedbackAuth(state, action, 'password', 'ePassword', 'Password cannot be empty')
         if (passwordLength < 8) return InvalidFeedbackAuth(state, action, 'password', 'ePassword', 'Password value min 8 characters')
         
-        if(action.payload === rePassword) return{
+        return{
             ...state, password: action.payload, errors: {
                 ...state.errors,
-                eRePassword:defalutError,
-            }
-        }
-
-        return {
-            ...state, password: action.payload, errors: {
-                ...state.errors,
-                ePassword:defalutError,
+                [action.payload === rePassword ? 'eRePassword' :'ePassword']:defalutError,
             }
         }
     }
