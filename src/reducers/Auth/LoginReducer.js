@@ -4,7 +4,6 @@ import { emailValidRegex } from '../../constants/email'
 import { defalutError } from '../../constants/error'
 
 const LoginReducer = (state = {}, action) => {
-
     if (action.type === SET_EMAIL) {
         if (!action.payload) return InvalidFeedbackAuth(state, action, 'email', 'eEmail', 'Email cannot be empty')
 
