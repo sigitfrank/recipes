@@ -1,7 +1,31 @@
 import React from 'react'
 import '../../css/users/add-recipes.css'
+import 'react-dropzone-uploader/dist/styles.css'
+import Dropzone from 'react-dropzone-uploader'
 function AddRecipes() {
-    return (<form className="add-recipes">
+    const imageGallery = (files) => {
+        const { meta, fileWithMeta } = files
+
+        return <>
+            <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
+        </>
+    }
+
+    const handleChangeStatus = ({ meta }, status) => {
+        // console.log(status, meta)
+    }
+
+    const handleSubmit = (allFiles) => {
+        console.log(allFiles)
+        alert('Images will be saved after submitting form')
+        // allFiles.forEach(f => f.remove())
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+    }
+
+    return (<form className="add-recipes" onSubmit={handleFormSubmit}>
         {/* Header */}
         <div className="container-fluid">
             <div className="container">
@@ -13,22 +37,17 @@ function AddRecipes() {
 
                     <div className="row">
                         <div className="col-md-4">
-                            <div className="input-gallery">
-                                <div className="main-image">
-                                    <input type="file" className="form-control" />
-                                </div>
-                                <div className="image-gallery">
-                                    <img src="/assets/blog/blog-lists/1.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/2.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/3.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/4.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/1.png" alt="blog-list" className="img-fluid" />
-                                    {/* <img src="/assets/blog/blog-lists/2.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/3.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/3.png" alt="blog-list" className="img-fluid" />
-                                    <img src="/assets/blog/blog-lists/3.png" alt="blog-list" className="img-fluid" /> */}
-                                </div>
-                            </div>
+                            <Dropzone
+                                submitButtonContent={'Add to form'}
+                                accept="image/*"
+                                PreviewComponent={imageGallery}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmit}
+                                maxFiles={6}
+                                inputContent="Drop min 1 images"
+                                inputWithFilesContent={files => `${6 - files.length} more left`}
+                                submitButtonDisabled={files => files.length < 1}
+                            />
                         </div>
 
                         <div className="col-md-8">
@@ -91,7 +110,7 @@ function AddRecipes() {
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="ex: Fresh Meat" />
                     </div>
-                    <button type="button" class="btn add-more">Add more</button>
+                    <button type="button" className="btn add-more">Add more</button>
                 </section>
             </div>
         </div>
@@ -110,11 +129,11 @@ function AddRecipes() {
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="Make sure those normal people wouldnt get a food, degree or something good for their life. Let them be a lone wolf." />
                     </div>
-                    <button type="button" class="btn add-more">Add more</button>
+                    <button type="button" className="btn add-more">Add more</button>
                 </section>
             </div>
         </div>
-    </form>)
+    </form >)
 }
 
 export default AddRecipes
