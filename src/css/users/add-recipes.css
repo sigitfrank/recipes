@@ -27,11 +27,20 @@ form.add-recipes .steps .line {
     width: 8%;
 }
 
-form.add-recipes .preview-recipe-img {
-    width: 117px;
+form.add-recipes .primary-gallery .preview-recipe-img,
+form.add-recipes .secondary-gallery .preview-recipe-img {
     margin: 0.1rem;
     cursor: pointer;
     transition: 0.3s;
+}
+
+form.add-recipes .primary-gallery .preview-recipe-img {
+    width: 99%;
+}
+
+form.add-recipes .secondary-gallery .preview-recipe-img {
+    width: 25%;
+    /* height: 6rem; */
 }
 
 form.add-recipes .preview-recipe-img:hover {

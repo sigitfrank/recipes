@@ -1,24 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../css/users/add-recipes.css'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 function AddRecipes() {
+    const [imageBase64, setImageBase64] = useState([])
+
+    const getBase64 = file => {
+        let baseURL = "", reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = (e) => {
+            setImageBase64(e.target.result)
+        }
+    }
+
     const imageGallery = (files) => {
         const { meta, fileWithMeta } = files
-
+        getBase64(fileWithMeta.file)
+        console.log(imageBase64)
         return <>
             <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
         </>
-    }
-
-    const handleChangeStatus = ({ meta }, status) => {
-        // console.log(status, meta)
-    }
-
-    const handleSubmit = (allFiles) => {
-        console.log(allFiles)
-        alert('Images will be saved after submitting form')
-        // allFiles.forEach(f => f.remove())
     }
 
     const handleFormSubmit = (e) => {
@@ -37,17 +38,23 @@ function AddRecipes() {
 
                     <div className="row">
                         <div className="col-md-4">
-                            <Dropzone
-                                submitButtonContent={'Add to form'}
-                                accept="image/*"
-                                PreviewComponent={imageGallery}
-                                onChangeStatus={handleChangeStatus}
-                                onSubmit={handleSubmit}
-                                maxFiles={6}
-                                inputContent="Drop min 1 images"
-                                inputWithFilesContent={files => `${6 - files.length} more left`}
-                                submitButtonDisabled={files => files.length < 1}
-                            />
+                            <div className="primary-gallery">
+                                <Dropzone
+                                    accept="image/*"
+                                    PreviewComponent={imageGallery}
+                                    maxFiles={1}
+                                    inputContent="Drop main image"
+                                />
+                            </div>
+                            <div className="secondary-gallery">
+                                <Dropzone
+                                    accept="image/*"
+                                    PreviewComponent={imageGallery}
+                                    maxFiles={8}
+                                    inputContent="Drop additional images"
+                                    inputWithFilesContent={files => `${8 - files.length} more left`}
+                                />
+                            </div>
                         </div>
 
                         <div className="col-md-8">

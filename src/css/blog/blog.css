@@ -48,7 +48,7 @@ section.category ul {
     list-style-type: none;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
     gap: 1rem;
 }
 
@@ -331,7 +331,7 @@ section.blog-main .top-articles .article .content span.author {
 @media (min-width: 768px) {
     section.category ul {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     section.blog-main .content .title {
