@@ -1,22 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../../css/users/add-recipes.css'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 function AddRecipes() {
-    const [imageBase64, setImageBase64] = useState([])
-
-    const getBase64 = file => {
-        let baseURL = "", reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = (e) => {
-            setImageBase64(e.target.result)
-        }
-    }
-
     const imageGallery = (files) => {
         const { meta, fileWithMeta } = files
-        getBase64(fileWithMeta.file)
-        console.log(imageBase64)
+        console.log(fileWithMeta.file)
         return <>
             <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
         </>
