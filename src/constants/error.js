@@ -1,4 +1,4 @@
-export const defalutError = {
-    error:false,
+export const defaultError = {
+    status:false,
     message:''
 }

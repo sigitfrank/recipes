@@ -1,14 +1,35 @@
-import React from 'react'
+import React, { useReducer } from 'react'
+import Fade from 'react-reveal/Fade'
+import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
+import AddRecipesReducer from '../../reducers/addRecipes/AddRecipesReducer'
+import { MdRemoveCircle } from 'react-icons/md'
+import addRecipeActionTypes from '../../action-types/addRecipes/AddRecipes'
 import '../../css/users/add-recipes.css'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
+import InvalidFeedback from '../../validations/components/InvalidFeedback'
+
 function AddRecipes() {
+    const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
+    const {
+        title,
+        description,
+        mainImage,
+        additionalImages,
+        categories,
+        cookTime,
+        servePlates,
+        ingredients,
+        steps,
+        moreIngredients,
+        moreSteps,
+    } = addRecipesState
     const imageGallery = (files) => {
         const { meta, fileWithMeta } = files
         console.log(fileWithMeta.file)
-        return <>
+        return <Fade top cascade>
             <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
-        </>
+        </Fade>
     }
 
     const handleFormSubmit = (e) => {
@@ -48,13 +69,27 @@ function AddRecipes() {
 
                         <div className="col-md-8">
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="ex: Nasi Goreng Tenis" />
+                                <input type="text"
+                                    className="form-control"
+                                    placeholder="ex: Nasi Goreng Tenis"
+                                    value={title.value}
+                                    onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_TITLE, payload: event.target.value })}
+                                />
+                                {title.error.status && <InvalidFeedback message={title.error.message} isError={title.error.status} />}
                             </div>
                             <div className="form-group">
-                                <textarea name="" id="" cols="30" rows="10" className="form-control" placeholder=" Nasi goreng tenis adalah resep turun temurun dari keluarga kelurahan dan
+                                <textarea
+                                    cols="30"
+                                    rows="10"
+                                    className="form-control"
+                                    placeholder=" Nasi goreng tenis adalah resep turun temurun dari keluarga kelurahan dan
                                     memiliki cita rasa yang unik. Kebanyakan orang ancur bilang ini memiliki rasa sip,
-                                    tapi lebih sip lagi kalau tidak usah dimasak.">
+                                    tapi lebih sip lagi kalau tidak usah dimasak."
+                                    value={description.value}
+                                    onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_DESCRIPTION, payload: event.target.value })}
+                                >
                                 </textarea>
+                                {description.error.status && <InvalidFeedback message={description.error.message} isError={description.error.status} />}
                             </div>
                         </div>
                     </div>
@@ -69,23 +104,32 @@ function AddRecipes() {
                     <h2 className="mt-3">Detail Recipe</h2>
                     <div className="line"></div>
                     <div className="form-group recipe-categories">
-                        <input type="text" className="form-control" placeholder="ex: Healthy, Lunch, Fish" />
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="ex: Healthy, Lunch, Fish"
+                            value={categories.value}
+                            onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: event.target.value })}
+                        />
+                        {categories.error.status && <InvalidFeedback message={categories.error.message} isError={categories.error.status} />}
                     </div>
                     <div className="form-group recipe-cook-time">
-                        <select name="" id="" className="form-control">
+                        <select className="form-control" onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_COOK_TIME, payload: event.target.value })}>
                             <option value="">Cook Time</option>
                             <option value="5-15">5-15 Minutes</option>
                             <option value="15-30">15-30 Minutes</option>
                             <option value="30"> &gt; 30 Minutes</option>
                         </select>
+                        {cookTime.error.status && <InvalidFeedback message={cookTime.error.message} isError={cookTime.error.status} />}
                     </div>
                     <div className="form-group recipe-serve-plate">
-                        <select name="" id="" className="form-control">
+                        <select className="form-control" onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_SERVE_PLATE, payload: event.target.value })}>
                             <option value="">Serve Plate(s)</option>
                             <option value="1-2">1-2</option>
                             <option value="3-5">3-5</option>
                             <option value="5"> &gt; 5</option>
                         </select>
+                        {servePlates.error.status && <InvalidFeedback message={servePlates.error.message} isError={servePlates.error.status} />}
                     </div>
                 </section>
             </div>
@@ -97,16 +141,22 @@ function AddRecipes() {
                 <section className="row">
                     <h2 className="mt-3">Ingredients</h2>
                     <div className="line"></div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="ex: Onion" />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="ex: Olive Oil" />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="ex: Fresh Meat" />
-                    </div>
-                    <button type="button" className="btn add-more">Add more</button>
+                    {
+                        ingredients.map((ingredient, index) => (
+                            <div className="form-group" key={ingredient.id} onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_INGREDIENTS, payload: ingredient.id, event })}>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={`ex: ${ingredient.placeholder}`}
+                                    value={ingredient.value}
+                                    onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_INGREDIENTS, payload: event.target.value, id: ingredient.id })}
+                                />
+                                {ingredient.error.status && <InvalidFeedback message={ingredient.error.message} isError={ingredient.error.status} />}
+                                {index > 2 && <MdRemoveCircle className="remove-icon" />}
+                            </div>
+                        ))
+                    }
+                    <button type="button" onClick={() => addRecipesDispatch({ type: addRecipeActionTypes.ADD_MORE_INGREDIENTS })} className="btn add-more">Add more</button>
                 </section>
             </div>
         </div>
@@ -116,16 +166,22 @@ function AddRecipes() {
                 <section className="row">
                     <h2 className="mt-3">Steps</h2>
                     <div className="line"></div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Make sure you are not normal people" />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="After that, kick out normal people from your home or neighborhood" />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Make sure those normal people wouldnt get a food, degree or something good for their life. Let them be a lone wolf." />
-                    </div>
-                    <button type="button" className="btn add-more">Add more</button>
+                    {
+                        steps.map((step, index) => (
+                            <div className="form-group" key={step.id} onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_STEPS, payload: step.id, event })}>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={`ex: ${step.placeholder}`}
+                                    value={step.value}
+                                    onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_STEPS, payload: event.target.value, id: step.id })}
+                                />
+                                {step.error.status && <InvalidFeedback message={step.error.message} isError={step.error.status} />}
+                                {index > 2 && <MdRemoveCircle className="remove-icon" />}
+                            </div>
+                        ))
+                    }
+                    <button type="button" onClick={() => addRecipesDispatch({ type: addRecipeActionTypes.ADD_MORE_STEPS })} className="btn add-more">Add more</button>
                 </section>
             </div>
         </div>

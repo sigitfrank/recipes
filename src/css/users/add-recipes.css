@@ -19,12 +19,43 @@ form.add-recipes .detail-recipes .line {
     width: 16%;
 }
 
+form.add-recipes .ingredients .form-group,
+form.add-recipes .steps .form-group {
+    position: relative;
+}
+
+form.add-recipes .ingredients .form-group .remove-icon,
+form.add-recipes .steps .form-group .remove-icon {
+    position: absolute;
+    top: 0;
+    right: 1.2rem;
+    top: 0.5rem;
+    color: #FF8E5E;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+form.add-recipes .ingredients .form-group .remove-icon:hover,
+form.add-recipes .steps .form-group .remove-icon:hover {
+    color: #ddd;
+    transition: 0.5s;
+}
+
 form.add-recipes .ingredients .line {
     width: 15%;
 }
 
 form.add-recipes .steps .line {
     width: 8%;
+}
+
+form.add-recipes .primary-gallery,
+form.add-recipes .secondary-gallery {
+    border-bottom: 1px solid #FF8E5E80;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 form.add-recipes .primary-gallery .preview-recipe-img,

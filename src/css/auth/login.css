@@ -14,12 +14,6 @@
     border: 0;
 }
 
-.form-login .invalid-feedback {
-    margin-bottom: 0.9rem;
-    margin-left: 1rem;
-    font-size: 0.7rem;
-}
-
 .form-login input[type='text']:focus,
 .form-login input[type='email']:focus,
 .form-login input[type='password']:focus {
