@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useCallback } from 'react'
 import Fade from 'react-reveal/Fade'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
 import AddRecipesReducer from '../../reducers/addRecipes/AddRecipesReducer'
@@ -24,17 +24,36 @@ function AddRecipes() {
         moreIngredients,
         moreSteps,
     } = addRecipesState
-    const imageGallery = (files) => {
+    const imageGallery = useCallback((files) => {
         const { meta, fileWithMeta } = files
-        console.log(fileWithMeta.file)
+
+        // addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_MAIN_IMAGE, payload: fileWithMeta.file, status: 'additional' })
         return <Fade top cascade>
             <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
         </Fade>
-    }
+    }, [])
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
     }
+
+    const handleMainImage = (mainImage) => {
+        addRecipesDispatch({
+            type: addRecipeActionTypes.SET_RECIPE_MAIN_IMAGE, payload: mainImage,
+            status: 'main'
+        })
+        return {}
+    }
+
+    const handleAdditionalImages = (additionalImage) => {
+        addRecipesDispatch({
+            type: addRecipeActionTypes.SET_RECIPE_ADDITIONAL_IMAGES, payload: additionalImage,
+            status: 'main'
+        })
+        return {}
+    }
+
+    console.log(additionalImages)
 
     return (<form className="add-recipes" onSubmit={handleFormSubmit}>
         {/* Header */}
@@ -50,6 +69,7 @@ function AddRecipes() {
                         <div className="col-md-4">
                             <div className="primary-gallery">
                                 <Dropzone
+                                    getUploadParams={handleMainImage}
                                     accept="image/*"
                                     PreviewComponent={imageGallery}
                                     maxFiles={1}
@@ -58,6 +78,7 @@ function AddRecipes() {
                             </div>
                             <div className="secondary-gallery">
                                 <Dropzone
+                                    getUploadParams={handleAdditionalImages}
                                     accept="image/*"
                                     PreviewComponent={imageGallery}
                                     maxFiles={8}

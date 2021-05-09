@@ -58,8 +58,7 @@ form.add-recipes .secondary-gallery {
     margin-top: 0.5rem;
 }
 
-form.add-recipes .primary-gallery .preview-recipe-img,
-form.add-recipes .secondary-gallery .preview-recipe-img {
+form.add-recipes .preview-recipe-img {
     margin: 0.1rem;
     cursor: pointer;
     transition: 0.3s;
@@ -74,7 +73,7 @@ form.add-recipes .secondary-gallery .preview-recipe-img {
 }
 
 form.add-recipes .preview-recipe-img:hover {
-    filter: brightness(50%);
+    filter: brightness(30%);
 }
 
 /* DROPZONE CSS */

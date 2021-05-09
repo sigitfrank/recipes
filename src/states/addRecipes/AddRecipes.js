@@ -10,7 +10,8 @@ export const initialAddRecipesState = {
     },
     mainImage: {
         value:'',
-        error:defaultError
+        error:defaultError,
+        added:false
     },
     additionalImages: [],
     categories: {
