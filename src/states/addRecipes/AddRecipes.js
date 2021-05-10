@@ -14,16 +14,19 @@ export const initialAddRecipesState = {
         added: false
     },
     additionalImages: [],
-    categories: [
-        {
-            id: 1,
-            value: 'Healthy'
-        },
-        {
-            id: 2,
-            value: 'Dinner'
-        },
-    ],
+    categories: {
+        category: [
+            {
+                id: 1,
+                value: 'Healthy'
+            },
+            {
+                id: 2,
+                value: 'Dinner'
+            },
+        ],
+        error: defaultError
+    },
     cookTime: {
         value: 0,
         error: defaultError

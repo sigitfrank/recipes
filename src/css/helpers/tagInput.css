@@ -23,10 +23,16 @@
     cursor: pointer;
 }
 
+.tag__input__suggestion__container {
+    position: relative;
+}
+
 .tag__input_suggestion {
-    overflow-y: auto;
-    height: 5rem;
-    background: rgba(241, 241, 241, 0.3);
+    z-index: 9999;
+    /* overflow-y: auto; */
+    /* height: 5rem; */
+    position: absolute;
+    background: rgba(240, 240, 240);
     padding: 0.5rem;
 }
 
@@ -36,5 +42,5 @@
 }
 
 .tag__input_suggestion_value:hover {
-    background: rgba(221, 221, 221, 0.7);
+    background: rgba(220, 220, 220, 0.7);
 }

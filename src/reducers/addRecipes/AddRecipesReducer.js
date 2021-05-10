@@ -2,6 +2,7 @@ import addRecipeActionTypes from '../../action-types/addRecipes/AddRecipes'
 import { defaultError } from '../../constants/error'
 import { getRandomIngredient } from '../../helpers/randomIngredients'
 import { getRandomStep } from '../../helpers/randomSteps'
+import { toUpperCase } from '../../helpers/toUpperCase'
 import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 const addRecipesReducer = (state = {}, action) => {
 
@@ -65,24 +66,49 @@ const addRecipesReducer = (state = {}, action) => {
         }
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_CATEGORIES) {
-        if (!action.payload) return InvalidFeedback(state, action.payload, 'categories', 'Recipe categories cannot be empty')
+        const formatValue = toUpperCase(action.payload)
+        if(!formatValue) return {
+            ...state,
+            categories:{
+                ...state.categories,
+                error:defaultError
+            }
+        }
+        if(state.categories.category.length > 9){
+            return {
+                ...state,
+                categories:{
+                    ...state.categories,
+                    error:{
+                        status:true,
+                        message:'You can only add 10 categories'
+                    }
+                }
+            }
+        } 
         let id = 1;
-        if (state.categories.length > 0) {
-            id = state.categories[state.categories.length - 1].id + 1
+    if (state.categories.category.length > 0) {
+            id = state.categories.category[state.categories.category.length - 1].id + 1
         }
 
         return {
-            ...state, categories: [...state.categories, {
-                id: id,
-                value: action.payload
-            }]
+            ...state, categories: {
+                category:[...state.categories.category, {
+                    id: id,
+                    value: formatValue
+                }],
+                error:defaultError
+            }
         }
     }
 
     if (action.type === addRecipeActionTypes.REMOVE_RECIPE_CATEGORIES) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
-            const removedCategories = state.categories.filter(category => category.id !== action.payload)
-            return { ...state, categories: removedCategories }
+            const removedCategories = state.categories.category.filter(category => category.id !== action.payload)
+            return { ...state, categories: {
+                category:removedCategories,
+                error:defaultError
+            } }
         }
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_COOK_TIME) {

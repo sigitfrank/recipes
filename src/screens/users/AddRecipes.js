@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback } from 'react'
+import React, { useReducer, useCallback } from 'react'
 import Fade from 'react-reveal/Fade'
 import TagInputs from '../../helpers/TagInputs'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
@@ -108,8 +108,8 @@ function AddRecipes() {
                     <h2 className="mt-3">Detail Recipe</h2>
                     <div className="line"></div>
                     <div className="form-group recipe-categories">
-                        <TagInputs data={categories} dispatchInput={addRecipesDispatch} />
-                        {/* {categories.error.status && <InvalidFeedback message={categories.error.message} isError={categories.error.status} />} */}
+                        <TagInputs data={categories.category} dispatchInput={addRecipesDispatch} />
+                        {categories.error.status && <InvalidFeedback message={categories.error.message} isError={categories.error.status} />}
                     </div>
                     <div className="form-group recipe-cook-time">
                         <select className="form-control" onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_COOK_TIME, payload: event.target.value })}>

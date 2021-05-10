@@ -29,38 +29,31 @@ function TagInputs({ data, dispatchInput }) {
 
     const hiddenSuggestion = () => {
         setTimeout(() => {
+            dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: '' })
             setSuggestionDisplay('none')
         }, 2000);
     }
+
+    const dispatchInputValue = (value) => {
+        dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: value })
+        inputCategory.current.value = ''
+        setSuggestionDisplay('none')
+        return setInputTitle('')
+    }
+
     const submitInput = (event, suggestion = false) => {
         if (suggestion) {
-            dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: event.target.textContent })
-            inputCategory.current.value = ''
-            setSuggestionDisplay('none')
-            return setInputTitle('')
+            dispatchInputValue(event.target.textContent)
         }
         if (event.keyCode === 13) {
             if (!inputTitle) return false
-            dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: inputTitle })
-            event.target.value = ''
-            return setInputTitle('')
-        }
-
-        // if space
-        if (event.keyCode === 32) {
-            const cleanInputTitle = inputTitle.replace(/\s+/g, ' ').trim()
-            if (!cleanInputTitle) return false
-            dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: inputTitle })
-            event.target.value = ""
-            return setInputTitle('')
+            return dispatchInputValue(inputTitle)
         }
 
         // if tab
         if (event.keyCode === 9) {
             if (!inputTitle) return false
-            dispatchInput({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: inputTitle })
-            event.target.value = ''
-            setInputTitle('')
+            dispatchInputValue(inputTitle)
             return event.preventDefault()
         }
 
@@ -87,27 +80,26 @@ function TagInputs({ data, dispatchInput }) {
                     </div>
                 ))
             }
-            <div>
-                <div className="form-group mx-2">
-                    <input
-                        type="text"
-                        ref={inputCategory}
-                        className="form-control"
-                        onBlur={() => hiddenSuggestion()}
-                        onKeyDown={(event) => handleSubmit(event)}
-                        onChange={(event) => handleOnChange(event)}
-                        placeholder="ex: Breakfast" />
-                    <div className="tag__input_suggestion" style={stylingSuggestion}>
-                        {
-                            getCategorySuggestions(inputTitle).map((suggestion, i) => (
-                                <div
-                                    onClick={(event) => handleSubmitSuggestion(event)}
-                                    className="tag__input_suggestion_value"
-                                    key={i}
-                                >{suggestion}</div>
-                            ))
-                        }
-                    </div>
+
+            <div className="form-group mx-2 tag__input__suggestion__container">
+                <input
+                    type="text"
+                    ref={inputCategory}
+                    className="form-control"
+                    onBlur={() => hiddenSuggestion()}
+                    onKeyDown={(event) => handleSubmit(event)}
+                    onChange={(event) => handleOnChange(event)}
+                    placeholder="ex: Breakfast" />
+                <div className="tag__input_suggestion" style={stylingSuggestion}>
+                    {
+                        getCategorySuggestions(inputTitle).map((suggestion, i) => (
+                            <div
+                                onClick={(event) => handleSubmitSuggestion(event)}
+                                className="tag__input_suggestion_value"
+                                key={i}
+                            >{suggestion}</div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
