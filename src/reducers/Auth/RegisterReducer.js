@@ -1,97 +1,112 @@
-import { SET_NAME, SET_EMAIL, SET_PASSWORD, SET_RE_PASSWORD, SET_TERMS_AGREEMENT, TOGGLE_PASSWORD, TOGGLE_RE_PASSWORD, DO_REGISTER } from '../../action-types/Auth/Register'
-import InvalidFeedbackAuth from '../../validations/logic/auth/InvalidFeedbackAuth'
+import registerActionTypes from '../../action-types/auth/Register'
+import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 import { emailValidRegex } from '../../constants/email'
-import { defalutError } from '../../constants/error'
+import { defaultError } from '../../constants/error'
 import { countStringLength } from '../../helpers/countStringLength'
 const RegisterReducer = (state = {}, action) => {
-    if (action.type === SET_NAME) {
-
+    if (action.type === registerActionTypes.SET_NAME) {
         const nameLength = countStringLength(action.payload)
-
-        if (!action.payload) return InvalidFeedbackAuth(state, action, 'name', 'eName', 'Name cannot be empty')
-        if (nameLength < 3) return InvalidFeedbackAuth(state, action, 'name', 'eName', 'Name value min 3 characters')
+        if (!action.payload) return InvalidFeedback(state, action.payload, 'name', 'Name cannot be empty')
+        if (nameLength < 3) return InvalidFeedback(state, action.payload, 'name', 'Name value min 3 characters')
 
         return {
-            ...state, name: action.payload, errors: {
-                ...state.errors,
-                eName:defalutError,
+            ...state, name: {
+                value: action.payload,
+                error: defaultError
             }
         }
     }
-    if (action.type === SET_EMAIL) {
+    if (action.type === registerActionTypes.SET_EMAIL) {
 
-        if (!action.payload) return InvalidFeedbackAuth(state, action, 'email', 'eEmail', 'Email cannot be empty')
+        if (!action.payload) return InvalidFeedback(state, action.payload, 'email', 'Email cannot be empty')
 
-        if (!action.payload.match(emailValidRegex)) return InvalidFeedbackAuth(state, action, 'email', 'eEmail', 'Email must be in valid email format')
+        if (!action.payload.match(emailValidRegex)) return InvalidFeedback(state, action.payload, 'email', 'Email must be in valid email format')
 
         return {
-            ...state, email: action.payload, errors: {
-                ...state.errors,
-                eEmail:defalutError,
+            ...state, email: {
+                value: action.payload,
+                error: defaultError
             }
         }
     }
-    if (action.type === SET_PASSWORD) {
-        const rePassword = state.rePassword
+    if (action.type === registerActionTypes.SET_PASSWORD) {
+        const rePassword = state.rePassword.value
         const passwordLength = countStringLength(action.payload)
-        if (!action.payload) return InvalidFeedbackAuth(state, action, 'password', 'ePassword', 'Password cannot be empty')
-        if (passwordLength < 8) return InvalidFeedbackAuth(state, action, 'password', 'ePassword', 'Password value min 8 characters')
-        
-        return{
-            ...state, password: action.payload, errors: {
-                ...state.errors,
-                [action.payload === rePassword ? 'eRePassword' :'ePassword']:defalutError,
+        if (action.payload === rePassword) {
+            return {
+                ...state,
+                rePassword: {
+                    value: rePassword,
+                    error: defaultError
+                },
+                password: {
+                    value: action.payload,
+                    error: { ...state.password.error }
+                }
+            }
+        }
+        if (!action.payload) return InvalidFeedback(state, action.payload, 'password', 'Password cannot be empty')
+        if (passwordLength < 8) return InvalidFeedback(state, action.payload, 'password', 'Password value min 8 characters')
+        return {
+            ...state, password: {
+                value: action.payload,
+                error: defaultError
             }
         }
     }
-    if (action.type === SET_RE_PASSWORD) {
-        const password = state.password
-        if (action.payload !== password) return InvalidFeedbackAuth(state, action, 'rePassword', 'eRePassword', 'Password does not match')
+    if (action.type === registerActionTypes.SET_RE_PASSWORD) {
+        const password = state.password.value
+        if (action.payload !== password) return InvalidFeedback(state, action.payload, 'rePassword', 'Password does not match')
 
         return {
-            ...state, rePassword: action.payload, errors: {
-                ...state.errors,
-                eRePassword:defalutError,
+            ...state, rePassword: {
+                value: action.payload,
+                error: defaultError
             }
         }
     }
-    if (action.type === SET_TERMS_AGREEMENT) {
-        return { ...state, termAgreements: !state.termAgreements }
+    if (action.type === registerActionTypes.SET_TERMS_AGREEMENT) {
+        return {
+            ...state, termAgreements: {
+                ...state.termAgreements,
+                value: !state.termAgreements.value,
+            }
+        }
     }
 
-    if (action.type === DO_REGISTER) {
-        const name = { payload: state.name }
-        const email = { payload: state.email }
-        const password = { payload: state.password }
-        const rePassword = { payload: state.rePassword }
-        const termAgreements = { payload: state.termAgreements }
-        const nameLength = countStringLength(state.name)
-        const passwordLength = countStringLength(state.password)
+    if (action.type === registerActionTypes.DO_REGISTER) {
+        const name = state.name.value
+        const email = state.email.value
+        const password = state.password.value
+        const rePassword = state.rePassword.value
+        const termAgreements = state.termAgreements.value
+        const nameLength = countStringLength(state.name.value)
+        const passwordLength = countStringLength(state.password.value)
 
-        if (!name) return InvalidFeedbackAuth(state, name, 'name', 'eName', 'Name cannot be empty')
-        if (nameLength < 3) return InvalidFeedbackAuth(state, name, 'name', 'eName', 'Name value min 3 characters')
-        if (!email) return InvalidFeedbackAuth(state, email, 'email', 'eEmail', 'Email cannot be empty')
-        if (!state.email.match(emailValidRegex)) return InvalidFeedbackAuth(state, email, 'email', 'eEmail', 'Email must be in valid email format')
-        if (!password) return InvalidFeedbackAuth(state, password, 'password', 'ePassword', 'Password cannot be empty')
-        if (passwordLength < 8) return InvalidFeedbackAuth(state, password, 'password', 'ePassword', 'Password value min 8 characters')
-        if (state.rePassword !== state.password) return InvalidFeedbackAuth(state, rePassword, 'rePassword', 'eRePassword', 'Password does not match')
-        if (!state.termAgreements) return InvalidFeedbackAuth(state, termAgreements, 'termAgreements', 'eTermAgreements', 'Terms and Agreements must be checked')
+        if (!name) return InvalidFeedback(state, name, 'name', 'Name cannot be empty')
+        if (nameLength < 3) return InvalidFeedback(state, name, 'name', 'Name value min 3 characters')
+        if (!email) return InvalidFeedback(state, email, 'email', 'Email cannot be empty')
+        if (!state.email.value.match(emailValidRegex)) return InvalidFeedback(state, email, 'email', 'Email must be in valid email format')
+        if (!password) return InvalidFeedback(state, password, 'password', 'Password cannot be empty')
+        if (passwordLength < 8) return InvalidFeedback(state, password, 'password', 'Password value min 8 characters')
+        if (state.rePassword.value !== state.password.value) return InvalidFeedback(state, rePassword, 'rePassword', 'Password does not match')
+        if (!state.termAgreements.value) return InvalidFeedback(state, termAgreements, 'termAgreements', 'Terms and Agreements must be checked')
 
         alert('Register Process')
         return {
-            ...state, errors: {
-                ...state.errors,
-                eTermAgreements:defalutError,
+            ...state, termAgreements: {
+                ...state.termAgreements,
+                error: defaultError
             }
         }
     }
 
-    if (action.type === TOGGLE_PASSWORD) {
+    if (action.type === registerActionTypes.TOGGLE_PASSWORD) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             return { ...state, showPassword: !state.showPassword }
         }
     }
-    if (action.type === TOGGLE_RE_PASSWORD) {
+    if (action.type === registerActionTypes.TOGGLE_RE_PASSWORD) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             return { ...state, showRePassword: !state.showRePassword }
         }

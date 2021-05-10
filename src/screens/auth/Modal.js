@@ -1,13 +1,10 @@
 import React, { useReducer } from 'react'
 import ReactDom from 'react-dom'
-import ModalAuthReducer from '../../reducers/Auth/ModalAuthReducer'
+import ModalAuthReducer from '../../reducers/auth/ModalAuthReducer'
+import {intitalAuthState} from '../../states/auth/Modal'
 import Login from './Login'
 import Register from './Register'
 import '../../css/auth/login.css'
-
-const intitalAuthState = {
-    isModalLogin: true
-}
 
 function Modal() {
     const [modalAuthState, modalAuthDispatcher] = useReducer(ModalAuthReducer, intitalAuthState)

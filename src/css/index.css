@@ -35,3 +35,9 @@ a {
   right: 0;
   bottom: -100%;
 }
+
+.invalid-feedback {
+  margin-bottom: 0.9rem;
+  margin-left: 1rem;
+  font-size: 0.7rem;
+}
