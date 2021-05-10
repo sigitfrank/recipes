@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Fade from 'react-reveal/Fade';
 function Categories() {
-    return (
+    return (<Fade top cascade>
         <ul>
             <li className="active">All Categories</li>
             <li>Breakfast</li>
@@ -11,6 +11,7 @@ function Categories() {
             <li>Dessert</li>
             <li>Food News</li>
         </ul>
+        </Fade>
     )
 }
 
