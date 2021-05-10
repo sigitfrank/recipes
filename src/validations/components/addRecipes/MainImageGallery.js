@@ -1,6 +1,7 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade'
-function MainImageGallery(files, addRecipesDispatch, addRecipeActionTypes) {
+import addRecipeActionTypes from '../../../action-types/addRecipes/AddRecipes'
+function MainImageGallery(files, addRecipesDispatch) {
 
     const removeImage = (event, fileWithMeta) => {
         const id = event.target.dataset.id

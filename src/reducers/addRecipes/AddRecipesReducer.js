@@ -66,12 +66,23 @@ const addRecipesReducer = (state = {}, action) => {
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_CATEGORIES) {
         if (!action.payload) return InvalidFeedback(state, action.payload, 'categories', 'Recipe categories cannot be empty')
-        // categories must be array later
+        let id = 1;
+        if (state.categories.length > 0) {
+            id = state.categories[state.categories.length - 1].id + 1
+        }
+
         return {
-            ...state, categories: {
-                value: action.payload,
-                error: defaultError
-            }
+            ...state, categories: [...state.categories, {
+                id: id,
+                value: action.payload
+            }]
+        }
+    }
+
+    if (action.type === addRecipeActionTypes.REMOVE_RECIPE_CATEGORIES) {
+        if (typeof action.event.target.className.baseVal !== 'undefined') {
+            const removedCategories = state.categories.filter(category => category.id !== action.payload)
+            return { ...state, categories: removedCategories }
         }
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_COOK_TIME) {

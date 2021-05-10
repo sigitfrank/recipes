@@ -1,5 +1,6 @@
-import React, { useReducer, useCallback } from 'react'
+import React, { useState, useReducer, useCallback } from 'react'
 import Fade from 'react-reveal/Fade'
+import TagInputs from '../../helpers/TagInputs'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
 import AddRecipesReducer from '../../reducers/addRecipes/AddRecipesReducer'
 import { MdRemoveCircle } from 'react-icons/md'
@@ -14,36 +15,26 @@ import { dispatchMainImage, dispatchAdditionalImages } from '../../validations/l
 
 function AddRecipes() {
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
-    const {
-        title,
-        description,
-        categories,
-        cookTime,
-        servePlates,
-        ingredients,
-        steps,
-    } = addRecipesState
-
-
+    const { title, description, categories, cookTime, servePlates, ingredients, steps } = addRecipesState
     const handleFormSubmit = (e) => {
         e.preventDefault()
     }
 
     const handleMainImageGallery = useCallback((files) => {
-        return MainImageGallery(files, addRecipesDispatch, addRecipeActionTypes)
+        return MainImageGallery(files, addRecipesDispatch)
     }, [])
 
     const handleAdditionalImageGallery = useCallback((files) => {
-        return AdditionalImageGallery(files, addRecipesDispatch, addRecipeActionTypes)
+        return AdditionalImageGallery(files, addRecipesDispatch)
     }, [])
 
     const handleMainImage = mainImage => {
-        dispatchMainImage(mainImage, addRecipesDispatch, addRecipeActionTypes)
+        dispatchMainImage(mainImage, addRecipesDispatch)
         return {}
     }
 
     const handleAdditionalImages = additionalImage => {
-        dispatchAdditionalImages(additionalImage, addRecipesDispatch, addRecipeActionTypes)
+        dispatchAdditionalImages(additionalImage, addRecipesDispatch)
         return {}
     }
 
@@ -117,14 +108,8 @@ function AddRecipes() {
                     <h2 className="mt-3">Detail Recipe</h2>
                     <div className="line"></div>
                     <div className="form-group recipe-categories">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="ex: Healthy, Lunch, Fish"
-                            value={categories.value}
-                            onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_CATEGORIES, payload: event.target.value })}
-                        />
-                        {categories.error.status && <InvalidFeedback message={categories.error.message} isError={categories.error.status} />}
+                        <TagInputs data={categories} dispatchInput={addRecipesDispatch} />
+                        {/* {categories.error.status && <InvalidFeedback message={categories.error.message} isError={categories.error.status} />} */}
                     </div>
                     <div className="form-group recipe-cook-time">
                         <select className="form-control" onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_COOK_TIME, payload: event.target.value })}>

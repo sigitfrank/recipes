@@ -1,0 +1,40 @@
+.tag__input_container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag__input {
+    margin: 0.5rem;
+    background: #FF8E5E;
+    color: #FFF;
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    position: relative
+}
+
+.tag__input_title {
+    margin-right: 0.3rem;
+}
+
+.tag__input_remove_icon,
+.tag__input_suggestion_value {
+    cursor: pointer;
+}
+
+.tag__input_suggestion {
+    overflow-y: auto;
+    height: 5rem;
+    background: rgba(241, 241, 241, 0.3);
+    padding: 0.5rem;
+}
+
+.tag__input_suggestion_value {
+    padding: 0.5rem;
+    transition: 0.5s;
+}
+
+.tag__input_suggestion_value:hover {
+    background: rgba(221, 221, 221, 0.7);
+}

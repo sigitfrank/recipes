@@ -1,30 +1,36 @@
 import { defaultError } from '../../constants/error'
 export const initialAddRecipesState = {
     title: {
-        value:'',
-        error:defaultError
+        value: '',
+        error: defaultError
     },
     description: {
-        value:'',
-        error:defaultError
+        value: '',
+        error: defaultError
     },
     mainImage: {
-        value:'',
-        error:defaultError,
-        added:false
+        value: '',
+        error: defaultError,
+        added: false
     },
     additionalImages: [],
-    categories: {
-        value:'',
-        error:defaultError
+    categories: [
+        {
+            id: 1,
+            value: 'Healthy'
+        },
+        {
+            id: 2,
+            value: 'Dinner'
+        },
+    ],
+    cookTime: {
+        value: 0,
+        error: defaultError
     },
-    cookTime:  {
-        value:0,
-        error:defaultError
-    },
-    servePlates:  {
-        value:0,
-        error:defaultError
+    servePlates: {
+        value: 0,
+        error: defaultError
     },
     ingredients: [
         {
