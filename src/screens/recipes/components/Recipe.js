@@ -6,7 +6,7 @@ function Recipe({ i }) {
   return (
     <div className={`container-fluid recipes-list ${i % 2 === 0 ? 'content' : ''}`}>
       <div className="container">
-        <section className="row">
+        <section className="row justify-content-center">
           <div className="recipes-category">
             <Fade>
               <h2>Breakfast Recipes</h2>
