@@ -98,6 +98,7 @@ section.blog-main .content .author {
 
 section.blog-main .social-media-links {
     margin-left: 2rem;
+    z-index: 9999;
 }
 
 section.blog-main .social-media-links span.follow-us {
