@@ -52,8 +52,6 @@ form.add-recipes .steps .line {
 form.add-recipes .primary-gallery,
 form.add-recipes .secondary-gallery {
     border-bottom: 1px solid #FF8E5E80;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
     padding-bottom: 0.5rem;
     margin-top: 0.5rem;
 }
@@ -98,6 +96,10 @@ form.add-recipes .preview-recipe-img:hover {
 
 .dzu-dropzone .dzu-inputLabel {
     color: #FF8E5E;
+}
+
+.secondary-gallery .dzu-dropzone .dzu-inputLabel {
+    font-size: .8rem;
 }
 
 .dzu-dropzone .dzu-submitButtonContainer {
@@ -147,17 +149,30 @@ form.add-recipes .form-group textarea::placeholder {
     color: rgb(187, 187, 187);
 }
 
-form.add-recipes button.btn.add-more {
+.publish {
+    text-align: center;
+}
+
+form.add-recipes button.btn.add-more,
+.publish button.btn {
     background-color: #FF8E5E;
     color: #fff;
     font-weight: 500;
     transition: 0.5s;
-    width: 7rem;
     margin: 0.5rem 1rem;
-
 }
 
-form.add-recipes button.btn.add-more:hover {
+form.add-recipes button.btn.add-more {
+    width: 7rem;
+}
+
+.publish button.btn {
+    margin-top: 1rem;
+    width: 15rem;
+}
+
+form.add-recipes button.btn.add-more:hover,
+.publish button.btn:hover {
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;
@@ -167,6 +182,14 @@ form.add-recipes button.btn.add-more:hover {
 
 /* RESPONSIVE */
 @media (max-width: 576px) {
+    .publish {
+        text-align: right;
+    }
+
+    .publish button.btn {
+        width: 10rem;
+    }
+
     form.add-recipes .add-recipes-title .line {
         width: 65%;
     }
@@ -185,6 +208,10 @@ form.add-recipes button.btn.add-more:hover {
 }
 
 @media (min-width: 576px) {
+    .publish {
+        text-align: right;
+    }
+
     form.add-recipes .add-recipes-title .line {
         width: 52%;
     }
@@ -203,6 +230,10 @@ form.add-recipes button.btn.add-more:hover {
 }
 
 @media (min-width: 768px) {
+    .publish {
+        text-align: center;
+    }
+
     form.add-recipes .add-recipes-title .line {
         width: 43%;
     }

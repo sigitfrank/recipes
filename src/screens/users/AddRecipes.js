@@ -8,52 +8,44 @@ import '../../css/users/add-recipes.css'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
+import AdditionalImageGallery from '../../validations/components/addRecipes/AdditionalImageGallery'
+import MainImageGallery from '../../validations/components/addRecipes/MainImageGallery'
+import { dispatchMainImage, dispatchAdditionalImages } from '../../validations/logic/addRecipes/HandleImages'
 
 function AddRecipes() {
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
     const {
         title,
         description,
-        mainImage,
-        additionalImages,
         categories,
         cookTime,
         servePlates,
         ingredients,
         steps,
-        moreIngredients,
-        moreSteps,
     } = addRecipesState
-    const imageGallery = useCallback((files) => {
-        const { meta, fileWithMeta } = files
 
-        // addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_MAIN_IMAGE, payload: fileWithMeta.file, status: 'additional' })
-        return <Fade top cascade>
-            <img onClick={() => fileWithMeta.remove()} src={meta.previewUrl} alt="preview-recipe-img" className="img-fluid preview-recipe-img" />
-        </Fade>
-    }, [])
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
     }
 
-    const handleMainImage = (mainImage) => {
-        addRecipesDispatch({
-            type: addRecipeActionTypes.SET_RECIPE_MAIN_IMAGE, payload: mainImage,
-            status: 'main'
-        })
+    const handleMainImageGallery = useCallback((files) => {
+        return MainImageGallery(files, addRecipesDispatch, addRecipeActionTypes)
+    }, [])
+
+    const handleAdditionalImageGallery = useCallback((files) => {
+        return AdditionalImageGallery(files, addRecipesDispatch, addRecipeActionTypes)
+    }, [])
+
+    const handleMainImage = mainImage => {
+        dispatchMainImage(mainImage, addRecipesDispatch, addRecipeActionTypes)
         return {}
     }
 
-    const handleAdditionalImages = (additionalImage) => {
-        addRecipesDispatch({
-            type: addRecipeActionTypes.SET_RECIPE_ADDITIONAL_IMAGES, payload: additionalImage,
-            status: 'main'
-        })
+    const handleAdditionalImages = additionalImage => {
+        dispatchAdditionalImages(additionalImage, addRecipesDispatch, addRecipeActionTypes)
         return {}
     }
-
-    console.log(additionalImages)
 
     return (<form className="add-recipes" onSubmit={handleFormSubmit}>
         {/* Header */}
@@ -71,7 +63,7 @@ function AddRecipes() {
                                 <Dropzone
                                     getUploadParams={handleMainImage}
                                     accept="image/*"
-                                    PreviewComponent={imageGallery}
+                                    PreviewComponent={handleMainImageGallery}
                                     maxFiles={1}
                                     inputContent="Drop main image"
                                 />
@@ -80,7 +72,7 @@ function AddRecipes() {
                                 <Dropzone
                                     getUploadParams={handleAdditionalImages}
                                     accept="image/*"
-                                    PreviewComponent={imageGallery}
+                                    PreviewComponent={handleAdditionalImageGallery}
                                     maxFiles={8}
                                     inputContent="Drop additional images"
                                     inputWithFilesContent={files => `${8 - files.length} more left`}
@@ -163,8 +155,8 @@ function AddRecipes() {
                     <h2 className="mt-3">Ingredients</h2>
                     <div className="line"></div>
                     {
-                        ingredients.map((ingredient, index) => (
-                            <div className="form-group" key={ingredient.id} onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_INGREDIENTS, payload: ingredient.id, event })}>
+                        ingredients.map((ingredient, index) => (<Fade key={ingredient.id} >
+                            <div className="form-group" onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_INGREDIENTS, payload: ingredient.id, event })}>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -175,7 +167,7 @@ function AddRecipes() {
                                 {ingredient.error.status && <InvalidFeedback message={ingredient.error.message} isError={ingredient.error.status} />}
                                 {index > 2 && <MdRemoveCircle className="remove-icon" />}
                             </div>
-                        ))
+                        </Fade>))
                     }
                     <button type="button" onClick={() => addRecipesDispatch({ type: addRecipeActionTypes.ADD_MORE_INGREDIENTS })} className="btn add-more">Add more</button>
                 </section>
@@ -188,8 +180,8 @@ function AddRecipes() {
                     <h2 className="mt-3">Steps</h2>
                     <div className="line"></div>
                     {
-                        steps.map((step, index) => (
-                            <div className="form-group" key={step.id} onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_STEPS, payload: step.id, event })}>
+                        steps.map((step, index) => (<Fade key={step.id}>
+                            <div className="form-group" onClick={(event) => addRecipesDispatch({ type: addRecipeActionTypes.REMOVE_MORE_STEPS, payload: step.id, event })}>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -200,11 +192,15 @@ function AddRecipes() {
                                 {step.error.status && <InvalidFeedback message={step.error.message} isError={step.error.status} />}
                                 {index > 2 && <MdRemoveCircle className="remove-icon" />}
                             </div>
-                        ))
+                        </Fade>))
                     }
                     <button type="button" onClick={() => addRecipesDispatch({ type: addRecipeActionTypes.ADD_MORE_STEPS })} className="btn add-more">Add more</button>
                 </section>
             </div>
+        </div>
+
+        <div className="container publish">
+            <button type="button" onClick={() => alert('Published')} className="btn">Publish</button>
         </div>
     </form >)
 }

@@ -27,24 +27,41 @@ const addRecipesReducer = (state = {}, action) => {
     }
 
     if (action.type === addRecipeActionTypes.SET_RECIPE_MAIN_IMAGE) {
-        if (!state.mainImage.added) {
-            return {
-                ...state, mainImage: {
-                    value: action.payload,
-                    error: defaultError,
-                    added: true
-                }
-            }
-        }
-    }
-    if (action.type === addRecipeActionTypes.SET_RECIPE_ADDITIONAL_IMAGES) {
         return {
-            ...state, additionalImages: [...state.additionalImages, {
+            ...state, mainImage: {
                 value: action.payload,
                 error: defaultError,
                 added: true
             }
-            ]
+        }
+    }
+
+    if (action.type === addRecipeActionTypes.REMOVE_RECIPE_MAIN_IMAGE) {
+        return {
+            ...state, mainImage: {
+                value: '',
+                error: defaultError,
+                added: false
+            }
+        }
+    }
+
+    if (action.type === addRecipeActionTypes.SET_RECIPE_ADDITIONAL_IMAGES) {
+        return {
+            ...state, additionalImages: [...state.additionalImages, {
+                id: action.payload.id,
+                value: action.payload.additionalImage,
+                error: defaultError,
+                added: true
+            }]
+        }
+    }
+    if (action.type === addRecipeActionTypes.REMOVE_RECIPE_ADDITIONAL_IMAGES) {
+        const id = action.payload
+        const removedAdditonalImages = state.additionalImages.filter(additionalImage => additionalImage.id !== id)
+
+        return {
+            ...state, additionalImages: removedAdditonalImages
         }
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_CATEGORIES) {
@@ -100,7 +117,27 @@ const addRecipesReducer = (state = {}, action) => {
     }
 
     if (action.type === addRecipeActionTypes.SET_RECIPE_STEPS) {
-
+        const currentSteps = state.steps.map(step => {
+            if (step.id === action.id) {
+                if (!action.payload) {
+                    return {
+                        ...step,
+                        value: action.payload,
+                        error: {
+                            status: true,
+                            message: 'Recipe step cannot be empty'
+                        }
+                    }
+                }
+                return {
+                    ...step,
+                    value: action.payload,
+                    error: defaultError
+                }
+            }
+            return { ...step }
+        })
+        return { ...state, steps: currentSteps, ...state.errors }
     }
 
     if (action.type === addRecipeActionTypes.ADD_MORE_INGREDIENTS) {
