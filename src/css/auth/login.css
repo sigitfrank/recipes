@@ -34,8 +34,16 @@
 
 }
 
+.form-login .form-check {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
 .form-login input[type='checkbox'].form-check-input {
     transition: 0.5s;
+    font-size: 0.9rem;
+    margin-top: 0;
 }
 
 .form-login input[type='checkbox'].form-check-input:checked {
