@@ -201,6 +201,15 @@ form.add-recipes button.btn.add-more:hover,
     box-shadow: 0 3px 0.1rem #FF8E5E;
 }
 
+.form-group.recipe-categories {
+    z-index: 9999;
+}
+
+.form-group.recipe-cook-time,
+.form-group.recipe-serve-plate {
+    z-index: -9999;
+}
+
 
 
 /* RESPONSIVE */
