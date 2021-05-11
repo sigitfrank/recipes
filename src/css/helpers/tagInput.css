@@ -1,0 +1,87 @@
+.tag__input_container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag__input {
+    margin: 0.5rem;
+    background: #FF8E5E;
+    color: #FFF;
+    padding: 0.3rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    position: relative
+}
+
+.tag__input_title {
+    margin-right: 0.3rem;
+}
+
+.tag__input_remove_icon,
+.tag__input_add_icon,
+.tag__input_suggestion_value {
+    cursor: pointer;
+}
+
+.tag__input_add_icon {
+    position: absolute;
+    top: 0;
+    right: -1.9rem;
+    color: #FF8E5E;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.tag__input__suggestion__container {
+    position: relative;
+}
+
+.tag__input_suggestion {
+    z-index: 9999;
+    position: absolute;
+    background: rgba(240, 240, 240);
+    padding: 0.5rem;
+}
+
+.tag__input_suggestion_value {
+    padding: 0.5rem;
+    transition: 0.5s;
+}
+
+.tag__input_suggestion_value:hover {
+    background: rgba(220, 220, 220, 0.7);
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 576px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 992px) {
+    .tag__input_add_icon {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .tag__input_add_icon {
+        display: none;
+    }
+}
+
+@media (min-width: 1400px) {}
