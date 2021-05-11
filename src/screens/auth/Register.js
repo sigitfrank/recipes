@@ -1,14 +1,21 @@
 import React, { useReducer } from 'react'
 import authActionTypes from '../../action-types/auth/Auth'
 import registerActionTypes from '../../action-types/auth/Register'
+import socialMediaActionTypes from '../../action-types/auth/SocialMedia'
 import RegisterReducer from '../../reducers/auth/RegisterReducer'
+import SocialMediaReducer from '../../reducers/auth/SocialMediaReducer'
 import { togglePassword } from '../../helpers/togglePassword'
 import { initialRegisterState } from '../../states/auth/Register'
+import { initialSocialMediaState } from '../../states/auth/SocialMedia'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
+import { FaFacebook } from 'react-icons/fa'
+import { FcGoogle } from 'react-icons/fc'
 
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
     const { name, email, password, rePassword, showPassword, showRePassword, termAgreements } = registerState
+
+    const [socialMediaState, socialMediaDispatcher] = useReducer(SocialMediaReducer, initialSocialMediaState)
 
     return (<div className="modal-content">
         <div className="modal-header pb-0">
@@ -72,6 +79,14 @@ function RegisterModal({ modalAuthDispatcher }) {
                 <div className="submit-container text-center my-3">
                     <button type="button" className="btn login" onClick={() => registerDispatcher({ type: registerActionTypes.DO_REGISTER })}>Sign Ups</button>
                     <p className="mt-3">Already Have an Account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color">Sign In</a></p>
+                    <div className="login-social-media-container">
+                        <span className="login-facebook" onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_FACEBOOK })}>
+                            <FaFacebook />
+                        </span>
+                        <span className="login-google"  onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_GOOGLE })}>
+                            <FcGoogle />
+                        </span>
+                    </div>
                 </div>
             </form>
         </div>

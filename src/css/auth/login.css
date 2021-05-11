@@ -34,8 +34,6 @@
 
 }
 
-
-
 .form-login input[type='checkbox'].form-check-input {
     transition: 0.5s;
 }
@@ -69,4 +67,30 @@
     z-index: 999;
     top: 0.7rem;
     cursor: pointer;
+}
+
+
+.form-login .login-social-media-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-login .submit-container p {
+    margin-bottom: 0;
+}
+
+.form-login .submit-container span.login-facebook,
+.form-login .submit-container span.login-google {
+    color: #395185;
+    cursor: pointer;
+}
+
+.form-login .submit-container span.login-facebook {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.form-login .submit-container span.login-google {
+    font-size: 2.2rem;
 }
