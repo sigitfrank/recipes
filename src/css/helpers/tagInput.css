@@ -19,8 +19,18 @@
 }
 
 .tag__input_remove_icon,
+.tag__input_add_icon,
 .tag__input_suggestion_value {
     cursor: pointer;
+}
+
+.tag__input_add_icon {
+    position: absolute;
+    top: 0;
+    right: -1.9rem;
+    color: #FF8E5E;
+    font-size: 1.5rem;
+    display: none;
 }
 
 .tag__input__suggestion__container {
@@ -29,8 +39,6 @@
 
 .tag__input_suggestion {
     z-index: 9999;
-    /* overflow-y: auto; */
-    /* height: 5rem; */
     position: absolute;
     background: rgba(240, 240, 240);
     padding: 0.5rem;
@@ -44,3 +52,36 @@
 .tag__input_suggestion_value:hover {
     background: rgba(220, 220, 220, 0.7);
 }
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 576px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .tag__input_add_icon {
+        display: block;
+    }
+}
+
+@media (min-width: 992px) {
+    .tag__input_add_icon {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .tag__input_add_icon {
+        display: none;
+    }
+}
+
+@media (min-width: 1400px) {}

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import addRecipeActionTypes from '../action-types/addRecipes/AddRecipes'
-import { MdRemoveCircle } from 'react-icons/md'
+import { MdRemoveCircle, MdAddCircle } from 'react-icons/md'
 import '../css/helpers/tagInput.css'
 import { getCategorySuggestions } from '../helpers/getCategorySuggestions'
 function TagInputs({ data, dispatchInput }) {
@@ -43,7 +43,7 @@ function TagInputs({ data, dispatchInput }) {
 
     const submitInput = (event, suggestion = false) => {
         if (suggestion) {
-            dispatchInputValue(event.target.textContent)
+            return dispatchInputValue(event.target.textContent)
         }
         if (event.keyCode === 13) {
             if (!inputTitle) return false
@@ -61,6 +61,13 @@ function TagInputs({ data, dispatchInput }) {
         if (event.keyCode === 188) {
             return event.preventDefault()
         }
+
+        // if click button mobile
+        if (event.type === 'click') {
+            if (!inputTitle) return false
+            dispatchInputValue(inputTitle)
+            return event.preventDefault()
+        }
     }
 
     const handleSubmit = (event) => {
@@ -69,6 +76,12 @@ function TagInputs({ data, dispatchInput }) {
 
     const handleSubmitSuggestion = (event) => {
         submitInput(event, true)
+    }
+
+    const handleSubmitMobile = (event) => {
+        if (typeof event.target.className.baseVal !== 'undefined') {
+            submitInput(event)
+        }
     }
     return (<>
         <div className="tag__input_container">
@@ -81,7 +94,7 @@ function TagInputs({ data, dispatchInput }) {
                 ))
             }
 
-            <div className="form-group mx-2 tag__input__suggestion__container">
+            <div className="form-group mx-2 tag__input__suggestion__container" onClick={(event) => handleSubmitMobile(event)}>
                 <input
                     type="text"
                     ref={inputCategory}
@@ -90,6 +103,7 @@ function TagInputs({ data, dispatchInput }) {
                     onKeyDown={(event) => handleSubmit(event)}
                     onChange={(event) => handleOnChange(event)}
                     placeholder="ex: Breakfast" />
+                <span className="tag__input_add_icon">  <MdAddCircle /></span>
                 <div className="tag__input_suggestion" style={stylingSuggestion}>
                     {
                         getCategorySuggestions(inputTitle).map((suggestion, i) => (
