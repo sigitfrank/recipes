@@ -234,12 +234,12 @@ const addRecipesReducer = (state = {}, action) => {
 
     if (action.type === addRecipeActionTypes.SET_EMOJI_DESCRIPTION) {
         const currentDescriptionValue = state.description.value
-        console.log(action.payload)
+        // console.log(action.payload)
         return {
             ...state,
             description: {
                 ...state.description,
-                value: `${currentDescriptionValue} ${action.payload.originalUnified}`
+                value: `${currentDescriptionValue} ${action.payload.emoji}`
             }
         }
     }

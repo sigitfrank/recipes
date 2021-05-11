@@ -50,7 +50,7 @@ function AddRecipes() {
         }
     }, [])
 
-    console.log(addRecipesState.title)
+    console.log(addRecipesState.description)
     return (<form className="add-recipes" onSubmit={handleFormSubmit}>
         {/* Header */}
         <div className="container-fluid">
