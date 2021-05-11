@@ -67,37 +67,37 @@ const addRecipesReducer = (state = {}, action) => {
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_CATEGORIES) {
         const formatValue = toUpperCase(action.payload)
-        if(!formatValue) return {
+        if (!formatValue) return {
             ...state,
-            categories:{
+            categories: {
                 ...state.categories,
-                error:defaultError
+                error: defaultError
             }
         }
-        if(state.categories.category.length > 9){
+        if (state.categories.category.length > 9) {
             return {
                 ...state,
-                categories:{
+                categories: {
                     ...state.categories,
-                    error:{
-                        status:true,
-                        message:'You can only add 10 categories'
+                    error: {
+                        status: true,
+                        message: 'You can only add 10 categories'
                     }
                 }
             }
-        } 
+        }
         let id = 1;
-    if (state.categories.category.length > 0) {
+        if (state.categories.category.length > 0) {
             id = state.categories.category[state.categories.category.length - 1].id + 1
         }
 
         return {
             ...state, categories: {
-                category:[...state.categories.category, {
+                category: [...state.categories.category, {
                     id: id,
                     value: formatValue
                 }],
-                error:defaultError
+                error: defaultError
             }
         }
     }
@@ -105,10 +105,12 @@ const addRecipesReducer = (state = {}, action) => {
     if (action.type === addRecipeActionTypes.REMOVE_RECIPE_CATEGORIES) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             const removedCategories = state.categories.category.filter(category => category.id !== action.payload)
-            return { ...state, categories: {
-                category:removedCategories,
-                error:defaultError
-            } }
+            return {
+                ...state, categories: {
+                    category: removedCategories,
+                    error: defaultError
+                }
+            }
         }
     }
     if (action.type === addRecipeActionTypes.SET_RECIPE_COOK_TIME) {
@@ -210,6 +212,35 @@ const addRecipesReducer = (state = {}, action) => {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             const removedSteps = state.steps.filter(step => step.id !== action.payload)
             return { ...state, steps: removedSteps }
+        }
+    }
+
+    if (action.type === addRecipeActionTypes.TOGGLE_EMOJI_INPUT_TITLE) {
+        return {
+            ...state, title: {
+                ...state.title,
+                emoji: !state.title.emoji
+            }
+        }
+    }
+    if (action.type === addRecipeActionTypes.TOGGLE_EMOJI_INPUT_DESCRIPTION) {
+        return {
+            ...state, description: {
+                ...state.description,
+                emoji: !state.description.emoji
+            }
+        }
+    }
+
+    if (action.type === addRecipeActionTypes.SET_EMOJI_DESCRIPTION) {
+        const currentDescriptionValue = state.description.value
+        console.log(action.payload)
+        return {
+            ...state,
+            description: {
+                ...state.description,
+                value: `${currentDescriptionValue} ${action.payload.originalUnified}`
+            }
         }
     }
 
