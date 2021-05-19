@@ -42,7 +42,6 @@ export const activateUser = (req, res) => {
 
         const user = await USER.findOne({ email: email })
         const expiredTime = user.token.split('&')[1]
-        console.log(currentTime(), +expiredTime)
         if (currentTime() > +expiredTime) return res.status(400).json({ success: false, msg: 'Link has been expired' })
 
         const filter = { email: email, token: token }
@@ -53,3 +52,5 @@ export const activateUser = (req, res) => {
     }
     getUserActivated()
 }
+
+// make route reSend email if link expired
