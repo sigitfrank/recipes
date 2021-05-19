@@ -8,7 +8,7 @@ import DetailRecipes from '../screens/recipes/DetailRecipes'
 import Navbar from '../components/Navbar'
 import Blog from '../screens/blog/Blog'
 import AboutUs from '../screens/about-us/AboutUs'
-
+import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
 
 function Routes() {
@@ -35,9 +35,12 @@ function Routes() {
             <AboutUs />
         )} />
 
-
         <Route path='/add-recipes' exact render={() => (
             <AddRecipes />
+        )} />
+
+        <Route path='/profile' exact render={() => (
+            <Profile />
         )} />
 
     </BrowserRouter>)
