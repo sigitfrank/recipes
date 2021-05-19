@@ -7,12 +7,12 @@ export const createUser = (req, res) => {
     const registerUser = async () => {
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = new USER({
-            name: name,
-            email: email,
+            name,
+            email,
             password: hashedPassword,
         })
         return newUser.save().then(user => {
-            res.status(201).json({ success: true, msg: 'User Created Successfully', user: user })
+            res.status(201).json({ success: true, msg: 'User Created Successfully', user })
         }).catch(error => {
             res.status(400).json({ success: false, msg: `User failed to create ${error}` })
 
@@ -28,6 +28,6 @@ export const deleteUser = (req, res) => {
             return res.status(400).json({ success: false, msg: `User failed to delete ${error}` })
         if (!user)
             return res.status(400).json({ success: false, msg: `User does not exist` })
-        return res.status(201).json({ success: true, msg: 'User deleted Successfully', user: user })
+        return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
     })
 }
