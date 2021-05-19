@@ -1,9 +1,9 @@
-import React, { useReducer, useCallback } from 'react'
+import React, { useState, useReducer, useCallback, useEffect } from 'react'
 import Fade from 'react-reveal/Fade'
 import TagInputs from '../../helpers/TagInputs'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
 import AddRecipesReducer from '../../reducers/addRecipes/AddRecipesReducer'
-import { MdRemoveCircle } from 'react-icons/md'
+import { MdRemoveCircle, MdInsertEmoticon } from 'react-icons/md'
 import addRecipeActionTypes from '../../action-types/addRecipes/AddRecipes'
 import '../../css/users/add-recipes.css'
 import 'react-dropzone-uploader/dist/styles.css'
@@ -12,8 +12,9 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import AdditionalImageGallery from '../../validations/components/addRecipes/AdditionalImageGallery'
 import MainImageGallery from '../../validations/components/addRecipes/MainImageGallery'
 import { dispatchMainImage, dispatchAdditionalImages } from '../../validations/logic/addRecipes/HandleImages'
-
+import { toggleEmoji } from '../../helpers/toggleEmoji'
 function AddRecipes() {
+    const [mounted, setMounted] = useState(false);
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
     const { title, description, categories, cookTime, servePlates, ingredients, steps } = addRecipesState
     const handleFormSubmit = (e) => {
@@ -37,6 +38,17 @@ function AddRecipes() {
         dispatchAdditionalImages(additionalImage, addRecipesDispatch)
         return {}
     }
+
+    const onEmojiClickDescription = useCallback((event, emojiObject) => {
+        addRecipesDispatch({ type: addRecipeActionTypes.SET_EMOJI_DESCRIPTION, payload: emojiObject })
+    }, [])
+
+    useEffect(() => {
+        setMounted(true)
+        return () => {
+            setMounted(false)
+        }
+    }, [])
 
     return (<form className="add-recipes" onSubmit={handleFormSubmit}>
         {/* Header */}
@@ -94,6 +106,10 @@ function AddRecipes() {
                                         onChange={(event) => addRecipesDispatch({ type: addRecipeActionTypes.SET_RECIPE_DESCRIPTION, payload: event.target.value })}
                                     >
                                     </textarea>
+                                    <span className="insert-emoji-icon text-area" onClick={() => addRecipesDispatch({ type: addRecipeActionTypes.TOGGLE_EMOJI_INPUT_DESCRIPTION })}>
+                                        <MdInsertEmoticon />
+                                    </span>
+                                    {mounted && toggleEmoji(description.emoji, onEmojiClickDescription)}
                                     {description.error.status && <InvalidFeedback message={description.error.message} isError={description.error.status} />}
                                 </div>
                             </div>

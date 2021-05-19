@@ -19,20 +19,43 @@ form.add-recipes .detail-recipes .line {
     width: 16%;
 }
 
-form.add-recipes .ingredients .form-group,
-form.add-recipes .steps .form-group {
+form.add-recipes .form-group,
+form.add-recipes .form-group {
     position: relative;
 }
 
+form.add-recipes .form-group span.insert-emoji-icon,
 form.add-recipes .ingredients .form-group .remove-icon,
 form.add-recipes .steps .form-group .remove-icon {
     position: absolute;
-    top: 0;
     right: 1.2rem;
     top: 0.5rem;
     color: #FF8E5E;
     cursor: pointer;
     font-size: 1.3rem;
+}
+
+form.add-recipes .form-group span.insert-emoji-icon.text {
+    top: 0rem;
+}
+
+form.add-recipes .form-group span.insert-emoji-icon.text-area {
+    top: 0rem;
+}
+
+form.add-recipes .form-group .emoji-container {
+    z-index: 9999;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+form.add-recipes .form-group .emoji-container .emoji-picker-react {
+    width: 100%;
+}
+
+form.add-recipes .form-group .emoji-container .emoji-picker-react .emoji-categories {
+    justify-content: center;
+    gap: 1rem;
 }
 
 form.add-recipes .ingredients .form-group .remove-icon:hover,
@@ -176,6 +199,15 @@ form.add-recipes button.btn.add-more:hover,
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+.form-group.recipe-categories {
+    z-index: 9999;
+}
+
+.form-group.recipe-cook-time,
+.form-group.recipe-serve-plate {
+    z-index: -9999;
 }
 
 

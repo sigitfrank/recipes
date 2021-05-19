@@ -5,7 +5,6 @@ import { defaultError } from '../../constants/error'
 
 const LoginReducer = (state = {}, action) => {
     if (action.type === loginActionTypes.SET_EMAIL) {
-        console.log(action.payload)
         if (!action.payload) return InvalidFeedback(state, action.payload, 'email', 'Email cannot be empty')
 
         if (!action.payload.match(emailValidRegex)) return InvalidFeedback(state, action.payload, 'email', 'Email must be in valid email format')

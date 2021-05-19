@@ -2,11 +2,12 @@ import { defaultError } from '../../constants/error'
 export const initialAddRecipesState = {
     title: {
         value: '',
-        error: defaultError
+        error: defaultError,
     },
     description: {
         value: '',
-        error: defaultError
+        error: defaultError,
+        emoji: false,
     },
     mainImage: {
         value: '',
