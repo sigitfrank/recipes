@@ -16,6 +16,8 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
-    "mongoose": "^5.12.10"
+    "mongoose": "^5.12.10",
+    "node-datetime": "^2.1.2",
+    "nodemailer": "^6.6.0"
   }
 }

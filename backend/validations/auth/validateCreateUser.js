@@ -1,4 +1,3 @@
-
 import { check, validationResult } from 'express-validator'
 import USER from '../../models/User.js';
 
@@ -18,16 +17,14 @@ const validateCreateUser = [
         .isLength({ min: 8 })
         .withMessage('Password value min 8 characters')
         .custom((value, { req }) => {
-            if (value !== req.body.rePassword) {
-                throw new Error('Password confirmation does not match with password');
-            }
+            if (value !== req.body.rePassword) throw new Error('Password confirmation does not match with password');
+            
             return true
         })
     ,
     (req, res, next) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty())
-            return res.status(422).json({ success: false, errors: errors.array() });
+        if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
         next();
     },
 ];

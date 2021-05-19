@@ -10,10 +10,15 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    email_verified_at: Date,
     password: {
         type: String,
         required: true
     },
+    token:{
+        type:String,
+        required:true
+    }
 }, {
     timestamps: true
 })
