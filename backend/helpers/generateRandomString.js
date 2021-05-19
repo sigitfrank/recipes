@@ -1,4 +1,4 @@
-const getRandomString = (length) => {
+const getRandomString = (length = 5) => {
     let result = [];
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;

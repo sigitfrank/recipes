@@ -10,7 +10,8 @@ mongoose.connect(process.env.MONGO_DB_HOST, {
     dbName: 'bagiresep',
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 }).then(() => {
     console.log(`Connected to database`)
 }).catch(error => console.log(`Error ${error}`))
