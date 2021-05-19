@@ -215,14 +215,6 @@ const addRecipesReducer = (state = {}, action) => {
         }
     }
 
-    if (action.type === addRecipeActionTypes.TOGGLE_EMOJI_INPUT_TITLE) {
-        return {
-            ...state, title: {
-                ...state.title,
-                emoji: !state.title.emoji
-            }
-        }
-    }
     if (action.type === addRecipeActionTypes.TOGGLE_EMOJI_INPUT_DESCRIPTION) {
         return {
             ...state, description: {
@@ -234,7 +226,6 @@ const addRecipesReducer = (state = {}, action) => {
 
     if (action.type === addRecipeActionTypes.SET_EMOJI_DESCRIPTION) {
         const currentDescriptionValue = state.description.value
-        // console.log(action.payload)
         return {
             ...state,
             description: {
