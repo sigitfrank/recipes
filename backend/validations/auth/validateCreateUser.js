@@ -11,7 +11,8 @@ const validateCreateUser = [
         .withMessage('Email must be in valid email format')
         .custom(async (value) => {
             const isUserExist = await USER.findOne({ email: value })
-            if (isUserExist) throw new Error('User with this email is already exists, please check your email to activate account')
+            if(!isUserExist.email_verified_at) throw new Error('User with this email is already exists and not activated yet. Please check your email to activate account')
+            if (isUserExist) throw new Error('User with this email is already exists. Please login into your account')
             return true
         })
     ,
