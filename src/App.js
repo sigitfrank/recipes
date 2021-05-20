@@ -3,7 +3,7 @@ import Routes from './routes/Routes'
 function App() {
   return (<>
     <div className="App pb-5">
-      <Routes/>
+      <Routes />
     </div>
     <Modal />
   </>)

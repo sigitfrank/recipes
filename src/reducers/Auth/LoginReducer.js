@@ -30,14 +30,12 @@ const LoginReducer = (state = {}, action) => {
 
     if (action.type === loginActionTypes.SET_REMEMBER_ME) return { ...state, rememberMe: !state.rememberMe }
 
-
     if (action.type === loginActionTypes.DO_LOGIN) {
-        const email = state.email
-        const password = state.password
-
-        if (!state.email) return InvalidFeedback(state, email, 'email', 'Email cannot be empty')
-        if (!state.email.match(emailValidRegex)) return InvalidFeedback(state, email, 'email', 'Email must be in valid email format')
-        if (!state.password) return InvalidFeedback(state, password, 'password', 'Password cannot be empty')
+        const email = state.email.value
+        const password = state.password.value
+        if (!email) return InvalidFeedback(state, email, 'email', 'Email cannot be empty')
+        if (!email.match(emailValidRegex)) return InvalidFeedback(state, email, 'email', 'Email must be in valid email format')
+        if (!password) return InvalidFeedback(state, password, 'password', 'Password cannot be empty')
 
         alert('Login Process')
         return state

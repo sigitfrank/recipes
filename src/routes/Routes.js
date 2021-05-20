@@ -8,36 +8,50 @@ import DetailRecipes from '../screens/recipes/DetailRecipes'
 import Navbar from '../components/Navbar'
 import Blog from '../screens/blog/Blog'
 import AboutUs from '../screens/about-us/AboutUs'
-
+import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
+import ActivateAccount from '../screens/auth/ActivateAccount'
 
 function Routes() {
     return (<BrowserRouter>
-        <Navbar />
         <Route path='/' exact render={() => (<>
+            <Navbar />
             <HomeHeader />
             <HomeContent />
         </>)} />
 
-        <Route path='/recipes' exact render={() => (
+        <Route path='/recipes' exact render={() => (<>
+            <Navbar />
             <RecipesList />
-        )} />
+        </>)} />
 
-        <Route path='/recipes/:id' render={() => (
+        <Route path='/recipes/:id' render={() => (<>
+            <Navbar />
             <DetailRecipes />
-        )} />
+        </>)} />
 
-        <Route path='/blog' exact render={() => (
+        <Route path='/blog' exact render={() => (<>
+            <Navbar />
             <Blog />
-        )} />
+        </>)} />
 
-        <Route path='/about-us' exact render={() => (
+        <Route path='/about-us' exact render={() => (<>
+            <Navbar />
             <AboutUs />
-        )} />
+        </>)} />
 
-
-        <Route path='/add-recipes' exact render={() => (
+        <Route path='/add-recipes' exact render={() => (<>
+            <Navbar />
             <AddRecipes />
+        </>)} />
+
+        <Route path='/profile' exact render={() => (<>
+            <Navbar />
+            <Profile />
+        </>)} />
+
+        <Route path='/activate/:email/:token' render={() => (
+            <ActivateAccount />
         )} />
 
     </BrowserRouter>)
