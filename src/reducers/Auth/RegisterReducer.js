@@ -3,6 +3,7 @@ import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 import { emailValidRegex } from '../../constants/email'
 import { defaultError } from '../../constants/error'
 import { countStringLength } from '../../helpers/countStringLength'
+
 const RegisterReducer = (state = {}, action) => {
     if (action.type === registerActionTypes.SET_NAME) {
         const nameLength = countStringLength(action.payload)
@@ -74,7 +75,7 @@ const RegisterReducer = (state = {}, action) => {
         }
     }
 
-    if (action.type === registerActionTypes.DO_REGISTER) {
+    if (action.type === registerActionTypes.POST_REGISTER_USER) {
         const name = state.name.value
         const email = state.email.value
         const password = state.password.value
@@ -83,21 +84,21 @@ const RegisterReducer = (state = {}, action) => {
         const nameLength = countStringLength(state.name.value)
         const passwordLength = countStringLength(state.password.value)
 
-        if (!name) return InvalidFeedback(state, name, 'name', 'Name cannot be empty')
-        if (nameLength < 3) return InvalidFeedback(state, name, 'name', 'Name value min 3 characters')
-        if (!email) return InvalidFeedback(state, email, 'email', 'Email cannot be empty')
-        if (!state.email.value.match(emailValidRegex)) return InvalidFeedback(state, email, 'email', 'Email must be in valid email format')
-        if (!password) return InvalidFeedback(state, password, 'password', 'Password cannot be empty')
-        if (passwordLength < 8) return InvalidFeedback(state, password, 'password', 'Password value min 8 characters')
-        if (state.rePassword.value !== state.password.value) return InvalidFeedback(state, rePassword, 'rePassword', 'Password does not match')
-        if (!state.termAgreements.value) return InvalidFeedback(state, termAgreements, 'termAgreements', 'Terms and Agreements must be checked')
-
-        alert('Register Process')
+        if (!name) return InvalidFeedback(state, name, 'name', 'Name cannot be empty', action.payload)
+        if (nameLength < 3) return InvalidFeedback(state, name, 'name', 'Name value min 3 characters', action.payload)
+        if (!email) return InvalidFeedback(state, email, 'email', 'Email cannot be empty', action.payload)
+        if (!email.match(emailValidRegex)) return InvalidFeedback(state, email, 'email', 'Email must be in valid email format', action.payload)
+        if (!password) return InvalidFeedback(state, password, 'password', 'Password cannot be empty', action.payload)
+        if (passwordLength < 8) return InvalidFeedback(state, password, 'password', 'Password value min 8 characters', action.payload)
+        if (rePassword !== password) return InvalidFeedback(state, rePassword, 'rePassword', 'Password does not match', action.payload)
+        if (!termAgreements) return InvalidFeedback(state, termAgreements, 'termAgreements', 'Terms and Agreements must be checked', action.payload)
         return {
-            ...state, termAgreements: {
+            ...state,
+            termAgreements: {
                 ...state.termAgreements,
-                error: defaultError
-            }
+                error: defaultError,
+            },
+            feedbackMessage: action.payload
         }
     }
 
@@ -113,5 +114,8 @@ const RegisterReducer = (state = {}, action) => {
     }
     return state
 }
+
+
+
 
 export default RegisterReducer

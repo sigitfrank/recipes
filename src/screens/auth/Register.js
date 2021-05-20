@@ -11,11 +11,25 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 
+import axios from 'axios'
+import { REGISTER_ACCOUNT_URL } from '../../api/endpoints'
+
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
-    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements } = registerState
-
+    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements, feedbackMessage } = registerState
     const [socialMediaState, socialMediaDispatcher] = useReducer(SocialMediaReducer, initialSocialMediaState)
+
+    const createUserAccount = async () => {
+        const newUser = {
+            name: name.value,
+            email: email.value,
+            password: password.value,
+            rePassword: rePassword.value,
+            termAgreements: termAgreements.value,
+        }
+        const response = await axios.post(REGISTER_ACCOUNT_URL, newUser)
+        registerDispatcher({ type: registerActionTypes.POST_REGISTER_USER, payload: response.data })
+    }
 
     return (<div className="modal-content">
         <div className="modal-header pb-0">
@@ -72,18 +86,20 @@ function RegisterModal({ modalAuthDispatcher }) {
                                 onChange={() => registerDispatcher({ type: registerActionTypes.SET_TERMS_AGREEMENT })}
                                 id="terms-agreement" />
                             <label className="form-check-label" htmlFor="terms-agreement">I agree to all statements in the Terms of Service</label>
-                            {termAgreements.error.status && <InvalidFeedback message={termAgreements.error.message} isError={termAgreements.error.status} />}
                         </div>
+                        {termAgreements.error.status && <InvalidFeedback message={termAgreements.error.message} isError={termAgreements.error.status} />}
                     </div>
                 </div>
                 <div className="submit-container text-center my-3">
-                    <button type="button" className="btn login" onClick={() => registerDispatcher({ type: registerActionTypes.DO_REGISTER })}>Sign Ups</button>
+                    <button type="button" className="btn login" onClick={() => createUserAccount()}>Sign Ups</button>
+                    {feedbackMessage === '' ? '' : feedbackMessage.success ? (<p className="text-success mt-2">Account created succesfully, please check your email to verify your account</p>) : (<p className="text-danger mt-2">{feedbackMessage.errors[0].msg}</p>)}
+
                     <p className="mt-3">Already Have an Account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color">Sign In</a></p>
                     <div className="login-social-media-container">
                         <span className="login-facebook" onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_FACEBOOK })}>
                             <FaFacebook />
                         </span>
-                        <span className="login-google"  onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_GOOGLE })}>
+                        <span className="login-google" onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_GOOGLE })}>
                             <FcGoogle />
                         </span>
                     </div>

@@ -10,7 +10,7 @@ const validateCreateUser = [
         .withMessage('Email must be in valid email format')
         .custom(async (value) => {
             const isUserExist = await USER.findOne({ email: value })
-            if (isUserExist) throw new Error('User with this email is already exists')
+            if (isUserExist) throw new Error('User with this email is already exists, please check your email to activate account')
             return true
         })
     ,
@@ -23,9 +23,15 @@ const validateCreateUser = [
             return true
         })
     ,
+    check('termAgreements')
+        .custom(value => {
+            if (!value) throw new Error('Term Agreement must be checked');
+            return true
+        })
+    ,
     (req, res, next) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() });
+        if (!errors.isEmpty()) return res.status(200).json({ success: false, errors: errors.array() });
         next();
     },
 ];

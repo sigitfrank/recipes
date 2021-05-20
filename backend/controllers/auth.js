@@ -20,7 +20,7 @@ export const createUser = (req, res) => {
         return newUser.save().then(user => {
             res.status(201).json({ success: true, msg: 'User Created Successfully', user })
         }).catch(error => {
-            res.status(400).json({ success: false, msg: `User failed to create ${error}` })
+            res.status(200).json({ success: false, msg: `User failed to create ${error}` })
         })
     }
     registerUser()
@@ -33,7 +33,7 @@ export const activateUser = (req, res) => {
         const filter = { email, token }
         const update = { email_verified_at: todayTime() }
         const isUserActivated = await USER.findOneAndUpdate(filter, update, { new: true })
-        if (!isUserActivated) return res.status(400).json({ success: false, msg: 'Account failed to activate' })
+        if (!isUserActivated) return res.status(200).json({ success: false, msg: 'Account failed to activate' })
         return res.status(201).json({ success: true, msg: 'Account activated successfully' })
     }
     activateUserAccount()
@@ -52,7 +52,7 @@ export const reSendEmailToActivateAccount = (req, res) => {
         const filter = { email }
         const update = { token }
         const updateToken = await USER.findOneAndUpdate(filter, update, { new: true })
-        if (!updateToken) return res.status(400).json({ success: false, msg: 'Email account verification failed to send' })
+        if (!updateToken) return res.status(200).json({ success: false, msg: 'Email account verification failed to send' })
         sendEmail({ name, email, token })
         return res.status(200).json({ success: true, msg: 'Email account verification has been sent!' })
     }
@@ -62,8 +62,8 @@ export const reSendEmailToActivateAccount = (req, res) => {
 export const deleteUser = (req, res) => {
     const { id } = req.params
     USER.findOneAndDelete({ _id: id }, (error, user) => {
-        if (error) return res.status(400).json({ success: false, msg: `User failed to delete ${error}` })
-        if (!user) return res.status(400).json({ success: false, msg: `User does not exist` })
+        if (error) return res.status(200).json({ success: false, msg: `User failed to delete ${error}` })
+        if (!user) return res.status(200).json({ success: false, msg: `User does not exist` })
         return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
     })
 }
