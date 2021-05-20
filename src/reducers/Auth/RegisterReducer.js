@@ -100,8 +100,7 @@ const RegisterReducer = (state = {}, action) => {
             termAgreements: {
                 ...state.termAgreements,
                 error: defaultError,
-            },
-            feedbackError:false
+            }
         }
     }
 

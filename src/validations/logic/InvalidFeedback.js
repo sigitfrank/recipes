@@ -9,7 +9,6 @@ const InvalidFeedback = (state, value, key, message, feddbackMessage = '') => {
             }
         },
         feedbackMessage: feddbackMessage,
-        feedbackError:true
     }
 }
 
