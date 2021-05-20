@@ -2,7 +2,8 @@ import { check, validationResult } from 'express-validator'
 import USER from '../../models/User.js';
 
 const validateCreateUser = [
-    check('name').isLength({ min: 3 })
+    check('name')
+        .isLength({ min: 3 })
         .withMessage('Name value min 3 characters'),
     check('email')
         .isEmail()
@@ -18,7 +19,7 @@ const validateCreateUser = [
         .withMessage('Password value min 8 characters')
         .custom((value, { req }) => {
             if (value !== req.body.rePassword) throw new Error('Password confirmation does not match with password');
-            
+
             return true
         })
     ,

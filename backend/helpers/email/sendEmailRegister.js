@@ -4,13 +4,13 @@ const sendEmail = (userData) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL_ACCOUNT,
-            pass: process.env.EMAIL_PASSWORD
+            user: process.env.HOST_EMAIL_ACCOUNT,
+            pass: process.env.HOST_EMAIL_PASSWORD
         }
     })
 
     const mailOptions = {
-        from: process.env.EMAIL_ACCOUNT,
+        from: process.env.HOST_EMAIL_ACCOUNT,
         to: email,
         subject: 'Bagi-Resep Account Verification',
         html: `

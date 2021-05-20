@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt'
 import USER from '../models/User.js'
-import todayTime from '../helpers/getTodayTime.js'
+import { todayTime } from '../helpers/getMoment.js'
 import getRandomString from '../helpers/generateRandomString.js'
 import sendEmail from '../helpers/email/sendEmailRegister.js'
-import { currentTime, getExpiredTime } from '../helpers/getExpiredTime.js'
+import { getExpiredTime } from '../helpers/getTime.js'
 export const createUser = (req, res) => {
     const { name, email, password } = req.body
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
@@ -26,6 +26,39 @@ export const createUser = (req, res) => {
     registerUser()
 }
 
+export const activateUser = (req, res) => {
+    const { email, token } = req.params
+
+    const activateUserAccount = async () => {
+        const filter = { email, token }
+        const update = { email_verified_at: todayTime() }
+        const isUserActivated = await USER.findOneAndUpdate(filter, update, { new: true })
+        if (!isUserActivated) return res.status(400).json({ success: false, msg: 'Account failed to activate' })
+        return res.status(201).json({ success: true, msg: 'Account activated successfully' })
+    }
+    activateUserAccount()
+}
+
+export const reSendEmailToActivateAccount = (req, res) => {
+    const { name, email } = req.body
+
+    const token = `${getRandomString(8)}&${getExpiredTime(1)}`
+    const updateUserToken = async () => {
+
+        const user = await USER.findOne({ email })
+        const isEmailAlreadyVerified = user.email_verified_at
+        if (isEmailAlreadyVerified) return res.status(200).json({ success: false, msg: 'Email is already verified' })
+
+        const filter = { email }
+        const update = { token }
+        const updateToken = await USER.findOneAndUpdate(filter, update, { new: true })
+        if (!updateToken) return res.status(400).json({ success: false, msg: 'Email account verification failed to send' })
+        sendEmail({ name, email, token })
+        return res.status(200).json({ success: true, msg: 'Email account verification has been sent!' })
+    }
+    updateUserToken()
+}
+
 export const deleteUser = (req, res) => {
     const { id } = req.params
     USER.findOneAndDelete({ _id: id }, (error, user) => {
@@ -34,23 +67,3 @@ export const deleteUser = (req, res) => {
         return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
     })
 }
-
-export const activateUser = (req, res) => {
-    const { email, token } = req.params
-
-    const getUserActivated = async () => {
-
-        const user = await USER.findOne({ email: email })
-        const expiredTime = user.token.split('&')[1]
-        if (currentTime() > +expiredTime) return res.status(400).json({ success: false, msg: 'Link has been expired' })
-
-        const filter = { email: email, token: token }
-        const update = { email_verified_at: todayTime }
-        const isUserActivated = await USER.findOneAndUpdate(filter, update, { new: true })
-        if (isUserActivated) return res.status(201).json({ success: true, msg: 'Account activated successfully' })
-        return res.status(400).json({ success: false, msg: 'Account failed to activate' })
-    }
-    getUserActivated()
-}
-
-// make route reSend email if link expired
