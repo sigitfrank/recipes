@@ -1,0 +1,26 @@
+.acitvate-account {
+    height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acitvate-account .card {
+    padding: 1rem;
+    align-items: center;
+}
+
+.acitvate-account .btn {
+    background-color: #FF8E5E;
+    color: #fff;
+    font-weight: 500;
+    transition: 0.5s;
+    margin: 0.5rem 1rem;
+    width: 20rem;
+}
+
+.acitvate-account .btn:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}

@@ -18,7 +18,7 @@ const sendEmail = (userData) => {
         <p>
             Thank you for registering to our App. Hope you enjoy it! Please activate your account by clicking the link below
         </p>
-        <p style="font-weight:bold;"><a href="http://localhost:5000/api/user/activate/${email}/${token}">Activate Account</a></p>
+        <p style="font-weight:bold;"><a href="http://localhost:3000/activate/${email}/${token}">Activate Account</a></p>
         `
     }
 
