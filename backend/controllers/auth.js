@@ -17,6 +17,7 @@ export const createUser = (req, res) => {
             email_verified_at: null,
             password: hashedPassword,
             token,
+            googleId: null
         })
         return newUser.save().then(user => {
             res.status(201).json({ success: true, msg: 'User Created Successfully. Please check your email to activate your account', user })
@@ -35,8 +36,8 @@ export const activateUser = (req, res) => {
         const update = { email_verified_at: todayTime() }
 
         const user = await USER.findOne({ email })
-        if(!user) return res.status(200).json({ success: false, msg: 'User with this email does not exist' }) 
-        if(user.email_verified_at) return res.status(200).json({ success: false, msg: 'User with this email is activated. Please login into your account' }) 
+        if (!user) return res.status(200).json({ success: false, msg: 'User with this email does not exist' })
+        if (user.email_verified_at) return res.status(200).json({ success: false, msg: 'User with this email is activated. Please login into your account' })
         const expiredTime = user.token.split('&')[1]
         if (currentTime() > +expiredTime) return res.status(200).json({ success: false, msg: 'Link has been expired' })
 
@@ -54,7 +55,7 @@ export const reSendEmailToActivateAccount = (req, res) => {
     const updateUserToken = async () => {
 
         const user = await USER.findOne({ email })
-        if(!user) return res.status(200).json({ success: false, msg: 'User with this email does not exist' }) 
+        if (!user) return res.status(200).json({ success: false, msg: 'User with this email does not exist' })
         const isEmailAlreadyVerified = user.email_verified_at
         if (isEmailAlreadyVerified) return res.status(200).json({ success: false, msg: 'Email is already verified' })
         const name = user.name
@@ -75,4 +76,25 @@ export const deleteUser = (req, res) => {
         if (!user) return res.status(200).json({ success: false, msg: `User does not exist` })
         return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
     })
+}
+
+export const loginWithGoogle = (req, res) => {
+    const { name, email, googleId, accessToken, tokenId } = req.body
+    const registerUser = async () => {
+
+        const newUser = new USER({
+            name,
+            email,
+            email_verified_at: currentTime(),
+            password: accessToken,
+            token: tokenId,
+            googleId
+        })
+        return newUser.save().then(user => {
+            res.status(201).json({ success: true, msg: 'User Created Successfully. Automatically login with google', user })
+        }).catch(error => {
+            res.status(200).json({ success: false, msg: `Login with google failed: ${error}` })
+        })
+    }
+    registerUser()
 }
