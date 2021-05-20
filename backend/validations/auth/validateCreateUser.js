@@ -4,7 +4,8 @@ import USER from '../../models/User.js';
 const validateCreateUser = [
     check('name')
         .isLength({ min: 3 })
-        .withMessage('Name value min 3 characters'),
+        .withMessage('Name value min 3 characters')
+    ,
     check('email')
         .isEmail()
         .withMessage('Email must be in valid email format')

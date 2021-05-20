@@ -16,7 +16,7 @@ import { REGISTER_ACCOUNT_URL } from '../../api/endpoints'
 
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
-    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements, feedbackMessage } = registerState
+    const { name, email, password, rePassword, showPassword, showRePassword, termAgreements, feedbackMessage, feedbackError } = registerState
     const [socialMediaState, socialMediaDispatcher] = useReducer(SocialMediaReducer, initialSocialMediaState)
 
     const createUserAccount = async () => {
@@ -27,6 +27,9 @@ function RegisterModal({ modalAuthDispatcher }) {
             rePassword: rePassword.value,
             termAgreements: termAgreements.value,
         }
+        registerDispatcher({ type: registerActionTypes.CHECK_POST_REGISTER_USER })
+        if (feedbackError) return false
+
         const response = await axios.post(REGISTER_ACCOUNT_URL, newUser)
         registerDispatcher({ type: registerActionTypes.POST_REGISTER_USER, payload: response.data })
     }

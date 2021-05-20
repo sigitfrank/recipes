@@ -22,5 +22,6 @@ export const initialRegisterState = {
     },
     showPassword: false,
     showRePassword: false,
-    feedbackMessage:''
+    feedbackMessage:'',
+    feedbackError:true,
 }

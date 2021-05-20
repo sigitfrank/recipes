@@ -67,15 +67,18 @@ const RegisterReducer = (state = {}, action) => {
         }
     }
     if (action.type === registerActionTypes.SET_TERMS_AGREEMENT) {
+        const termAgreements = !state.termAgreements.value
+        if (!termAgreements) return InvalidFeedback(state, termAgreements, 'termAgreements', 'Terms and Agreements must be checked')
         return {
-            ...state, termAgreements: {
-                ...state.termAgreements,
-                value: !state.termAgreements.value,
+            ...state, 
+            termAgreements: {
+                error: defaultError,
+                value: termAgreements,
             }
         }
     }
 
-    if (action.type === registerActionTypes.POST_REGISTER_USER) {
+    if(action.type === registerActionTypes.CHECK_POST_REGISTER_USER){
         const name = state.name.value
         const email = state.email.value
         const password = state.password.value
@@ -98,7 +101,18 @@ const RegisterReducer = (state = {}, action) => {
                 ...state.termAgreements,
                 error: defaultError,
             },
-            feedbackMessage: action.payload
+            feedbackError:false
+        }
+    }
+
+    if (action.type === registerActionTypes.POST_REGISTER_USER) {
+        return {
+            ...state,
+            termAgreements: {
+                ...state.termAgreements,
+                error: defaultError,
+            },
+            feedbackMessage: action.payload,
         }
     }
 
