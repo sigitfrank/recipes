@@ -10,4 +10,5 @@ export const initialLoginState = {
     },
     rememberMe: false,
     showPassword: false,
+    feedbackMessage:'',
 }

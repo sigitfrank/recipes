@@ -3,7 +3,8 @@ const loginActionTypes = {
     SET_EMAIL: 'SET_EMAIL',
     SET_REMEMBER_ME: 'SET_REMEMBER_ME',
     SET_PASSWORD: 'SET_PASSWORD',
-    DO_LOGIN: 'DO_LOGIN',
+    POST_LOGIN_USER : 'POST_LOGIN_USER',
+    CHECK_POST_LOGIN_USER : 'CHECK_POST_LOGIN_USER',
 }
 
 export default loginActionTypes

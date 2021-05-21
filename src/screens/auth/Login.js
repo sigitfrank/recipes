@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import authActionTypes from '../../action-types/auth/Auth'
 import loginActionTypes from '../../action-types/auth/Login'
 import LoginReducer from '../../reducers/auth/LoginReducer'
@@ -11,10 +11,28 @@ import { GoogleLogin } from 'react-google-login'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
 import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
+import axios from 'axios'
+import { GET_LOGIN, LOGIN } from '../../api/endpoints'
 
 function Login({ modalAuthDispatcher }) {
+    const [loginStatus, setLoginStatus] = useState(false)
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword } = loginState
+
+    const loginUser = async () => {
+        loginDispatcher({ type: loginActionTypes.CHECK_POST_LOGIN_USER })
+        const response = await axios.post(LOGIN, { email: email.value, password: password.value })
+        if (!response.data.success) return setLoginStatus(false)
+        return setLoginStatus(true)
+    }
+
+    useEffect(() => {
+        axios.get(GET_LOGIN).then(res => {
+            console.log(res.data)
+        })
+
+    }, [loginStatus])
+    if (loginStatus) return <h2>Logged in</h2>
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
@@ -62,7 +80,7 @@ function Login({ modalAuthDispatcher }) {
                     </div>
                 </div>
                 <div className="submit-container text-center">
-                    <button className="btn login" type="button" onClick={() => loginDispatcher({ type: loginActionTypes.DO_LOGIN })}>Login</button>
+                    <button className="btn login" type="button" onClick={() => loginUser()}>Login</button>
                     <p className="mt-3">Doesn't have an account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color"> Sign up</a></p>
                     <div className="login-social-media-container">
                         <FacebookLogin

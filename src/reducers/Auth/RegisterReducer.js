@@ -95,22 +95,12 @@ const RegisterReducer = (state = {}, action) => {
         if (passwordLength < 8) return InvalidFeedback(state, password, 'password', 'Password value min 8 characters', action.payload)
         if (rePassword !== password) return InvalidFeedback(state, rePassword, 'rePassword', 'Password does not match', action.payload)
         if (!termAgreements) return InvalidFeedback(state, termAgreements, 'termAgreements', 'Terms and Agreements must be checked', action.payload)
-        return {
-            ...state,
-            termAgreements: {
-                ...state.termAgreements,
-                error: defaultError,
-            }
-        }
+        return { ...state }
     }
 
     if (action.type === registerActionTypes.POST_REGISTER_USER) {
         return {
             ...state,
-            termAgreements: {
-                ...state.termAgreements,
-                error: defaultError,
-            },
             feedbackMessage: action.payload,
         }
     }

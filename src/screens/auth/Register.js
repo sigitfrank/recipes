@@ -7,20 +7,14 @@ import { initialRegisterState } from '../../states/auth/Register'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-
-import axios from 'axios'
-import { REGISTER_ACCOUNT_URL } from '../../api/endpoints'
-import { validateStateBeforeRegisterUser } from '../../validations/components/auth/register'
-
-import toast, { Toaster } from 'react-hot-toast';
-import { toastStyling } from '../../helpers/toast'
+import { Toaster } from 'react-hot-toast';
+import registerController from '../../controllers/auth/registerController'
 
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
     const { name, email, password, rePassword, showPassword, showRePassword, termAgreements } = registerState
 
     const createUserAccount = async () => {
-        registerDispatcher({ type: registerActionTypes.CHECK_POST_REGISTER_USER })
         const newUser = {
             name: name.value,
             email: email.value,
@@ -28,12 +22,7 @@ function RegisterModal({ modalAuthDispatcher }) {
             rePassword: rePassword.value,
             termAgreements: termAgreements.value,
         }
-        const isStateValid = validateStateBeforeRegisterUser(newUser)
-        if (!isStateValid) return false
-        const response = await axios.post(REGISTER_ACCOUNT_URL, newUser)
-        registerDispatcher({ type: registerActionTypes.POST_REGISTER_USER, payload: response.data })
-        if (!response.data.success) return toast.error(response.data.errors[0].msg, toastStyling)
-        return toast.success(response.data.msg, toastStyling)
+        return registerController({ registerDispatcher, newUser })
     }
 
 
