@@ -1,22 +1,33 @@
 import React, { useReducer } from 'react'
 import authActionTypes from '../../action-types/auth/Auth'
 import loginActionTypes from '../../action-types/auth/Login'
-import socialMediaActionTypes from '../../action-types/auth/SocialMedia'
 import LoginReducer from '../../reducers/auth/LoginReducer'
-import SocialMediaReducer from '../../reducers/auth/SocialMediaReducer'
 import { togglePassword } from '../../helpers/togglePassword'
 import { initialLoginState } from '../../states/auth/Login'
-import { initialSocialMediaState } from '../../states/auth/SocialMedia'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
+import { GoogleLogin } from 'react-google-login'
+import { LOGIN_WITH_GOOGLE } from '../../api/endpoints'
+import axios from 'axios'
 
 function Login({ modalAuthDispatcher }) {
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword } = loginState
 
-    const [socialMediaState, socialMediaDispatcher] = useReducer(SocialMediaReducer, initialSocialMediaState)
-
+    const responseGoogle = (response) => {
+        const { profileObj } = response
+        const name = profileObj.givenName
+        const email = profileObj.email
+        const googleId = response.googleId
+        const accessToken = response.accessToken
+        const tokenId = response.tokenId
+        const loginWithGoogle = async () => {
+            const response = await axios.post(LOGIN_WITH_GOOGLE, { name, email, accessToken, tokenId, googleId })
+            console.log(response)
+        }
+        loginWithGoogle()
+    }
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
@@ -67,12 +78,14 @@ function Login({ modalAuthDispatcher }) {
                     <button className="btn login" type="button" onClick={() => loginDispatcher({ type: loginActionTypes.DO_LOGIN })}>Login</button>
                     <p className="mt-3">Doesn't have an account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color"> Sign up</a></p>
                     <div className="login-social-media-container">
-                        <span className="login-facebook" onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_FACEBOOK })}>
+                        <span className="login-facebook">
                             <FaFacebook />
                         </span>
-                        <span className="login-google" onClick={() => socialMediaDispatcher({ type: socialMediaActionTypes.LOGIN_GOOGLE })}>
-                            <FcGoogle />
-                        </span>
+
+                        <GoogleLogin render={renderProps => (
+                            <span onClick={renderProps.onClick} className="login-google" disabled={renderProps.disabled}> <FcGoogle /></span>
+                        )} clientId="1007731182982-9o4ralp8v74rqv5hcd2foeqdfhm2nu35.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle}>
+                        </GoogleLogin>
                     </div>
                 </div>
             </form>
