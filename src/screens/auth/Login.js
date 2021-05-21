@@ -15,8 +15,6 @@ import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 function Login({ modalAuthDispatcher }) {
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword } = loginState
-
-
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>

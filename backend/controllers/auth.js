@@ -96,8 +96,8 @@ export const loginWithGoogle = (req, res) => {
                 facebookId: null
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
-            if (updateUser) return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with google', user })
-            return res.status(200).json({ success: false, msg: `Login with google failed` })
+            if (!updateUser) return res.status(200).json({ success: false, msg: `Login with google failed` })
+            return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with google', user })
         }
 
         const newUser = new USER({
@@ -135,8 +135,8 @@ export const loginWithFacebook = (req, res) => {
                 facebookId
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
-            if (updateUser) return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with facebook', user })
-            return res.status(200).json({ success: false, msg: `Login with facebook failed` })
+            if (!updateUser) return res.status(200).json({ success: false, msg: `Login with facebook failed` })
+            return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with facebook', user })
         }
 
         const newUser = new USER({
