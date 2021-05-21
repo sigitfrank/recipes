@@ -6,7 +6,7 @@ const userRouter = express.Router()
 
 userRouter.post('/', validateCreateUser, createUser)
 userRouter.delete('/:id', deleteUser)
-userRouter.put('/activate/:email/:token', validateActivateAccount, activateUser) //it should be put method later
+userRouter.put('/activate', validateActivateAccount, activateUser) //it should be put method later
 userRouter.post('/reActivate', reSendEmailToActivateAccount)
 userRouter.post('/loginWithGoogle', loginWithGoogle)
 
