@@ -20,7 +20,7 @@ const UserSchema = new Schema({
         required: true
     },
     googleId: String,
-    facebookId: String,
+    facebookId: String
 }, {
     timestamps: true
 })
