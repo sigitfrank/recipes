@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, BrowserRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import HomeHeader from '../screens/home/HomeHeader'
 import HomeContent from '../screens/home/HomeContent'
 import RecipesList from '../screens/recipes/RecipesList'
@@ -13,7 +13,7 @@ import AddRecipes from '../screens/users/AddRecipes'
 import ActivateAccount from '../screens/auth/ActivateAccount'
 
 function Routes() {
-    return (<BrowserRouter>
+    return (<>
         <Route path='/' exact render={() => (<>
             <Navbar />
             <HomeHeader />
@@ -54,7 +54,7 @@ function Routes() {
             <ActivateAccount />
         )} />
 
-    </BrowserRouter>)
+    </>)
 }
 
 export default Routes

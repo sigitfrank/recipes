@@ -5,12 +5,17 @@ import { RiMenu2Fill } from 'react-icons/ri'
 import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
 import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
+import useCheckAuth from '../helpers/auth/useCheckAuth'
 
 const initialNavbarState = {
   search: ''
 }
 
+
+
 function Navbar() {
+  const { isLoggedIn, userData } = useCheckAuth()
+  console.log(isLoggedIn, userData)
 
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
@@ -30,7 +35,7 @@ function Navbar() {
               <NavLink className="nav-link" exact activeClassName='active' to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link"  activeClassName='active' to="/recipes">Recipes</NavLink>
+              <NavLink className="nav-link" activeClassName='active' to="/recipes">Recipes</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName='active' to="/blog">Blog</NavLink>
@@ -45,14 +50,15 @@ function Navbar() {
               <NavLink className="nav-link" activeClassName='active' to="/profile">Profile</NavLink>
             </li>
           </ul>
-          <form className="d-flex search-form" onSubmit={(e)=>e.preventDefault()}>
+          <form className="d-flex search-form" onSubmit={(e) => e.preventDefault()}>
             <div className="input-group me-3">
               <button className="btn ms-n5" type="button" onClick={() => navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })}>
                 <BsSearch />
               </button>
-              <input className="form-control" value={search} onKeyUp={(e)=> e.key === 'Enter' && navbarDispatcher({type:SEARCHING_RECIPES, payload:search})} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
+              <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
-            <button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>
+            {isLoggedIn ? (<h2>Hi, {userData.name}</h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+
           </form>
         </div>
       </div>

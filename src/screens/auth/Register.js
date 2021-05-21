@@ -9,6 +9,7 @@ import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { Toaster } from 'react-hot-toast';
 import registerController from '../../controllers/auth/registerController'
+import { getItem } from '../../helpers/auth/store'
 
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
@@ -25,6 +26,8 @@ function RegisterModal({ modalAuthDispatcher }) {
         return registerController({ registerDispatcher, newUser })
     }
 
+    console.log(getItem('LoginStatus'))
+    console.log(getItem('userData'))
 
     return (
         <>

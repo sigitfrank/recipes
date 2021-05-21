@@ -78,14 +78,13 @@ export const login = (req, res) => {
         const validatePassword = await bcrypt.compare(password, user.password)
         if (!validatePassword) return res.status(200).json({ success: false, msg: 'Password is incorrect, please try again.' })
         req.session.user = { _id: user._id, name: user.name, email: user.email }
-        return res.status(200).json({ success: true, msg: 'You are logged in' })
+        return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: { _id: user._id, name: user.name, email: user.email } })
     }
 
     userLogin()
 }
 
 export const getUserLogin = (req, res) => {
-    console.log(req.session.user)
     if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are not logged in. Please login first' })
     return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: req.session.user })
 }
