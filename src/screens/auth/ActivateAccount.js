@@ -13,7 +13,7 @@ function ActivateAccount() {
 
     useEffect(() => {
         const activateAccount = async () => {
-            const response = await axios.put(`${ACTIVATE_ACCOUNT_URL}`, { email, token })
+            const response = await axios.put(ACTIVATE_ACCOUNT_URL, { email, token })
             if (!response.data.success) {
                 if (response.data.errors) {
                     setMessage(response.data.errors[0].msg)
