@@ -17,7 +17,8 @@ export const createUser = (req, res) => {
             email_verified_at: null,
             password: hashedPassword,
             token,
-            googleId: null
+            googleId: null,
+            facebookId: null
         })
         return newUser.save().then(user => {
             res.status(201).json({ success: true, msg: 'User Created Successfully. Please check your email to activate your account', user })
@@ -79,21 +80,78 @@ export const deleteUser = (req, res) => {
 }
 
 export const loginWithGoogle = (req, res) => {
-    const { name, email, googleId, accessToken, tokenId } = req.body
+    const { name, email, googleId, accessToken } = req.body
+    const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
+        const user = await USER.findOne({ email })
+        if (user) {
+            const filter = { email }
+            const update = {
+                name,
+                email,
+                email_verified_at: currentTime(),
+                password: accessToken,
+                token,
+                googleId,
+                facebookId: null
+            }
+            const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
+            if (updateUser) return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with google', user })
+            return res.status(200).json({ success: false, msg: `Login with google failed` })
+        }
 
         const newUser = new USER({
             name,
             email,
             email_verified_at: currentTime(),
             password: accessToken,
-            token: tokenId,
-            googleId
+            token,
+            googleId,
+            facebookId: null
         })
         return newUser.save().then(user => {
             res.status(201).json({ success: true, msg: 'User Created Successfully. Automatically login with google', user })
         }).catch(error => {
             res.status(200).json({ success: false, msg: `Login with google failed: ${error}` })
+        })
+    }
+    registerUser()
+}
+
+export const loginWithFacebook = (req, res) => {
+    const { name, email, facebookId, accessToken } = req.body
+    const token = `${getRandomString(8)}&${getExpiredTime(1)}`
+    const registerUser = async () => {
+        const user = await USER.findOne({ email })
+        if (user) {
+            const filter = { email }
+            const update = {
+                name,
+                email,
+                email_verified_at: currentTime(),
+                password: accessToken,
+                token,
+                googleId: null,
+                facebookId
+            }
+            const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
+            if (updateUser) return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with facebook', user })
+            return res.status(200).json({ success: false, msg: `Login with facebook failed` })
+        }
+
+        const newUser = new USER({
+            name,
+            email,
+            email_verified_at: currentTime(),
+            password: accessToken,
+            token,
+            googleId: null,
+            facebookId
+        })
+        return newUser.save().then(user => {
+            res.status(201).json({ success: true, msg: 'User Created Successfully. Automatically login with facebook', user })
+        }).catch(error => {
+            res.status(200).json({ success: false, msg: `Login with facebook failed: ${error}` })
         })
     }
     registerUser()

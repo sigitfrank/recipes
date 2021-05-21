@@ -8,26 +8,15 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { GoogleLogin } from 'react-google-login'
-import { LOGIN_WITH_GOOGLE } from '../../api/endpoints'
-import axios from 'axios'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
+import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 
 function Login({ modalAuthDispatcher }) {
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword } = loginState
 
-    const responseGoogle = (response) => {
-        const { profileObj } = response
-        const name = profileObj.givenName
-        const email = profileObj.email
-        const googleId = response.googleId
-        const accessToken = response.accessToken
-        const tokenId = response.tokenId
-        const loginWithGoogle = async () => {
-            const response = await axios.post(LOGIN_WITH_GOOGLE, { name, email, accessToken, tokenId, googleId })
-            console.log(response)
-        }
-        loginWithGoogle()
-    }
+
     return (<div className="modal-content">
         <div className="modal-header pb-0">
             <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
@@ -78,13 +67,17 @@ function Login({ modalAuthDispatcher }) {
                     <button className="btn login" type="button" onClick={() => loginDispatcher({ type: loginActionTypes.DO_LOGIN })}>Login</button>
                     <p className="mt-3">Doesn't have an account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color"> Sign up</a></p>
                     <div className="login-social-media-container">
-                        <span className="login-facebook">
-                            <FaFacebook />
-                        </span>
-
+                        <FacebookLogin
+                            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+                            fields="name,email,picture"
+                            callback={loginWithFacebook}
+                            render={renderProps => (
+                                <span className="login-facebook" disabled={renderProps.disabled} onClick={renderProps.onClick}><FaFacebook /></span>
+                            )}
+                        />
                         <GoogleLogin render={renderProps => (
                             <span onClick={renderProps.onClick} className="login-google" disabled={renderProps.disabled}> <FcGoogle /></span>
-                        )} clientId="1007731182982-9o4ralp8v74rqv5hcd2foeqdfhm2nu35.apps.googleusercontent.com" onSuccess={responseGoogle} onFailure={responseGoogle}>
+                        )} clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID} onSuccess={loginWithGoogle} onFailure={loginWithGoogle}>
                         </GoogleLogin>
                     </div>
                 </div>
