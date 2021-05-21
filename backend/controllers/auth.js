@@ -70,13 +70,24 @@ export const reSendEmailToActivateAccount = (req, res) => {
     updateUserToken()
 }
 
-export const deleteUser = (req, res) => {
-    const { id } = req.params
-    USER.findOneAndDelete({ _id: id }, (error, user) => {
-        if (error) return res.status(200).json({ success: false, msg: `User failed to delete ${error}` })
-        if (!user) return res.status(200).json({ success: false, msg: `User does not exist` })
-        return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
-    })
+export const login = (req, res) => {
+    const { email, password } = req.body
+
+    const userLogin = async () => {
+        const user = await USER.findOne({ email })
+        const validatePassword = await bcrypt.compare(password, user.password)
+        if (!validatePassword) return res.status(200).json({ success: false, msg: 'Password is incorrect, please try again.' })
+        req.session.user = { _id: user._id, name: user.name, email: user.email }
+        return res.status(200).json({ success: true, msg: 'You are logged in' })
+    }
+
+    userLogin()
+}
+
+export const getUserLogin = (req, res) => {
+    console.log(req.session.user)
+    if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are not logged in. Please login first' })
+    return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: req.session.user })
 }
 
 export const loginWithGoogle = (req, res) => {
@@ -155,4 +166,14 @@ export const loginWithFacebook = (req, res) => {
         })
     }
     registerUser()
+}
+
+
+export const deleteUser = (req, res) => {
+    const { id } = req.params
+    USER.findOneAndDelete({ _id: id }, (error, user) => {
+        if (error) return res.status(200).json({ success: false, msg: `User failed to delete ${error}` })
+        if (!user) return res.status(200).json({ success: false, msg: `User does not exist` })
+        return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
+    })
 }
