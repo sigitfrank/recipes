@@ -210,7 +210,7 @@ export const logout = (req, res) => {
 export const refreshToken = (req, res) => {
     const refreshToken = req.body.token
     if (!refreshToken) return res.sendStatus(401)
-    const checkRefreshToken = async () => {
+    const getRefreshToken = async () => {
         const user = await USER.findOne({ refreshToken })
         if (!user) return res.sendStatus(403)
         jwt.verify(refreshToken, process.env.SESSION_SECRET, (err, user) => {
@@ -219,5 +219,5 @@ export const refreshToken = (req, res) => {
             return res.status(200).json({ success: true, accessToken })
         })
     }
-    checkRefreshToken()
+    getRefreshToken()
 }
