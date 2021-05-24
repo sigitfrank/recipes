@@ -97,9 +97,9 @@ export const loginWithGoogle = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        if (user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered with facebook account. Please login with your facebook account!" })
-        if (!user.googleId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
         if (user) {
+            if (user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered with facebook account. Please login with your facebook account!" })
+            if (!user.googleId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
             const filter = { email }
             const update = {
                 name,
@@ -140,10 +140,9 @@ export const loginWithFacebook = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        console.log(user)
-        if (user.googleId) return res.status(200).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
-        if (!user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
         if (user) {
+            if (user.googleId) return res.status(200).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
+            if (!user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
             const filter = { email }
             const update = {
                 name,
