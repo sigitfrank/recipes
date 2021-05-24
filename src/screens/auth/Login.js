@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import authActionTypes from '../../action-types/auth/Auth'
 import loginActionTypes from '../../action-types/auth/Login'
 import LoginReducer from '../../reducers/auth/LoginReducer'
@@ -12,8 +12,6 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
 import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 import axios from 'axios'
-import { GET_LOGIN } from '../../api/endpoints'
-import { Toaster } from 'react-hot-toast'
 import loginController from '../../controllers/auth/loginController'
 
 function Login({ modalAuthDispatcher }) {
@@ -35,7 +33,6 @@ function Login({ modalAuthDispatcher }) {
     }
     return (
         <>
-            <Toaster position='bottom-center' />
             <div className="modal-content">
                 <div className="modal-header pb-0">
                     <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>

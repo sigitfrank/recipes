@@ -5,6 +5,7 @@ import {intitalAuthState} from '../../states/auth/Modal'
 import Login from './Login'
 import Register from './Register'
 import '../../css/auth/login.css'
+import { Toaster } from 'react-hot-toast'
 
 function Modal() {
     const [modalAuthState, modalAuthDispatcher] = useReducer(ModalAuthReducer, intitalAuthState)
@@ -15,6 +16,7 @@ function Modal() {
     }
 
     return ReactDom.createPortal(<>
+    <Toaster position='bottom-center' />
         <div className="modal fade pe-0" id="SignInModal" tabIndex="-1" aria-labelledby="SignInModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 {checkModalAuth()}

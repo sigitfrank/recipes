@@ -7,7 +7,6 @@ import { initialRegisterState } from '../../states/auth/Register'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
-import { Toaster } from 'react-hot-toast';
 import { GoogleLogin } from 'react-google-login'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import registerController from '../../controllers/auth/registerController'
@@ -31,7 +30,6 @@ function RegisterModal({ modalAuthDispatcher }) {
 
     return (
         <>
-            <Toaster position="bottom-center" />
             <div className="modal-content">
                 <div className="modal-header pb-0">
                     <h5 className="modal-title" id="SignInModalLabel" >Welcome Abroad, Sign up to explore</h5>

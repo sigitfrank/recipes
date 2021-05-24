@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
-import { RiMenu2Fill } from 'react-icons/ri'
+import { RiLogoutCircleFill, RiMenu2Fill } from 'react-icons/ri'
 import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
 import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
@@ -47,6 +47,12 @@ function Navbar() {
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName='active' to="/profile">Profile</NavLink>
             </li>
+            {
+              isLoggedIn && (<li className="nav-item">
+                <span className="nav-link badge">  Hi, Sigit!</span>
+              </li>)
+            }
+
           </ul>
           <form className="d-flex search-form" onSubmit={(e) => e.preventDefault()}>
             <div className="input-group me-3">
@@ -55,7 +61,7 @@ function Navbar() {
               </button>
               <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
-            {isLoggedIn ? (<h2>Hi, {userData.name}, <span onClick={() => logout()}>Logout</span></h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+            {isLoggedIn ? (<button className="btn sign-in" onClick={() => logout()} type="button">Logout</button>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>
