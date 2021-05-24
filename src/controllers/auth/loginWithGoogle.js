@@ -1,4 +1,4 @@
-import { LOGIN_WITH_GOOGLE } from '../../api/endpoints'
+import { LOGIN_WITH_GOOGLE_URL } from '../../api/endpoints'
 import toast from 'react-hot-toast';
 import axios from 'axios'
 import { toastStyling } from '../../helpers/toast';
@@ -9,17 +9,18 @@ const loginWithGoogle = (response) => {
     const name = profileObj.givenName
     const email = profileObj.email
     const googleId = response.googleId
-    const accessToken = response.accessToken
+    const accessTokenGoogle = response.accessToken
     const login = async () => {
         try {
-            const response = await axios.post(LOGIN_WITH_GOOGLE, { name, email, accessToken, googleId })
-            const { success, msg, userData, isLoggedIn } = response.data
+            const response = await axios.post(LOGIN_WITH_GOOGLE_URL, { name, email, accessToken: accessTokenGoogle, googleId })
+            const { success, msg, userData, isLoggedIn, accessToken } = response.data
             if (!success) {
                 toast.error(msg, toastStyling)
                 return false
-            } 
-            setItem('loginStatus', JSON.stringify({isLoggedIn}))
+            }
+            setItem('loginStatus', JSON.stringify({ isLoggedIn }))
             setItem('userData', JSON.stringify(userData))
+            setItem('accessToken', JSON.stringify(accessToken))
             toast.success(msg, toastStyling)
             setTimeout(() => {
                 window.location.reload()

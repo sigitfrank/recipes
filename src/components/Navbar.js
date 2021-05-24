@@ -7,6 +7,8 @@ import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
 import { AuthContext } from '../context/AppProvider'
 import logout from '../controllers/auth/logout'
+import { GET_USERS_URL } from '../api/endpoints'
+import authAxios from '../helpers/authAxios'
 
 const initialNavbarState = {
   search: ''
@@ -14,8 +16,22 @@ const initialNavbarState = {
 
 function Navbar() {
   const { isLoggedIn, userData } = useContext(AuthContext);
+  console.log(userData)
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
+
+  const getUsers = async () => {
+    const { accessToken } = userData
+    try {
+      const users = await authAxios(accessToken).get(GET_USERS_URL)
+      console.log(users)
+    } catch (error) {
+      // give user choice to continue request or logout. If continue, then request new token by refreshToken url
+      alert('Your session is expired, redirecting to login page')
+      logout()
+    }
+
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,10 +63,16 @@ function Navbar() {
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName='active' to="/profile">Profile</NavLink>
             </li>
+
             {
-              isLoggedIn && (<li className="nav-item">
-                <span className="nav-link badge">  Hi, Sigit!</span>
-              </li>)
+              isLoggedIn && (<>
+                <li className="nav-item">
+                  <span className="nav-link badge">  Hi, {userData.name}!</span>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link" onClick={() => getUsers()}>Get Users</button>
+                </li>
+              </>)
             }
 
           </ul>
