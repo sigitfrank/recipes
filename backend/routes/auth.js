@@ -13,7 +13,7 @@ authRouter.post('/reActivate', reSendEmailToActivateAccount)
 // LOGIN
 authRouter.post('/login', validateLoginUser, login)
 authRouter.post('/token', refreshToken)
-authRouter.get('/login', getUserLogin)
+authRouter.post('/loginData', getUserLogin)
 authRouter.get('/logout', logout)
 authRouter.post('/loginWithGoogle', loginWithGoogle)
 authRouter.post('/loginWithFacebook', loginWithFacebook)

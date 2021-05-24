@@ -14,7 +14,7 @@ const loginWithFacebook = (response) => {
             const { msg, userData, isLoggedIn, accessToken } = response.data
             setItem('loginStatus', JSON.stringify({ isLoggedIn }))
             setItem('userData', JSON.stringify(userData))
-            setItem('accessToken', JSON.stringify(accessToken))
+            setItem('accessToken', accessToken)
             toast.success(msg, toastStyling)
             return setTimeout(() => {
                 window.location.reload()
