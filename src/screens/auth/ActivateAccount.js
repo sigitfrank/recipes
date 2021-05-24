@@ -10,20 +10,21 @@ function ActivateAccount() {
     const [message, setMessage] = useState('')
     const { email, token } = useParams()
 
-
     useEffect(() => {
         const activateAccount = async () => {
-            const response = await axios.put(ACTIVATE_ACCOUNT_URL, { email, token })
-            if (!response.data.success) {
-                if (response.data.errors) {
-                    setMessage(response.data.errors[0].msg)
+            try {
+                const response = await axios.put(ACTIVATE_ACCOUNT_URL, { email, token })
+                setMessage(response.data.msg)
+                return setError(false)
+            } catch (error) {
+                const errorMessage = error.response.data
+                if (errorMessage.errors) {
+                    setMessage(errorMessage.errors[0].msg)
                     return setError(true)
                 }
-                setMessage(response.data.msg)
+                setMessage(errorMessage.msg)
                 return setError(true)
             }
-            setMessage(response.data.msg)
-            return setError(false)
         }
 
         activateAccount()
@@ -33,7 +34,8 @@ function ActivateAccount() {
         axios.post(RESEND_EMAIL_ACTIVATION_URL, { email }).then(response => {
             toast.success(response.data.msg, toastStyling)
         }).catch(error => {
-            toast.error(error.message, toastStyling)
+            const errorMessage = error.response.data
+            toast.error(errorMessage.msg, toastStyling)
         })
     }
 

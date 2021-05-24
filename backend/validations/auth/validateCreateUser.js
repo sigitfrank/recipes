@@ -12,6 +12,8 @@ const validateCreateUser = [
         .custom(async (value) => {
             const isUserExist = await USER.findOne({ email: value })
             if (isUserExist){
+                if(isUserExist.googleId) throw new Error('User with this email is registered by google account. Please login with your google account') 
+                if(isUserExist.facebookId) throw new Error('User with this email is registered by facebook account. Please login with your facebook account') 
                 if(!isUserExist.email_verified_at) throw new Error('User with this email is already exists and not activated yet. Please check your email to activate account')
                 throw new Error('User with this email is already exists. Please login into your account')
             }
@@ -34,7 +36,7 @@ const validateCreateUser = [
     ,
     (req, res, next) => {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return res.status(200).json({ success: false, errors: errors.array() })
+        if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() })
         next();
     },
 ];

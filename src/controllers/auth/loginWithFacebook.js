@@ -11,22 +11,19 @@ const loginWithFacebook = (response) => {
     const login = async () => {
         try {
             const response = await axios.post(LOGIN_WITH_FACEBOOK_URL, { name, email, accessToken: accessTokenFB, facebookId })
-            const { success, msg, userData, isLoggedIn, accessToken } = response.data
-            if (!success) {
-                toast.error(msg, toastStyling)
-                return false
-            }
+            const { msg, userData, isLoggedIn, accessToken } = response.data
             setItem('loginStatus', JSON.stringify({ isLoggedIn }))
             setItem('userData', JSON.stringify(userData))
             setItem('accessToken', JSON.stringify(accessToken))
             toast.success(msg, toastStyling)
-            setTimeout(() => {
+            return setTimeout(() => {
                 window.location.reload()
             }, 2000);
-            return true
 
         } catch (error) {
-            console.log(error)
+            const errorMessage = error.response.data
+            toast.error(errorMessage.msg, toastStyling)
+            return false
         }
     }
     login()
