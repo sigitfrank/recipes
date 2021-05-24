@@ -8,8 +8,11 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import { FaFacebook } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { Toaster } from 'react-hot-toast';
+import { GoogleLogin } from 'react-google-login'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import registerController from '../../controllers/auth/registerController'
-import { getItem } from '../../helpers/auth/store'
+import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
+import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 
 function RegisterModal({ modalAuthDispatcher }) {
     const [registerState, registerDispatcher] = useReducer(RegisterReducer, initialRegisterState)
@@ -25,9 +28,6 @@ function RegisterModal({ modalAuthDispatcher }) {
         }
         return registerController({ registerDispatcher, newUser })
     }
-
-    console.log(getItem('LoginStatus'))
-    console.log(getItem('userData'))
 
     return (
         <>
@@ -95,12 +95,18 @@ function RegisterModal({ modalAuthDispatcher }) {
                             <button type="button" className="btn login" onClick={() => createUserAccount()}>Sign Ups</button>
                             <p className="mt-3">Already Have an Account? <a href="/" onClick={(e) => { e.preventDefault(); modalAuthDispatcher({ type: authActionTypes.TOGGLE_AUTH_MODAL }) }} className="main-color">Sign In</a></p>
                             <div className="login-social-media-container">
-                                <span className="login-facebook">
-                                    <FaFacebook />
-                                </span>
-                                <span className="login-google">
-                                    <FcGoogle />
-                                </span>
+                            <FacebookLogin
+                                    appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+                                    fields="name,email,picture"
+                                    callback={loginWithFacebook}
+                                    render={renderProps => (
+                                        <span className="login-facebook" disabled={renderProps.disabled} onClick={renderProps.onClick}><FaFacebook /></span>
+                                    )}
+                                />
+                                <GoogleLogin render={renderProps => (
+                                    <span onClick={renderProps.onClick} className="login-google" disabled={renderProps.disabled}> <FcGoogle /></span>
+                                )} clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID} onSuccess={loginWithGoogle} onFailure={loginWithGoogle}>
+                                </GoogleLogin>
                             </div>
                         </div>
                     </form>

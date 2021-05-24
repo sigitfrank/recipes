@@ -21,7 +21,7 @@ const loginController = async (data) => {
         toast.error(msg, toastStyling)
         return false
     }
-    setItem('loginStatus', isLoggedIn)
+    setItem('loginStatus', JSON.stringify({isLoggedIn}))
     setItem('userData', JSON.stringify(userData))
     toast.success(msg, toastStyling)
     return true

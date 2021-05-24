@@ -37,7 +37,7 @@ function Login({ modalAuthDispatcher }) {
     useEffect(() => {
         axios.get(GET_LOGIN).then(res => {
             const { isLoggedIn, userData } = res.data
-            // console.log(isLoggedIn, userData)
+            console.log(isLoggedIn, userData)
         })
     }, [])
     return (

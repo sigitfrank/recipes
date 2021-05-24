@@ -11,11 +11,9 @@ const initialNavbarState = {
   search: ''
 }
 
-
-
 function Navbar() {
-  const { isLoggedIn, userData } = useCheckAuth()
-  console.log(isLoggedIn, userData)
+  const { loginStatus, userData } = useCheckAuth()
+  // console.log(JSON.parse(loginStatus), JSON.parse(userData))
 
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
@@ -57,8 +55,8 @@ function Navbar() {
               </button>
               <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
-            {isLoggedIn ? (<h2>Hi, {userData.name}</h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
-
+            {/* {isLoggedIn ? (<h2>Hi, {userData.name}</h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)} */}
+            <button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>
           </form>
         </div>
       </div>

@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
-import userRouter from './routes/auth.js'
+import authRouter from './routes/auth.js'
 import connectToDB from './database/mongoose.js'
 dotenv.config()
 const app = express()
@@ -27,7 +27,7 @@ app.use(session({
     }
 }))
 
-app.use('/api/user', userRouter)
+app.use('/api/user', authRouter)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {

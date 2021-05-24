@@ -94,6 +94,8 @@ export const loginWithGoogle = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
+        if (user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered with facebook account. Please login with your facebook account!" })
+        if (!user.googleId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
         if (user) {
             const filter = { email }
             const update = {
@@ -107,7 +109,8 @@ export const loginWithGoogle = (req, res) => {
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
             if (!updateUser) return res.status(200).json({ success: false, msg: `Login with google failed` })
-            return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with google', user })
+            req.session.user = { _id: user._id, name: user.name, email: user.email }
+            return res.status(201).json({ success: true, isLoggedIn: true, msg: 'User updated Successfully. Automatically login with google', userData: { _id: user._id, name: user.name, email: user.email } })
         }
 
         const newUser = new USER({
@@ -120,7 +123,8 @@ export const loginWithGoogle = (req, res) => {
             facebookId: null
         })
         return newUser.save().then(user => {
-            res.status(201).json({ success: true, msg: 'User Created Successfully. Automatically login with google', user })
+            req.session.user = { _id: user._id, name: user.name, email: user.email }
+            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with google', userData: { _id: user._id, name: user.name, email: user.email } })
         }).catch(error => {
             res.status(200).json({ success: false, msg: `Login with google failed: ${error}` })
         })
@@ -133,6 +137,8 @@ export const loginWithFacebook = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
+        if (user.googleId) return res.status(200).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
+        if (!user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
         if (user) {
             const filter = { email }
             const update = {
@@ -146,7 +152,8 @@ export const loginWithFacebook = (req, res) => {
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
             if (!updateUser) return res.status(200).json({ success: false, msg: `Login with facebook failed` })
-            return res.status(201).json({ success: true, msg: 'User updated Successfully. Automatically login with facebook', user })
+            req.session.user = { _id: user._id, name: user.name, email: user.email }
+            return res.status(201).json({ success: true, isLoggedIn: true, msg: 'User updated Successfully. Automatically login with facebook', userData: { _id: user._id, name: user.name, email: user.email } })
         }
 
         const newUser = new USER({
@@ -159,7 +166,8 @@ export const loginWithFacebook = (req, res) => {
             facebookId
         })
         return newUser.save().then(user => {
-            res.status(201).json({ success: true, msg: 'User Created Successfully. Automatically login with facebook', user })
+            req.session.user = { _id: user._id, name: user.name, email: user.email }
+            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with facebook', userData: { _id: user._id, name: user.name, email: user.email } })
         }).catch(error => {
             res.status(200).json({ success: false, msg: `Login with facebook failed: ${error}` })
         })
