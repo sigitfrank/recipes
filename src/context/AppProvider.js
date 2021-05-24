@@ -16,7 +16,7 @@ function AppProvider({ children }) {
             const errorMessage = error.response.data
             console.log(errorMessage.msg)
         })
-    }, [])
+    }, [accessToken])
     return (
         <AuthContext.Provider value={authState} >
             {children}

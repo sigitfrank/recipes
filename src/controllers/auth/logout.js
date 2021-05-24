@@ -8,6 +8,7 @@ const logout = () => {
     axios.get(LOGOUT_URL).then(res => {
         removeItem('loginStatus')
         removeItem('userData')
+        removeItem('accessToken')
         toast.success(res.data.msg, toastStyling)
         setTimeout(() => {
             window.location.href = '/'
