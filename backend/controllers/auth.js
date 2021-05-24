@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 import USER from '../models/User.js'
 import { todayTime } from '../helpers/getMoment.js'
 import getRandomString from '../helpers/generateRandomString.js'
@@ -77,15 +78,16 @@ export const login = (req, res) => {
         const user = await USER.findOne({ email })
         const validatePassword = await bcrypt.compare(password, user.password)
         if (!validatePassword) return res.status(200).json({ success: false, msg: 'Password is incorrect, please try again.' })
+        const userData = { _id: user._id, name: user.name, email: user.email }
+        const accessToken = jwt.sign(userData, process.env.SESSION_SECRET)
         req.session.user = { _id: user._id, name: user.name, email: user.email }
-        return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: { _id: user._id, name: user.name, email: user.email } })
+        return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: userData, accessToken: accessToken })
     }
 
     userLogin()
 }
 
 export const getUserLogin = (req, res) => {
-    console.log(req.session.user)
     if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are not logged in. Please login first' })
     return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: req.session.user })
 }
@@ -138,6 +140,7 @@ export const loginWithFacebook = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
+        console.log(user)
         if (user.googleId) return res.status(200).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
         if (!user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
         if (user) {
@@ -180,14 +183,4 @@ export const logout = (req, res) => {
     if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are already logged out' })
     req.session.user = null
     return res.status(200).json({ success: true, msg: 'You are logged out' })
-}
-
-
-export const deleteUser = (req, res) => {
-    const { id } = req.params
-    USER.findOneAndDelete({ _id: id }, (error, user) => {
-        if (error) return res.status(200).json({ success: false, msg: `User failed to delete ${error}` })
-        if (!user) return res.status(200).json({ success: false, msg: `User does not exist` })
-        return res.status(201).json({ success: true, msg: 'User deleted Successfully', user })
-    })
 }
