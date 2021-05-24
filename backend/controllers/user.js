@@ -1,10 +1,9 @@
 import USER from '../models/User.js'
 
 export const getUsers = (req, res) => {
-    console.log(req.user)
-    USER.find({}, (err, docs) => {
+    USER.find({}, (err, users) => {
         if (err) return res.status(200).json({ success: false, msg: 'Something wrong' })
-        return res.status(200).json({ success: true, users: docs })
+        return res.status(200).json({ success: true, users: users })
     })
 }
 

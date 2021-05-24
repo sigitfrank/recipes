@@ -6,6 +6,7 @@ import getRandomString from '../helpers/generateRandomString.js'
 import sendEmail from '../helpers/email/sendEmailRegister.js'
 import { getExpiredTime } from '../helpers/getTime.js'
 import { currentTime } from '../helpers/getTime.js'
+import generateAccessToken from '../middleware/generateAccessToken.js'
 export const createUser = (req, res) => {
     const { name, email, password } = req.body
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
@@ -18,6 +19,7 @@ export const createUser = (req, res) => {
             email_verified_at: null,
             password: hashedPassword,
             token,
+            refreshToken: null,
             googleId: null,
             facebookId: null
         })
@@ -79,9 +81,17 @@ export const login = (req, res) => {
         const validatePassword = await bcrypt.compare(password, user.password)
         if (!validatePassword) return res.status(200).json({ success: false, msg: 'Password is incorrect, please try again.' })
         const userData = { _id: user._id, name: user.name, email: user.email }
-        const accessToken = jwt.sign(userData, process.env.SESSION_SECRET)
+        const accessToken = generateAccessToken(userData)
+        const refreshToken = jwt.sign(userData, process.env.SESSION_SECRET)
+        // updateUserAccessToken
+        const filter = { email }
+        const update = {
+            refreshToken: refreshToken
+        }
+        const updateUserAccessToken = await USER.findOneAndUpdate(filter, update, { new: true })
+        if (!updateUserAccessToken) return res.status(200).json({ success: false, msg: 'Failed to login, please try again' })
         req.session.user = { _id: user._id, name: user.name, email: user.email }
-        return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData: userData, accessToken: accessToken })
+        return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData, accessToken, refreshToken })
     }
 
     userLogin()
@@ -107,6 +117,7 @@ export const loginWithGoogle = (req, res) => {
                 email_verified_at: currentTime(),
                 password: accessToken,
                 token,
+                refreshToken: null,
                 googleId,
                 facebookId: null
             }
@@ -122,6 +133,7 @@ export const loginWithGoogle = (req, res) => {
             email_verified_at: currentTime(),
             password: accessToken,
             token,
+            refreshToken: null,
             googleId,
             facebookId: null
         })
@@ -150,6 +162,7 @@ export const loginWithFacebook = (req, res) => {
                 email_verified_at: currentTime(),
                 password: accessToken,
                 token,
+                refreshToken: null,
                 googleId: null,
                 facebookId
             }
@@ -165,6 +178,7 @@ export const loginWithFacebook = (req, res) => {
             email_verified_at: currentTime(),
             password: accessToken,
             token,
+            refreshToken: null,
             googleId: null,
             facebookId
         })
@@ -182,4 +196,20 @@ export const logout = (req, res) => {
     if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are already logged out' })
     req.session.user = null
     return res.status(200).json({ success: true, msg: 'You are logged out' })
+}
+
+export const refreshToken = (req, res) => {
+    const refreshToken = req.body.token
+    if (!refreshToken) return res.sendStatus(401)
+    const checkRefreshToken = async () => {
+        const user = await USER.findOne({ refreshToken })
+        if (!user) return res.sendStatus(403)
+        jwt.verify(refreshToken, process.env.SESSION_SECRET, (err, user) => {
+            if (err) return res.sendStatus(403)
+            const userData = { _id: user._id, name: user.name, email: user.email }
+            const accessToken = generateAccessToken(userData)
+            return res.status(200).json({ success: true, accessToken })
+        })
+    }
+    checkRefreshToken()
 }
