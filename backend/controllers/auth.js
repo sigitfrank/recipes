@@ -141,7 +141,8 @@ export const loginWithGoogle = (req, res) => {
         })
         return newUser.save().then(user => {
             req.session.user = { _id: user._id, name: user.name, email: user.email, accessToken: userAccessToken }
-            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with google', userData: { _id: user._id, name: user.name, email: user.email } })
+            const userData = { _id: user._id, name: user.name, email: user.email }
+            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with google', userData, accessToken: userAccessToken, refreshToken })
         }).catch(error => {
             res.status(200).json({ success: false, msg: `Login with google failed: ${error}` })
         })
@@ -152,10 +153,11 @@ export const loginWithGoogle = (req, res) => {
 export const loginWithFacebook = (req, res) => {
     const { name, email, facebookId, accessToken } = req.body
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
+    const userAccessToken = generateAccessToken({ email })
+    const refreshToken = jwt.sign({ email }, process.env.SESSION_SECRET)
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        const userAccessToken = generateAccessToken({ email })
-        const refreshToken = jwt.sign({ email }, process.env.SESSION_SECRET)
+       
         if (user) {
             if (user.googleId) return res.status(200).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
             if (!user.facebookId) return res.status(200).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
@@ -190,7 +192,8 @@ export const loginWithFacebook = (req, res) => {
         })
         return newUser.save().then(user => {
             req.session.user = { _id: user._id, name: user.name, email: user.email, accessToken: userAccessToken }
-            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with facebook', userData: { _id: user._id, name: user.name, email: user.email } })
+            const userData = { _id: user._id, name: user.name, email: user.email }
+            res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with facebook', userData, accessToken: userAccessToken, refreshToken })
         }).catch(error => {
             res.status(200).json({ success: false, msg: `Login with facebook failed: ${error}` })
         })
@@ -199,7 +202,7 @@ export const loginWithFacebook = (req, res) => {
 }
 
 export const logout = (req, res) => {
-    if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are already logged out' })
+    if (!req.session.user) return res.status(200).json({ success: false, msg: 'You are logged out' })
     req.session.user = null
     return res.status(200).json({ success: true, msg: 'You are logged out' })
 }

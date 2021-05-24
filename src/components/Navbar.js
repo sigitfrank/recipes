@@ -16,7 +16,6 @@ const initialNavbarState = {
 
 function Navbar() {
   const { isLoggedIn, userData } = useContext(AuthContext);
-  console.log(userData)
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
 
