@@ -33,13 +33,6 @@ function Login({ modalAuthDispatcher }) {
             window.location.reload()
         }, 2000);
     }
-
-    useEffect(() => {
-        axios.get(GET_LOGIN).then(res => {
-            const { isLoggedIn, userData } = res.data
-            console.log(isLoggedIn, userData)
-        })
-    }, [])
     return (
         <>
             <Toaster position='bottom-center' />

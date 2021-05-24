@@ -1,22 +1,22 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
 import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
 import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
-import useCheckAuth from '../helpers/auth/useCheckAuth'
+import { AuthContext } from '../context/AppProvider'
+import logout from '../controllers/auth/logout'
 
 const initialNavbarState = {
   search: ''
 }
 
 function Navbar() {
-  const { loginStatus, userData } = useCheckAuth()
-  // console.log(JSON.parse(loginStatus), JSON.parse(userData))
-
+  const { isLoggedIn, userData } = useContext(AuthContext);
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -55,8 +55,7 @@ function Navbar() {
               </button>
               <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
-            {/* {isLoggedIn ? (<h2>Hi, {userData.name}</h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)} */}
-            <button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>
+            {isLoggedIn ? (<h2>Hi, {userData.name}, <span onClick={() => logout()}>Logout</span></h2>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>

@@ -8,3 +8,5 @@ export const GET_LOGIN = `${BASE_URL}/api/user/login`
 
 export const LOGIN_WITH_GOOGLE = `${BASE_URL}/api/user/loginWithGoogle`
 export const LOGIN_WITH_FACEBOOK = `${BASE_URL}/api/user/loginWithFacebook`
+
+export const LOGOUT = `${BASE_URL}/api/user/logout`
