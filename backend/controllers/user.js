@@ -1,4 +1,6 @@
 import USER from '../models/User.js'
+import { unlink } from 'fs/promises';
+import validateImageProfile from '../validations/user/validateImageProfile.js'
 export const getUsers = (req, res) => {
     USER.find({}, (err, users) => {
         if (err) return res.status(200).json({ success: false, msg: 'Something wrong' })
@@ -6,16 +8,26 @@ export const getUsers = (req, res) => {
     })
 }
 export const updateUser = (req, res) => {
-    const _id = req.body._id
-    const imageUrl = req.file.filename
-    const updateProfile = async () => {
-        const filter = { _id }
-        const update = { imageUrl }
-        const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
-        if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
-        return res.status(200).json({ success: true, msg: "Profile Updated!" })
-    }
-    updateProfile()
+    const { _id } = req.body
+    const validateImage = validateImageProfile()
+    validateImage(req, res, (err) => {
+        const imageUrl = req.file.filename
+        if (err) return res.status(400).json({ success: false, msg: err })
+        const updateProfile = async () => {
+            const filter = { _id: _id }
+            const update = { imageUrl }
+            const user = await USER.findById(_id)
+            if (user.imageUrl)
+                await unlink(`./public/uploads/images/${user.imageUrl}`)
+
+            const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
+            if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
+
+
+            return res.status(200).json({ success: true, msg: "Profile Updated!" })
+        }
+        updateProfile()
+    })
 
 }
 

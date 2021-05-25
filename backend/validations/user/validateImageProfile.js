@@ -1,5 +1,4 @@
 import multer from 'multer'
-
 import formatFilename from '../../helpers/formatFilename.js'
 const validateImageProfile = () => {
     const storage = multer.diskStorage({
@@ -10,15 +9,20 @@ const validateImageProfile = () => {
             formatFilename(callback, file)
         },
     })
-    const upload = multer({
+    return multer({
         storage: storage,
         limits: {
             fileSize: 1024 * 1024, //1mb
         },
-    })
-
-    // error handling not yet
-    return upload
+        fileFilter: (req, file, cb) => {
+            const mimetypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/JPEG', 'image/JPG', 'image/PNG']
+            if (!mimetypes.includes(file.mimetype)) {
+                cb(null, false)
+                return cb({ message: 'File extenstion must be jpg, jpeg, or png' })
+            }
+            cb(null, true)
+        }
+    }).single('image')
 }
 
 export default validateImageProfile

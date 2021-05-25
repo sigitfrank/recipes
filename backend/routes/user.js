@@ -5,7 +5,7 @@ import validateImageProfile from '../validations/user/validateImageProfile.js'
 
 const userRouter = express.Router()
 userRouter.get('/', authenticateUser, getUsers)
-userRouter.put('/', validateImageProfile().single('image'), updateUser)
+userRouter.put('/', validateImageProfile(), updateUser)
 userRouter.delete('/:id', deleteUser)
 
 export default userRouter
