@@ -13,7 +13,7 @@ const validateLoginUser = [
         }),
     (req, res, next) => {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return res.status(200).json({ success: false, errors: errors.array() })
+        if (!errors.isEmpty()) return res.status(400).send({ success: false, errors: errors.array() })
         next()
     }
 ]

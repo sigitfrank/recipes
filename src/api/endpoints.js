@@ -1,12 +1,19 @@
 export const BASE_URL = 'http://localhost:5000'
-export const REGISTER_ACCOUNT_URL = `${BASE_URL}/api/user/register`
-export const ACTIVATE_ACCOUNT_URL = `${BASE_URL}/api/user/activate`
-export const RESEND_EMAIL_ACTIVATION_URL = `${BASE_URL}/api/user/reActivate`
 
-export const LOGIN = `${BASE_URL}/api/user/login`
-export const GET_LOGIN = `${BASE_URL}/api/user/login`
+const AUTH_URL = 'auth'
+export const REGISTER_ACCOUNT_URL = `${BASE_URL}/api/${AUTH_URL}/register`
+export const ACTIVATE_ACCOUNT_URL = `${BASE_URL}/api/${AUTH_URL}/activate`
+export const RESEND_EMAIL_ACTIVATION_URL = `${BASE_URL}/api/${AUTH_URL}/reActivate`
 
-export const LOGIN_WITH_GOOGLE = `${BASE_URL}/api/user/loginWithGoogle`
-export const LOGIN_WITH_FACEBOOK = `${BASE_URL}/api/user/loginWithFacebook`
+export const LOGIN_URL = `${BASE_URL}/api/${AUTH_URL}/login`
+export const GET_LOGIN_URL = `${BASE_URL}/api/${AUTH_URL}/loginData`
 
-export const LOGOUT = `${BASE_URL}/api/user/logout`
+export const LOGIN_WITH_GOOGLE_URL = `${BASE_URL}/api/${AUTH_URL}/loginWithGoogle`
+export const LOGIN_WITH_FACEBOOK_URL = `${BASE_URL}/api/${AUTH_URL}/loginWithFacebook`
+
+export const LOGOUT_URL = `${BASE_URL}/api/${AUTH_URL}/logout`
+export const TOKEN_URL = `${BASE_URL}/api/${AUTH_URL}/token`
+
+const USER_URL = 'user'
+export const GET_USERS_URL = `${BASE_URL}/api/${USER_URL}`
+export const DELETE_USER_URL = `${BASE_URL}/api/${USER_URL}/:id`

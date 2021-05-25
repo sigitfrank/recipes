@@ -19,6 +19,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    refreshToken: String,
     googleId: String,
     facebookId: String
 }, {

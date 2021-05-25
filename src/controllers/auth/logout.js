@@ -1,14 +1,15 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 import { toastStyling } from "../../helpers/toast"
-import { LOGOUT } from "../../api/endpoints"
+import { LOGOUT_URL } from "../../api/endpoints"
 import { removeItem } from "../../helpers/auth/store"
 
 const logout = () => {
-    axios.get(LOGOUT).then(res => {
+    axios.get(LOGOUT_URL).then(res => {
         removeItem('loginStatus')
         removeItem('userData')
-        toast.success('You are logged out', toastStyling)
+        removeItem('accessToken')
+        toast.success(res.data.msg, toastStyling)
         setTimeout(() => {
             window.location.href = '/'
         }, 2000);

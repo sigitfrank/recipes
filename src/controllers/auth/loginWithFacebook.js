@@ -1,4 +1,4 @@
-import { LOGIN_WITH_FACEBOOK } from '../../api/endpoints'
+import { LOGIN_WITH_FACEBOOK_URL } from '../../api/endpoints'
 import toast from 'react-hot-toast';
 import axios from 'axios'
 import { toastStyling } from '../../helpers/toast';
@@ -7,25 +7,23 @@ const loginWithFacebook = (response) => {
     const name = response.name
     const email = response.email
     const facebookId = response.id
-    const accessToken = response.accessToken
+    const accessTokenFB = response.accessToken
     const login = async () => {
         try {
-            const response = await axios.post(LOGIN_WITH_FACEBOOK, { name, email, accessToken, facebookId })
-            const { success, msg, userData, isLoggedIn } = response.data
-            if (!success) {
-                toast.error(msg, toastStyling)
-                return false
-            }
+            const response = await axios.post(LOGIN_WITH_FACEBOOK_URL, { name, email, accessToken: accessTokenFB, facebookId })
+            const { msg, userData, isLoggedIn, accessToken } = response.data
             setItem('loginStatus', JSON.stringify({ isLoggedIn }))
             setItem('userData', JSON.stringify(userData))
+            setItem('accessToken', accessToken)
             toast.success(msg, toastStyling)
-            setTimeout(() => {
+            return setTimeout(() => {
                 window.location.reload()
             }, 2000);
-            return true
 
         } catch (error) {
-            console.log(error)
+            const errorMessage = error.response.data
+            toast.error(errorMessage.msg, toastStyling)
+            return false
         }
     }
     login()
