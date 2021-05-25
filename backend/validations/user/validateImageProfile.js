@@ -13,12 +13,12 @@ const validateImageProfile = () => {
         storage: storage,
         limits: {
             fileSize: 1024 * 1024, //1mb
-        },
+        }, 
         fileFilter: (req, file, cb) => {
             const mimetypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/JPEG', 'image/JPG', 'image/PNG']
             if (!mimetypes.includes(file.mimetype)) {
                 cb(null, false)
-                return cb({ message: 'File extenstion must be jpg, jpeg, or png' })
+                return cb({ message: 'File extension must be jpg, jpeg, or png' })
             }
             cb(null, true)
         }
