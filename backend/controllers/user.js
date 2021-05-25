@@ -1,5 +1,5 @@
-import USER from '../models/User.js'
 import { unlink } from 'fs/promises';
+import USER from '../models/User.js'
 import validateImageProfile from '../validations/user/validateImageProfile.js'
 export const getUsers = (req, res) => {
     USER.find({}, (err, users) => {
@@ -8,14 +8,14 @@ export const getUsers = (req, res) => {
     })
 }
 export const updateUser = (req, res) => {
-    const { _id } = req.body
+    const { _id, name} = req.body
     const validateImage = validateImageProfile()
     validateImage(req, res, (err) => {
         const imageUrl = req.file.filename
         if (err) return res.status(400).json({ success: false, msg: err })
         const updateProfile = async () => {
             const filter = { _id: _id }
-            const update = { imageUrl }
+            const update = { name, imageUrl }
             const user = await USER.findById(_id)
             if (user.imageUrl)
                 await unlink(`./public/uploads/images/${user.imageUrl}`)

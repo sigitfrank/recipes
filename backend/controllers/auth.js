@@ -35,11 +35,9 @@ export const createUser = (req, res) => {
 
 export const activateUser = (req, res) => {
     const { email, token } = req.body
-
     const activateUserAccount = async () => {
         const filter = { email, token }
         const update = { email_verified_at: todayTime() }
-
         const user = await USER.findOne({ email })
         if (!user) return res.status(400).json({ success: false, msg: 'User with this email does not exist' })
         if (user.email_verified_at) return res.status(400).json({ success: false, msg: 'User with this email is activated. Please login into your account' })
@@ -58,7 +56,6 @@ export const reSendEmailToActivateAccount = (req, res) => {
 
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const updateUserToken = async () => {
-
         const user = await USER.findOne({ email })
         if (!user) return res.status(400).json({ success: false, msg: 'User with this email does not exist' })
         const isEmailAlreadyVerified = user.email_verified_at
