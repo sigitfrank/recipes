@@ -10,7 +10,7 @@ dotenv.config()
 const app = express()
 
 connectToDB(process.env)
-
+app.use(express.static('public'))
 app.use(express.json())
 app.use(cors({
     origin: ["http://localhost:3000"],

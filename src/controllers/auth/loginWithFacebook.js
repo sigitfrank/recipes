@@ -6,11 +6,12 @@ import { setItem } from '../../helpers/auth/store';
 const loginWithFacebook = (response) => {
     const name = response.name
     const email = response.email
+    const imageUrl = response.picture.data.url
     const facebookId = response.id
     const accessTokenFB = response.accessToken
     const login = async () => {
         try {
-            const response = await axios.post(LOGIN_WITH_FACEBOOK_URL, { name, email, accessToken: accessTokenFB, facebookId })
+            const response = await axios.post(LOGIN_WITH_FACEBOOK_URL, { name, email, accessToken: accessTokenFB, facebookId, imageUrl })
             const { msg, userData, isLoggedIn, accessToken } = response.data
             setItem('loginStatus', JSON.stringify({ isLoggedIn }))
             setItem('userData', JSON.stringify(userData))

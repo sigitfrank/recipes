@@ -73,7 +73,9 @@ nav.navbar .user-avatar-container span.greeting {
 }
 
 nav.navbar img.user-avatar {
-    width: 50px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
 }
 
 nav.navbar .dropdown-menu {

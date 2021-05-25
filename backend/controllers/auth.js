@@ -18,6 +18,7 @@ export const createUser = (req, res) => {
             email,
             email_verified_at: null,
             password: hashedPassword,
+            imageUrl: null,
             token,
             refreshToken: null,
             googleId: null,
@@ -104,18 +105,15 @@ export const getUserLogin = (req, res) => {
 
     const { token } = req.body
     jwt.verify(token, process.env.SESSION_SECRET, async (err, data) => {
-        if (err) return res.status(400).send({ success: false, msg: 'You are not logged in. Please login first' })
+        if (err) return res.status(400).json({ success: false, msg: 'You are not logged in. Please login first' })
         const user = await USER.findOne({ email: data.email })
-        const userData = { _id: user._id, name: user.name, email: user.email, accessToken: token }
+        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, accessToken: token }
         return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', userData })
     })
 }
 
-
-
-
 export const loginWithGoogle = (req, res) => {
-    const { name, email, googleId, accessToken } = req.body
+    const { name, email, googleId, accessToken, imageUrl } = req.body
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
@@ -132,6 +130,7 @@ export const loginWithGoogle = (req, res) => {
                 email,
                 email_verified_at: currentTime(),
                 password: accessToken,
+                imageUrl,
                 token,
                 refreshToken,
                 googleId,
@@ -148,6 +147,7 @@ export const loginWithGoogle = (req, res) => {
             email,
             email_verified_at: currentTime(),
             password: accessToken,
+            imageUrl,
             token,
             refreshToken,
             googleId,
@@ -165,7 +165,7 @@ export const loginWithGoogle = (req, res) => {
 }
 
 export const loginWithFacebook = (req, res) => {
-    const { name, email, facebookId, accessToken } = req.body
+    const { name, email, facebookId, accessToken, imageUrl } = req.body
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const userAccessToken = generateAccessToken({ email })
     const refreshToken = jwt.sign({ email }, process.env.SESSION_SECRET)
@@ -183,6 +183,7 @@ export const loginWithFacebook = (req, res) => {
                 email,
                 email_verified_at: currentTime(),
                 password: accessToken,
+                imageUrl,
                 token,
                 refreshToken,
                 googleId: null,
@@ -199,6 +200,7 @@ export const loginWithFacebook = (req, res) => {
             email,
             email_verified_at: currentTime(),
             password: accessToken,
+            imageUrl,
             token,
             refreshToken,
             googleId: null,

@@ -8,11 +8,12 @@ const loginWithGoogle = (response) => {
     const { profileObj } = response
     const name = profileObj.givenName
     const email = profileObj.email
+    const imageUrl = profileObj.imageUrl
     const googleId = response.googleId
     const accessTokenGoogle = response.accessToken
     const login = async () => {
         try {
-            const response = await axios.post(LOGIN_WITH_GOOGLE_URL, { name, email, accessToken: accessTokenGoogle, googleId })
+            const response = await axios.post(LOGIN_WITH_GOOGLE_URL, { name, email, accessToken: accessTokenGoogle, googleId, imageUrl })
             const { msg, userData, isLoggedIn, accessToken } = response.data
 
             setItem('loginStatus', JSON.stringify({ isLoggedIn }))

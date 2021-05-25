@@ -1,9 +1,11 @@
 import express from 'express'
 import authenticateUser from '../middleware/authenticateUser.js'
-import {deleteUser, getUsers } from '../controllers/user.js'
-const userRouter = express.Router()
+import { updateUser, getUsers, deleteUser } from '../controllers/user.js'
+import validateImageProfile from '../validations/user/validateImageProfile.js'
 
+const userRouter = express.Router()
 userRouter.get('/', authenticateUser, getUsers)
+userRouter.put('/', validateImageProfile().single('image'), updateUser)
 userRouter.delete('/:id', deleteUser)
 
 export default userRouter

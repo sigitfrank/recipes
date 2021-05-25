@@ -33,6 +33,7 @@ function Navbar() {
       logout()
     }
   }
+  console.log(process.env.REACT_APP_BASE_URL_BACKEND)
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -68,7 +69,7 @@ function Navbar() {
             </div>
             {isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name}!</span>
-              <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="user-avatar" />
+              <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`}alt="user-avatar" />
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>
                   <li> <NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
