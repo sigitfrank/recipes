@@ -12,7 +12,6 @@ function HomeHeader() {
               <h1>Let's Start Cooking with Best Recipes</h1>
               <p >Bagi Resep provides you to cook a lot of sip foods to serve with
 your family, friends, and colleges!</p>
-
               <button className="btn get-started mt-2 mb-4">Get Started</button>
             </div>
           </div>
