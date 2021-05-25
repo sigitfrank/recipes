@@ -79,6 +79,8 @@ export const login = (req, res) => {
     const userLogin = async () => {
         const user = await USER.findOne({ email })
         const validatePassword = await bcrypt.compare(password, user.password)
+        if (user.googleId) return res.status(400).json({ success: false, msg: 'Your email is created through google login. Please login using your google account' })
+        if (user.facebookId) return res.status(400).json({ success: false, msg: 'Your email is created through facebook login. Please login using your facebook account' })
         if (!validatePassword) return res.status(400).json({ success: false, msg: 'Password is incorrect, please try again.' })
         const userData = { _id: user._id, name: user.name, email: user.email }
         const userAccessToken = generateAccessToken({ email })
