@@ -18,22 +18,20 @@ const initialNavbarState = {
 
 function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
-  const { isLoggedIn, userData } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext)
+  const userData = user && user.userData
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
-
   const getUsers = async () => {
     const { accessToken } = userData
     try {
       const users = await authAxios(accessToken).get(GET_USERS_URL)
-      console.log(users)
     } catch (error) {
       // give user choice to continue request or logout. If continue, then request new token by refreshToken url
       alert('Your session is expired, redirecting to login page')
       logout()
     }
   }
-  console.log(process.env.REACT_APP_BASE_URL_BACKEND)
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,7 +67,10 @@ function Navbar() {
             </div>
             {isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name}!</span>
-              <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`}alt="user-avatar" />
+              {
+                userData.googleId ? (<img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${userData.imageUrl}`} alt="user-avatar" />) : (
+                  <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} alt="user-avatar" />)
+              }
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>
                   <li> <NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
