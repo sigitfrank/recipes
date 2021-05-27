@@ -1,14 +1,16 @@
 import React, { useContext } from 'react'
+import jwt_decode from 'jwt-decode'
 import { BsStarFill } from 'react-icons/bs'
 import { AiOutlineComment } from 'react-icons/ai'
 import '../../css/users/profile.css'
 import { AuthContext } from '../../context/AppProvider'
 import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
+import useCheckAuth from '../../helpers/auth/useCheckAuth'
 
 function Profile() {
-    const { user } = useContext(AuthContext)
-    const { userData } = user
+    const { accessToken } = useCheckAuth()
+    const { userData } = jwt_decode(accessToken)
     const { name, email, imageUrl, googleId, createdAt } = userData
 
     return (

@@ -3,7 +3,6 @@ const getDate = (date) => {
     const year = newDate.getFullYear()
     const month = newDate.getMonth()
     const day = newDate.getDay()
-    console.log(newDate)
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];

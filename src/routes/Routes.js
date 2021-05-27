@@ -11,11 +11,12 @@ import AboutUs from '../screens/about-us/AboutUs'
 import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
 import ActivateAccount from '../screens/auth/ActivateAccount'
-import { AuthContext } from '../context/AppProvider'
+import useCheckAuth from '../helpers/auth/useCheckAuth'
 export const SearchContext = React.createContext('')
 
 function Routes() {
-    const { isLoggedIn } = useContext(AuthContext)
+    const { loginStatus } = useCheckAuth()
+
     const [search, setSearch] = useState('')
     const history = useHistory()
     return (<>
@@ -53,7 +54,7 @@ function Routes() {
 
 
             <Route path='/profile' exact render={() => (<>
-                {isLoggedIn ? (<>
+                {JSON.parse(loginStatus) ? (<>
                     <Navbar />
                     <Profile />
                 </>) : history.push('/')}
