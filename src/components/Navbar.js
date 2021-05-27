@@ -34,6 +34,7 @@ function Navbar() {
   const searchRecipe = () => {
     const search = searchInput.current.value
     setSearch(search)
+    searchInput.current.value = ''
     return history.push(`/recipes?search=${search}`)
   }
   return (
