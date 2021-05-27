@@ -31,8 +31,8 @@ function Profile() {
                             </ul>
                             <ul>
                                 <li>
+                                    <div>Badge</div>
                                     <img src="https://images.vexels.com/media/users/3/212679/isolated/preview/9763b142eacea63eef0e268ab4e21052-best-chef-diamond-badge-by-vexels.png" className="profile-badge" alt="profile-badge" />
-
                                 </li>
                                 <li><span className="follower">Follower: 219</span> </li>
                                 <li><span className="following">Following: 71</span> </li>
@@ -49,12 +49,12 @@ function Profile() {
                             <h5>Achievements</h5>
                         </div>
                         <div className="card-body">
-                            <span className="badge-achivements">10 Followers</span>
-                            <span className="badge-achivements">50 Followers</span>
-                            <span className="badge-achivements">100 Followers</span>
-                            <span className="badge-achivements">First Recipe</span>
-                            <span className="badge-achivements">100 Likes</span>
-                            <span className="badge-achivements">1000 Likes</span>
+                            <span className="badge-achivements">10 Followers </span>|
+                            <span className="badge-achivements">50 Followers </span>|
+                            <span className="badge-achivements">100 Followers </span>|
+                            <span className="badge-achivements">First Recipe </span>|
+                            <span className="badge-achivements">100 Likes </span>|
+                            <span className="badge-achivements">1000 Likes </span>|
                         </div>
                     </div>
                     <div className="card secondary-bottom">
