@@ -4,7 +4,7 @@ import { REGISTER_ACCOUNT_URL } from "../../api/endpoints"
 import toast from 'react-hot-toast';
 import { toastStyling } from "../../helpers/toast"
 
-import { validateStateBeforeRegisterUser } from '../../validations/components/auth/register'
+import { validateStateBeforeRegisterUser } from '../../validations/logic/auth/register'
 const registerController = async (data) => {
     const { registerDispatcher, newUser } = data
     registerDispatcher({ type: registerActionTypes.CHECK_POST_REGISTER_USER })

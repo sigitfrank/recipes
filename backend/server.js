@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 import session from 'express-session'
 import authRouter from './routes/auth.js'
 import userRouter from './routes/user.js'
@@ -10,8 +11,11 @@ dotenv.config()
 const app = express()
 
 connectToDB(process.env)
-
+app.use(express.static('public'))
 app.use(express.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],

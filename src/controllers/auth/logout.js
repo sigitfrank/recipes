@@ -7,8 +7,8 @@ import { removeItem } from "../../helpers/auth/store"
 const logout = () => {
     axios.get(LOGOUT_URL).then(res => {
         removeItem('loginStatus')
-        removeItem('userData')
         removeItem('accessToken')
+        removeItem('refreshToken')
         toast.success(res.data.msg, toastStyling)
         setTimeout(() => {
             window.location.href = '/'

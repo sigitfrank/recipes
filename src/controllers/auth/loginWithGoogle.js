@@ -8,21 +8,22 @@ const loginWithGoogle = (response) => {
     const { profileObj } = response
     const name = profileObj.givenName
     const email = profileObj.email
+    const imageUrl = profileObj.imageUrl
     const googleId = response.googleId
     const accessTokenGoogle = response.accessToken
     const login = async () => {
         try {
-            const response = await axios.post(LOGIN_WITH_GOOGLE_URL, { name, email, accessToken: accessTokenGoogle, googleId })
-            const { msg, userData, isLoggedIn, accessToken } = response.data
-
-            setItem('loginStatus', JSON.stringify({ isLoggedIn }))
-            setItem('userData', JSON.stringify(userData))
+            const response = await axios.post(LOGIN_WITH_GOOGLE_URL, { name, email, accessToken: accessTokenGoogle, googleId, imageUrl })
+            const { msg, isLoggedIn, accessToken, refreshToken } = response.data
             setItem('accessToken', accessToken)
+            setItem('refreshToken', refreshToken)
+            setItem('loginStatus', isLoggedIn)
             toast.success(msg, toastStyling)
             return setTimeout(() => {
                 window.location.reload()
             }, 2000);
         } catch (error) {
+            console.log(error)
             const errorMessage = error.response.data
             toast.error(errorMessage.msg, toastStyling)
             return false

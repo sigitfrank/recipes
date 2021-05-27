@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
@@ -18,22 +18,20 @@ const initialNavbarState = {
 
 function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
-  const { isLoggedIn, userData } = useContext(AuthContext);
+  const { isLoading, isLoggedIn, user } = useContext(AuthContext)
+  const userData = user && user.userData
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
-
   const getUsers = async () => {
     const { accessToken } = userData
     try {
       const users = await authAxios(accessToken).get(GET_USERS_URL)
-      console.log(users)
     } catch (error) {
       // give user choice to continue request or logout. If continue, then request new token by refreshToken url
       alert('Your session is expired, redirecting to login page')
       logout()
     }
   }
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -68,7 +66,10 @@ function Navbar() {
             </div>
             {isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name}!</span>
-              <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="user-avatar" />
+              {
+                userData.googleId ? (<img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${userData.imageUrl}`} alt="user-avatar" />) : (
+                  <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} alt="user-avatar" />)
+              }
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>
                   <li> <NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
@@ -78,7 +79,7 @@ function Navbar() {
                   <li><span className="dropdown-item" onClick={() => logout()}>Logout</span></li>
                 </ul>
               </Fade>)}
-            </div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+            </div>) : isLoading ? (<div>Loading...</div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>

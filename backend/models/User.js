@@ -15,6 +15,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    imageUrl: String,
     token: {
         type: String,
         required: true
