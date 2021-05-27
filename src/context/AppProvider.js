@@ -3,6 +3,7 @@ import jwt_decode from 'jwt-decode'
 import React, { useState, useEffect } from 'react'
 import { GET_LOGIN_URL } from '../api/endpoints'
 import useCheckAuth from '../helpers/auth/useCheckAuth'
+
 export const AuthContext = React.createContext()
 
 function AppProvider({ children }) {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Route } from 'react-router-dom'
 import HomeHeader from '../screens/home/HomeHeader'
 import HomeContent from '../screens/home/HomeContent'
@@ -11,45 +11,49 @@ import AboutUs from '../screens/about-us/AboutUs'
 import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
 import ActivateAccount from '../screens/auth/ActivateAccount'
+export const SearchContext = React.createContext('')
 
 function Routes() {
+    const [search, setSearch] = useState('')
     return (<>
-        <Route path='/' exact render={() => (<>
-            <Navbar />
-            <HomeHeader />
-            <HomeContent />
-        </>)} />
+        <SearchContext.Provider value={{ search, setSearch }}>
+            <Route path='/' exact render={() => (<>
+                <Navbar />
+                <HomeHeader />
+                <HomeContent />
+            </>)} />
 
-        <Route path='/recipes' exact render={() => (<>
-            <Navbar />
-            <RecipesList />
-        </>)} />
+            <Route path='/recipes' exact render={() => (<>
+                <Navbar />
+                <RecipesList />
+            </>)} />
 
-        <Route path='/recipes/:id' render={() => (<>
-            <Navbar />
-            <DetailRecipes />
-        </>)} />
+            <Route path='/recipes/:id' render={() => (<>
+                <Navbar />
+                <DetailRecipes />
+            </>)} />
 
-        <Route path='/blog' exact render={() => (<>
-            <Navbar />
-            <Blog />
-        </>)} />
+            <Route path='/blog' exact render={() => (<>
+                <Navbar />
+                <Blog />
+            </>)} />
 
-        <Route path='/about-us' exact render={() => (<>
-            <Navbar />
-            <AboutUs />
-        </>)} />
+            <Route path='/about-us' exact render={() => (<>
+                <Navbar />
+                <AboutUs />
+            </>)} />
 
-        <Route path='/add-recipes' exact render={() => (<>
-            <Navbar />
-            <AddRecipes />
-        </>)} />
+            <Route path='/add-recipes' exact render={() => (<>
+                <Navbar />
+                <AddRecipes />
+            </>)} />
 
-        <Route path='/profile' exact render={() => (<>
-            <Navbar />
-            <Profile />
-        </>)} />
+            <Route path='/profile' exact render={() => (<>
+                <Navbar />
+                <Profile />
+            </>)} />
 
+        </SearchContext.Provider>
         <Route path='/activate/:email/:token' render={() => (
             <ActivateAccount />
         )} />
