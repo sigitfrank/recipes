@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import jwt_decode from 'jwt-decode'
 import { BsStarFill } from 'react-icons/bs'
 import { AiOutlineComment } from 'react-icons/ai'
 import '../../css/users/profile.css'
-import { AuthContext } from '../../context/AppProvider'
 import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
@@ -35,8 +34,8 @@ function Profile() {
                                     <img src="https://images.vexels.com/media/users/3/212679/isolated/preview/9763b142eacea63eef0e268ab4e21052-best-chef-diamond-badge-by-vexels.png" className="profile-badge" alt="profile-badge" />
 
                                 </li>
-                                <li><span>Follower: 219</span> </li>
-                                <li><span>Following: 71</span> </li>
+                                <li><span className="follower">Follower: 219</span> </li>
+                                <li><span className="following">Following: 71</span> </li>
                                 <li>
                                     <button className="btn btn-danger">Delete Account</button>
                                 </li>

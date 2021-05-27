@@ -67,7 +67,22 @@
 
 .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
     display: inline-block;
-    margin: 0 2.5rem;
+    margin: 0 1.5rem;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.follower,
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.following {
+    background-color: #ff824d;
+    padding: .25rem;
+    color: #fff;
+    border-radius: .2rem;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.follower:hover,
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.following:hover {
+    background-color: #c0623a;
 }
 
 .container.user-profile .card.main .card-body ul:last-child li:first-child img.profile-badge {

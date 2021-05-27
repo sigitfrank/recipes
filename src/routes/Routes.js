@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Route, useHistory } from 'react-router-dom'
 import HomeHeader from '../screens/home/HomeHeader'
 import HomeContent from '../screens/home/HomeContent'
