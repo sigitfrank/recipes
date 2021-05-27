@@ -18,7 +18,7 @@ function Navbar() {
   const { setSearch } = useContext(SearchContext)
   const searchInput = useRef(null);
   const userData = user && user.userData
-  let history = useHistory()
+  const history = useHistory()
 
   // const getUsers = async () => {
   //   const { accessToken } = userData

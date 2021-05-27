@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, useHistory } from 'react-router-dom'
 import HomeHeader from '../screens/home/HomeHeader'
 import HomeContent from '../screens/home/HomeContent'
 import RecipesList from '../screens/recipes/RecipesList'
@@ -15,8 +15,9 @@ import { AuthContext } from '../context/AppProvider'
 export const SearchContext = React.createContext('')
 
 function Routes() {
-    const { isLoading, isLoggedIn, user } = useContext(AuthContext)
+    const { isLoggedIn } = useContext(AuthContext)
     const [search, setSearch] = useState('')
+    const history = useHistory()
     return (<>
         <SearchContext.Provider value={{ search, setSearch }}>
             <Route path='/' exact render={() => (<>
@@ -50,11 +51,13 @@ function Routes() {
                 <AddRecipes />
             </>)} />
 
-            {isLoggedIn ? (
-                <Route path='/profile' exact render={() => (<>
+
+            <Route path='/profile' exact render={() => (<>
+                {isLoggedIn ? (<>
                     <Navbar />
                     <Profile />
-                </>)} />) : 'Please Login'}
+                </>) : history.push('/')}
+            </>)} />
 
         </SearchContext.Provider>
         <Route path='/activate/:email/:token' render={() => (
