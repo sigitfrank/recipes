@@ -7,18 +7,22 @@ export const AuthContext = React.createContext()
 
 function AppProvider({ children }) {
     const { loginStatus, accessToken } = useCheckAuth()
-    const [authState, setAuthState] = useState({ isLoggedIn: false, userData: {} })
+    const [authState, setAuthState] = useState({ isLoading: false, isLoggedIn: false, user: {} })
     useEffect(() => {
         let mounted = true;
+        setAuthState({ isLoading: true, isLoggedIn: false, user: {} })
         if (JSON.parse(loginStatus) && mounted) {
             axios.post(GET_LOGIN_URL, { token: accessToken }).then(res => {
                 const { isLoggedIn, accessToken } = res.data
                 const userData = jwt_decode(accessToken)
-                setAuthState({ isLoggedIn, user:userData })
+                setAuthState({ isLoading: false, isLoggedIn, user: userData })
             }).catch(error => {
                 const errorMessage = error.response.data
                 console.log(errorMessage.msg)
+                setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
             })
+        } else {
+            setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
         }
         return () => {
             mounted = false

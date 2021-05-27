@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react'
+import React, { useState, useEffect, useReducer, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
@@ -18,7 +18,7 @@ const initialNavbarState = {
 
 function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
-  const { isLoggedIn, user } = useContext(AuthContext)
+  const { isLoading, isLoggedIn, user } = useContext(AuthContext)
   const userData = user && user.userData
   const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
   const { search } = navbarState
@@ -32,7 +32,6 @@ function Navbar() {
       logout()
     }
   }
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -80,7 +79,7 @@ function Navbar() {
                   <li><span className="dropdown-item" onClick={() => logout()}>Logout</span></li>
                 </ul>
               </Fade>)}
-            </div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+            </div>) : isLoading ? (<div>Loading...</div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>
