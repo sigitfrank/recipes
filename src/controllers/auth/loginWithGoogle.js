@@ -4,7 +4,8 @@ import axios from 'axios'
 import { toastStyling } from '../../helpers/toast';
 import { setItem } from '../../helpers/auth/store';
 const loginWithGoogle = (response) => {
-    if (response.error) return console.log('Login cancelled')
+    if (response.error) return toast.error('Login cancelled', toastStyling)
+    
     const { profileObj } = response
     const name = profileObj.givenName
     const email = profileObj.email
