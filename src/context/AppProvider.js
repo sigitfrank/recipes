@@ -21,7 +21,7 @@ function AppProvider({ children }) {
                 console.log(errorMessage.msg)
                 setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
             })
-        } else {
+        } else{
             setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
         }
         return () => {

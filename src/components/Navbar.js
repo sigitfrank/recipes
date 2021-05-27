@@ -11,11 +11,8 @@ import { GET_USERS_URL } from '../api/endpoints'
 import authAxios from '../helpers/authAxios'
 import Fade from 'react-reveal/Fade'
 import checkCurrentaPage from '../helpers/checkCurrentPage'
-
-const initialNavbarState = {
-  search: ''
-}
-
+import initialNavbarState from '../states/navbar'
+import SkeletonLoading from './SkeletonLoading'
 function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const { isLoading, isLoggedIn, user } = useContext(AuthContext)
@@ -64,7 +61,7 @@ function Navbar() {
               </button>
               <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
             </div>
-            {isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
+            {isLoading ? (<SkeletonLoading width={100} height={50} />) : isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name}!</span>
               {
                 userData.googleId ? (<img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${userData.imageUrl}`} alt="user-avatar" />) : (
@@ -79,7 +76,7 @@ function Navbar() {
                   <li><span className="dropdown-item" onClick={() => logout()}>Logout</span></li>
                 </ul>
               </Fade>)}
-            </div>) : isLoading ? (<div>Loading...</div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+            </div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>
