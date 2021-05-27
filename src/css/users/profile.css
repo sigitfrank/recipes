@@ -1,0 +1,192 @@
+.container.user-profile {
+    margin-top: 3rem;
+}
+
+.container.user-profile ul {
+    list-style-type: none;
+}
+
+.container.user-profile .card {
+    margin: 2rem 0;
+    border: 0;
+    box-shadow: -5px 5px 3px rgb(187, 187, 187);
+}
+
+.container.user-profile .card.main .card-header {
+    text-align: center;
+    background-image: url('https://media.istockphoto.com/vectors/seamless-pattern-supermarket-grocery-store-food-drinks-vegetables-vector-id1173579665?b=1&k=6&m=1173579665&s=612x612&w=0&h=sq9_D9xMDv9Q0LyflpQ1ddZ-Yfd34UunevsMs6Dz2Q4=');
+}
+
+.container.user-profile .card.main .card-header img.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.container.user-profile .card.main .card-body {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 1rem;
+}
+
+.container.user-profile .card.main .card-body {
+    display: block;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+    display: inline-block;
+}
+
+.container.user-profile .card .card-body ul li {
+    border-bottom: 1px solid #bdbdbd9c;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: .8rem;
+}
+
+.container.user-profile .card.main .card-body ul span {
+    font-size: 1rem;
+}
+
+.container.user-profile .card.main .card-body ul:last-child {
+    text-align: center;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:first-child,
+.container.user-profile .card.main .card-body ul:last-child li:last-child {
+    margin: .5rem 0;
+    text-align: center;
+    border-bottom: 0;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:last-child button.btn-danger {
+    margin: 1rem 0;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+    display: inline-block;
+    margin: 0 2.5rem;
+}
+
+.container.user-profile .card.main .card-body ul:last-child li:first-child img.profile-badge {
+    width: 75px;
+}
+
+.container.user-profile .card.secondary-top .card-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.container.user-profile .card.secondary-top .card-body span.badge-achivements {
+    font-size: 0.8rem;
+    margin: .5rem;
+    background-color: #FF8E5E;
+    padding: 0.3rem;
+    color: #fff;
+    border-radius: 0.3rem;
+}
+
+.container.user-profile .card.secondary-bottom .card-body ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container.user-profile .card.secondary-bottom .card-body ul li .recipe-title {
+    font-size: 1rem;
+}
+
+.container.user-profile .card.secondary-bottom .card-body ul li .score {
+    margin-right: .2rem;
+    text-align: center;
+}
+
+.container.user-profile .card.secondary-bottom .card-body ul li .score .stars * {
+    margin: .5rem .2rem;
+    color: #FF8E5E;
+    font-size: 1rem;
+}
+
+.container.user-profile .card.secondary-bottom .card-body ul li .score .comments {
+    font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+    .container.user-profile .card.main .card-body {
+        display: block;
+    }
+
+    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+        display: block;
+    }
+
+    .container.user-profile .card .card-body ul:last-child li {
+        border-bottom: 0;
+    }
+}
+
+@media (min-width: 576px) {
+    .container.user-profile .card.main .card-body {
+        display: block;
+    }
+
+    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+        display: block;
+    }
+
+    .container.user-profile .card .card-body ul:last-child li {
+        border-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .container.user-profile .card.main .card-body {
+        display: block;
+    }
+
+    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+        display: block;
+    }
+
+    .container.user-profile .card .card-body ul:last-child li {
+        border-bottom: 0;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .container.user-profile .card.main .card-body {
+        display: block;
+    }
+
+    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+        display: inline-block;
+    }
+
+    .container.user-profile .card .card-body ul:last-child li {
+        border-bottom: 1px solid #bdbdbd9c;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    .container.user-profile .card.main .card-body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
+        display: inline-block;
+    }
+
+    .container.user-profile .card .card-body ul:last-child li {
+        border-bottom: 1px solid #bdbdbd9c;
+    }
+}
+
+@media (min-width: 1400px) {}

@@ -80,7 +80,7 @@ export const login = (req, res) => {
         if (user.googleId) return res.status(400).json({ success: false, msg: 'Your email is created through google login. Please login using your google account' })
         if (user.facebookId) return res.status(400).json({ success: false, msg: 'Your email is created through facebook login. Please login using your facebook account' })
         if (!validatePassword) return res.status(400).json({ success: false, msg: 'Password is incorrect, please try again.' })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
+        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt }
         const userAccessToken = generateAccessToken({ userData })
         const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
         // updateUserAccessToken
@@ -111,7 +111,7 @@ export const loginWithGoogle = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
+        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt }
         const userAccessToken = generateAccessToken({ userData })
         const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
         if (user) {
@@ -161,7 +161,7 @@ export const loginWithFacebook = (req, res) => {
 
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
+        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt }
         const userAccessToken = generateAccessToken({ userData })
         const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
         if (user) {
