@@ -24,8 +24,11 @@ function AppProvider({ children }) {
                 const errorMessage = error.response.data
                 console.log(errorMessage.msg)
                 setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1000);
             })
-        } else{
+        } else {
             setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
         }
         return () => {

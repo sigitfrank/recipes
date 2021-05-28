@@ -76,7 +76,7 @@ function Navbar() {
               }
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>
-                  <li> <NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
+                  <li><NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
                   <li><NavLink className="dropdown-item" to="/add-recipes">Your Recipes</NavLink></li>
                   <li><a className="dropdown-item" href="/">Your Videos</a></li>
                   <li><hr className="dropdown-divider" /></li>

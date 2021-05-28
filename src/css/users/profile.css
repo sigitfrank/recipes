@@ -23,6 +23,25 @@
     border-radius: 50%;
 }
 
+.container.user-profile .card.main .edit-profile-container {
+    text-align: right;
+    margin-top: 1rem;
+    margin-right: .5rem;
+    font-size: 1.1rem;
+}
+
+.container.user-profile .card.main .edit-profile-container .edit-profile-btn {
+    cursor: pointer;
+    transition: .5s;
+    padding: .3rem;
+    border-radius: .5rem;
+}
+
+.container.user-profile .card.main .edit-profile-container .edit-profile-btn:hover {
+    background-color: #FF8E5E;
+    color: #fff;
+}
+
 .container.user-profile .card.main .card-body {
     display: flex;
     justify-content: space-between;

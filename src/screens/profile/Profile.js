@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import jwt_decode from 'jwt-decode'
 import { BsStarFill } from 'react-icons/bs'
 import { AiOutlineComment } from 'react-icons/ai'
@@ -6,8 +6,10 @@ import '../../css/users/profile.css'
 import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
+import { AiFillEdit } from 'react-icons/ai'
 
 function Profile() {
+    const [editable, setEditable] = useState(false)
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
     const { name, email, imageUrl, googleId, createdAt } = userData
@@ -22,9 +24,12 @@ function Profile() {
                                 googleId ? (<img src={imageUrl} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} className="img-fluid profile-pic" alt="profile-pic" />)
                             }
                         </div>
+                        <div className="edit-profile-container">
+                            <span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}> <AiFillEdit /> Edit</span>
+                        </div>
                         <div className="card-body">
                             <ul>
-                                <li>Name : <span>{name}</span> </li>
+                                <li>Name: <span>{name}</span> </li>
                                 <li>Email:  <span>{email}</span> </li>
                                 <li>Member Since: <span>{getDate(createdAt)}</span> </li>
                                 <li>Registration Status: <span>{getRegistrationStatus(userData)}</span></li>
