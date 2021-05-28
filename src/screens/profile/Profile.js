@@ -25,7 +25,7 @@ function Profile() {
             _id,
             userName: userName.value
         }
-        return updateProfileController({ profileDispatcher, profileData })
+        return updateProfileController({ profileDispatcher, profileData, accessToken })
     }
 
     return (
