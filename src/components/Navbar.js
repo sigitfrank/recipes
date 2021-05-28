@@ -5,10 +5,7 @@ import { RiMenu2Fill } from 'react-icons/ri'
 import '../css/navbar.css'
 import { AuthContext } from '../context/AppProvider'
 import logout from '../controllers/auth/logout'
-// import { GET_USERS_URL } from '../api/endpoints'
-// import authAxios from '../helpers/authAxios'
 import Fade from 'react-reveal/Fade'
-// import getCurrentPage from '../helpers/getCurrentPage'
 import SkeletonLoading from './SkeletonLoading'
 import { SearchContext } from '../routes/Routes'
 
@@ -20,16 +17,6 @@ function Navbar() {
   const userData = user && user.userData
   const history = useHistory()
 
-  // const getUsers = async () => {
-  //   const { accessToken } = userData
-  //   try {
-  //     const users = await authAxios(accessToken).get(GET_USERS_URL)
-  //   } catch (error) {
-  //     give user choice to continue request or logout. If continue, then request new token by refreshToken url
-  //     alert('Your session is expired, redirecting to login page')
-  //     logout()
-  //   }
-  // }
 
   const searchRecipe = () => {
     const search = searchInput.current.value

@@ -14,13 +14,15 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import updateProfileController from '../../controllers/user/updateProfileController'
 function Profile() {
     const [editable, setEditable] = useState(false)
+
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
     const { _id, name, email, imageUrl, googleId, createdAt } = userData
+
     const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
     const { userName } = profileState
-    const updateProfile = () => {
 
+    const updateProfile = () => {
         const profileData = {
             _id,
             userName: userName.value
