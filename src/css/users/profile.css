@@ -42,6 +42,26 @@
     color: #fff;
 }
 
+
+.container.user-profile input[type='text']:focus {
+    border: 0;
+}
+
+.container.user-profile input[type='text']:focus {
+    box-shadow: unset;
+    border-bottom: 2px solid #FF8E5E;
+}
+
+.container.user-profile .card.main .card-body button.btn.update {
+    background-color: #FF8E5E;
+    color: #FFF;
+    transition: .3s;
+}
+
+.container.user-profile .card.main .card-body button.btn.update:hover {
+    background-color: #c0623a;
+}
+
 .container.user-profile .card.main .card-body {
     display: flex;
     justify-content: space-between;

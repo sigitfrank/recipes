@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer, useState } from 'react'
 import jwt_decode from 'jwt-decode'
 import { BsStarFill } from 'react-icons/bs'
 import { AiOutlineComment } from 'react-icons/ai'
@@ -7,12 +7,26 @@ import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
 import { AiFillEdit } from 'react-icons/ai'
-
+import profileReducer from '../../reducers/user/ProfileReducer'
+import { initialProfileState } from '../../states/user/Profile'
+import profileActionTypes from '../../action-types/user/Profile'
+import InvalidFeedback from '../../validations/components/InvalidFeedback'
+import updateProfileController from '../../controllers/user/updateProfileController'
 function Profile() {
     const [editable, setEditable] = useState(false)
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
-    const { name, email, imageUrl, googleId, createdAt } = userData
+    const { _id, name, email, imageUrl, googleId, createdAt } = userData
+    const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
+    const { userName } = profileState
+    const updateProfile = () => {
+
+        const profileData = {
+            _id,
+            userName: userName.value
+        }
+        return updateProfileController({ profileDispatcher, profileData })
+    }
 
     return (
         <div className="container user-profile">
@@ -29,7 +43,23 @@ function Profile() {
                         </div>
                         <div className="card-body">
                             <ul>
-                                <li>Name: <span>{name}</span> </li>
+                                {editable ? (<>
+                                    <li>
+                                        Name:
+                                        <input
+                                            type="text"
+                                            className="form-control w-75 d-inline-block ms-3"
+                                            placeholder="enter your name..."
+                                            value={userName.value}
+                                            onChange={(event) => profileDispatcher({ type: profileActionTypes.SET_NAME, payload: event.target.value })}
+                                        />
+                                        {userName.error.status && <InvalidFeedback marginLeft="4rem" marginBottom="0" message={userName.error.message} isError={userName.error.status} />}
+                                    </li>
+                                </>) : (<>
+                                    <li>
+                                        Name: <span>{name}</span>
+                                    </li>
+                                </>)}
                                 <li>Email:  <span>{email}</span> </li>
                                 <li>Member Since: <span>{getDate(createdAt)}</span> </li>
                                 <li>Registration Status: <span>{getRegistrationStatus(userData)}</span></li>
@@ -42,7 +72,7 @@ function Profile() {
                                 <li><span className="follower">Follower: 219</span> </li>
                                 <li><span className="following">Following: 71</span> </li>
                                 <li>
-                                    <button className="btn btn-danger">Delete Account</button>
+                                    {editable ? (<button className="btn update" onClick={() => updateProfile()}>Update Account</button>) : (<button className="btn btn-danger">Delete Account</button>)}
                                 </li>
                             </ul>
                         </div>

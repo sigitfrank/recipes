@@ -1,4 +1,5 @@
 import { unlink } from 'fs/promises';
+import generateAccessToken from '../middleware/generateAccessToken.js';
 import USER from '../models/User.js'
 import validateImageProfile from '../validations/user/validateImageProfile.js'
 export const getUsers = (req, res) => {
@@ -8,23 +9,29 @@ export const getUsers = (req, res) => {
     })
 }
 export const updateUser = (req, res) => {
-    const { _id, name} = req.body
+    const { _id, name } = req.body
     const validateImage = validateImageProfile()
     validateImage(req, res, (err) => {
-        const imageUrl = req.file.filename
+
         if (err) return res.status(400).json({ success: false, msg: err })
         const updateProfile = async () => {
+            const user = await USER.findById(_id)
+            let imageUrl = user.imageUrl
+            if (req.file) {
+                imageUrl = req.file.filename
+                if (user.imageUrl)
+                    await unlink(`./public/uploads/images/${user.imageUrl}`)
+            }
             const filter = { _id: _id }
             const update = { name, imageUrl }
-            const user = await USER.findById(_id)
-            if (user.imageUrl)
-                await unlink(`./public/uploads/images/${user.imageUrl}`)
 
             const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
             if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
+            const userData = { _id: isProfileUpdated._id, name: isProfileUpdated.name, email: isProfileUpdated.email, imageUrl: isProfileUpdated.imageUrl, googleId: isProfileUpdated.googleId, facebookId: isProfileUpdated.facebookId, createdAt: isProfileUpdated.createdAt }
 
+            const userAccessToken = generateAccessToken({ userData })
 
-            return res.status(200).json({ success: true, msg: "Profile Updated!" })
+            return res.status(200).json({ success: true, msg: "Profile Updated!", accessToken: userAccessToken })
         }
         updateProfile()
     })
