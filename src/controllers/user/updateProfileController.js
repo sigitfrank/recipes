@@ -1,5 +1,4 @@
 import { validateStateBeforeUpdateProfile } from "../../validations/logic/user/updateProfile"
-import axios from "axios"
 import authAxios from '../../helpers/authAxios'
 import profileActionTypes from "../../action-types/user/Profile"
 import { UPDATE_USER_URL } from "../../api/endpoints"
