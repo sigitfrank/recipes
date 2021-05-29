@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useReducer, useState, useRef } from 'react'
 import jwt_decode from 'jwt-decode'
 import { BsStarFill } from 'react-icons/bs'
 import { AiOutlineComment } from 'react-icons/ai'
@@ -22,12 +22,19 @@ function Profile() {
     const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
     const { userName } = profileState
 
+    const profileImage = useRef(null)
+    const profileImageFile = useRef(null)
     const updateProfile = () => {
         const profileData = {
             _id,
-            userName: userName.value
+            userName: userName.value,
+            imageUrl: profileImageFile.current,
         }
         return updateProfileController({ profileDispatcher, profileData, accessToken })
+    }
+    const handleProfile = (e) => {
+        profileImage.current.src = window.URL.createObjectURL(e.target.files[0])
+        profileImageFile.current = e.target.files[0]
     }
 
     return (
@@ -37,11 +44,12 @@ function Profile() {
                     <div className="card main">
                         <div className="card-header">
                             {
-                                googleId ? (<img src={imageUrl} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} className="img-fluid profile-pic" alt="profile-pic" />)
+                                googleId ? (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
                             }
+                            {editable && <input type="file" className="form-control mt-2" onChange={(e) => handleProfile(e)} />}
                         </div>
                         <div className="edit-profile-container">
-                            <span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}> <AiFillEdit /> Edit</span>
+                            {editable ? (<span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}>Cancel</span>) : (<span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}> <AiFillEdit /> Edit</span>)}
                         </div>
                         <div className="card-body">
                             <ul>

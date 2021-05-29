@@ -1,0 +1,1 @@
+export const profileFilePath = './public/uploads/images'

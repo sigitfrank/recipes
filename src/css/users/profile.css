@@ -43,11 +43,13 @@
 }
 
 
-.container.user-profile input[type='text']:focus {
+.container.user-profile input[type='text']:focus,
+.container.user-profile input[type='file']:focus {
     border: 0;
 }
 
-.container.user-profile input[type='text']:focus {
+.container.user-profile input[type='text']:focus,
+.container.user-profile input[type='file']:focus {
     box-shadow: unset;
     border-bottom: 2px solid #FF8E5E;
 }

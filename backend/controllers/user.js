@@ -2,6 +2,8 @@ import { unlink } from 'fs/promises';
 import generateAccessToken from '../middleware/generateAccessToken.js';
 import USER from '../models/User.js'
 import validateImageProfile from '../validations/user/validateImageProfile.js'
+import fs from 'fs'
+import { profileFilePath } from '../constants/files.js';
 export const getUsers = (req, res) => {
     USER.find({}, (err, users) => {
         if (err) return res.status(200).json({ success: false, msg: 'Something wrong' })
@@ -12,18 +14,24 @@ export const updateUser = (req, res) => {
     const { _id, name } = req.body
     const validateImage = validateImageProfile()
     validateImage(req, res, (err) => {
-
         if (err) return res.status(400).json({ success: false, msg: err })
         const updateProfile = async () => {
             const user = await USER.findById(_id)
-            let imageUrl = user.imageUrl
+            let filename = user.imageUrl
             if (req.file) {
-                imageUrl = req.file.filename
-                if (user.imageUrl)
-                    await unlink(`./public/uploads/images/${user.imageUrl}`)
+                if (req.file.filename !== user.imageUrl) {
+                    if (fs.existsSync(`${profileFilePath}/${user.imageUrl}`)) {
+                        await unlink(`${profileFilePath}/${user.imageUrl}`)
+                    }
+                }
+                filename = req.file.filename
             }
+
             const filter = { _id: _id }
-            const update = { name, imageUrl }
+            const update = {
+                name: name === 'null' ? user.name : name,
+                imageUrl: filename === 'null' ? user.imageUrl : filename
+            }
 
             const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
             if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
