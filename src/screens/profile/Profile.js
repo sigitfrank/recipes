@@ -17,8 +17,7 @@ function Profile() {
 
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
-    const { _id, name, email, imageUrl, googleId, createdAt } = userData
-
+    const { _id, name, email, imageUrl, googleId, createdAt, isUpdated } = userData
     const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
     const { userName } = profileState
 
@@ -44,7 +43,7 @@ function Profile() {
                     <div className="card main">
                         <div className="card-header">
                             {
-                                googleId ? (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
+                                isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
                             }
                             {editable && <input type="file" className="form-control mt-2" onChange={(e) => handleProfile(e)} />}
                         </div>

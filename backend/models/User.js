@@ -23,6 +23,7 @@ const UserSchema = new Schema({
     refreshToken: String,
     googleId: String,
     facebookId: String,
+    isUpdated: Boolean
 }, {
     timestamps: true
 })

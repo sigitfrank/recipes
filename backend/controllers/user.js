@@ -18,6 +18,7 @@ export const updateUser = (req, res) => {
         const updateProfile = async () => {
             const user = await USER.findById(_id)
             let filename = user.imageUrl
+            let isUpdated = false
             if (req.file) {
                 if (req.file.filename !== user.imageUrl) {
                     if (fs.existsSync(`${profileFilePath}/${user.imageUrl}`)) {
@@ -25,17 +26,19 @@ export const updateUser = (req, res) => {
                     }
                 }
                 filename = req.file.filename
+                isUpdated = true
             }
 
             const filter = { _id: _id }
             const update = {
                 name: name === 'null' ? user.name : name,
-                imageUrl: filename === 'null' ? user.imageUrl : filename
+                imageUrl: filename === 'null' ? user.imageUrl : filename,
+                isUpdated
             }
 
             const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
             if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
-            const userData = { _id: isProfileUpdated._id, name: isProfileUpdated.name, email: isProfileUpdated.email, imageUrl: isProfileUpdated.imageUrl, googleId: isProfileUpdated.googleId, facebookId: isProfileUpdated.facebookId, createdAt: isProfileUpdated.createdAt }
+            const userData = { _id: isProfileUpdated._id, name: isProfileUpdated.name, email: isProfileUpdated.email, imageUrl: isProfileUpdated.imageUrl, googleId: isProfileUpdated.googleId, facebookId: isProfileUpdated.facebookId, createdAt: isProfileUpdated.createdAt, isUpdated: isProfileUpdated.isUpdated }
 
             const userAccessToken = generateAccessToken({ userData })
 
