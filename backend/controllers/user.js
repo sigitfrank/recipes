@@ -29,6 +29,8 @@ export const updateUser = (req, res) => {
                 isUpdated = true
             }
 
+            if(user.imageUrl) isUpdated = true
+
             const filter = { _id: _id }
             const update = {
                 name: name === 'null' ? user.name : name,

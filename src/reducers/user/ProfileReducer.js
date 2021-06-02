@@ -1,6 +1,7 @@
 import profileActionTypes from '../../action-types/user/Profile'
 import { defaultError } from '../../constants/error'
 import { countStringLength } from '../../helpers/countStringLength'
+import { initialProfileState } from '../../states/user/Profile'
 import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 
 const ProfileReducer = (state = {}, action) => {
@@ -29,6 +30,9 @@ const ProfileReducer = (state = {}, action) => {
             ...state,
             feedbackMessage: action.payload,
         }
+    }
+    if (action.type === profileActionTypes.SET_DEFAULT) {
+        return initialProfileState
     }
     return state
 }

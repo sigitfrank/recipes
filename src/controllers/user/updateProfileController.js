@@ -17,7 +17,6 @@ const updateProfileController = async (data) => {
         formData.append("_id", profileData._id)
         formData.append("name", profileData.userName || null)
         formData.append("image", profileData.imageUrl || null)
-        // const response = await authAxios(accessToken).put(UPDATE_USER_URL, user)
         const response = await axios.put(UPDATE_USER_URL, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',

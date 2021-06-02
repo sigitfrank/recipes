@@ -13,7 +13,7 @@ function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const { isLoading, isLoggedIn, user } = useContext(AuthContext)
   const { setSearch } = useContext(SearchContext)
-  const searchInput = useRef(null);
+  const searchInput = useRef(null)
   const userData = user && user.userData
   const history = useHistory()
 

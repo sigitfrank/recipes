@@ -7,168 +7,129 @@
 }
 
 .container.user-profile .card {
-    margin: 2rem 0;
     border: 0;
     box-shadow: -5px 5px 3px rgb(187, 187, 187);
+    background-color: #FAFAFA;
 }
 
 .container.user-profile .card.main .card-header {
     text-align: center;
     background-image: url('https://media.istockphoto.com/vectors/seamless-pattern-supermarket-grocery-store-food-drinks-vegetables-vector-id1173579665?b=1&k=6&m=1173579665&s=612x612&w=0&h=sq9_D9xMDv9Q0LyflpQ1ddZ-Yfd34UunevsMs6Dz2Q4=');
+    position: relative;
+    border-radius: 1rem;
+    height: 13rem;
 }
 
-.container.user-profile .card.main .card-header img.profile-pic {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+.container.user-profile .card.main .card-body {
+    display: flex;
+    margin: 0 1rem;
+    position: relative;
 }
 
-.container.user-profile .card.main .edit-profile-container {
-    text-align: right;
-    margin-top: 1rem;
-    margin-right: .5rem;
-    font-size: 1.1rem;
+.container.user-profile .card.main .card-body .username-section p.username {
+    margin-bottom: 0;
 }
 
-.container.user-profile .card.main .edit-profile-container .edit-profile-btn {
-    cursor: pointer;
-    transition: .5s;
-    padding: .3rem;
+.container.user-profile .card.main .card-body .username-section .user-follow {
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+    justify-content: center;
+}
+
+.container.user-profile .card.main .card-body .username-section .user-follow .following,
+.container.user-profile .card.main .card-body .username-section .user-follow .followers {
+    background-color: #fff;
+    border: 1px solid #E8E8E8;
+    padding: .2rem;
+    width: 10rem;
     border-radius: .5rem;
 }
 
-.container.user-profile .card.main .edit-profile-container .edit-profile-btn:hover {
-    background-color: #FF8E5E;
-    color: #fff;
+.container.user-profile .card.main .card-body .username-section .user-follow p {
+    margin: 0;
 }
 
+.container.user-profile .card.main .card-body .username-section button.btn {
+    cursor: pointer;
+    transition: .5s;
+    border-radius: .5rem;
+    color: #fff;
+    font-weight: 500;
+}
 
-.container.user-profile input[type='text']:focus,
-.container.user-profile input[type='file']:focus {
+.container.user-profile .card.main .card-body .username-section button.btn.cancel {
+    background-color: #834a32;
+}
+
+.container.user-profile .card.main .card-body .username-section button.btn.update {
+    background-color: #FF8E5E;
+}
+
+.container.user-profile .card.main .card-body .username-section button.btn.edit-profile {
+    background-color: #FF8E5E;
+}
+
+.container.user-profile .card.main .card-body .username-section button.btn:hover {
+    background: #fff;
+    color: #FF8E5E;
+    box-shadow: 0 3px 0.1rem #FF8E5E;
+}
+
+.container.user-profile input[type='text']:focus {
     border: 0;
 }
 
-.container.user-profile input[type='text']:focus,
-.container.user-profile input[type='file']:focus {
+.container.user-profile input[type='text']:focus {
     box-shadow: unset;
     border-bottom: 2px solid #FF8E5E;
 }
 
-.container.user-profile .card.main .card-body button.btn.update {
-    background-color: #FF8E5E;
-    color: #FFF;
-    transition: .3s;
+.container.user-profile .card.main .card-body p.username {
+    font-weight: bold;
 }
 
-.container.user-profile .card.main .card-body button.btn.update:hover {
-    background-color: #c0623a;
-}
-
-.container.user-profile .card.main .card-body {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 0 1rem;
-}
-
-.container.user-profile .card.main .card-body {
-    display: block;
-}
-
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-    display: inline-block;
-}
-
-.container.user-profile .card .card-body ul li {
-    border-bottom: 1px solid #bdbdbd9c;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: .8rem;
-}
-
-.container.user-profile .card.main .card-body ul span {
-    font-size: 1rem;
-}
-
-.container.user-profile .card.main .card-body ul:last-child {
-    text-align: center;
-}
-
-.container.user-profile .card.main .card-body ul:last-child li:first-child,
-.container.user-profile .card.main .card-body ul:last-child li:last-child {
-    margin: .5rem 0;
-    text-align: center;
-    border-bottom: 0;
-}
-
-.container.user-profile .card.main .card-body ul:last-child li:last-child button.btn-danger {
-    margin: 1rem 0;
-}
-
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-    display: inline-block;
-    margin: 0 1.5rem;
-}
-
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.follower,
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.following {
-    background-color: #ff824d;
-    padding: .25rem;
-    color: #fff;
-    border-radius: .2rem;
+.container.user-profile .card.main .card-body .file-profile-upload img {
     cursor: pointer;
-    transition: .5s;
 }
 
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.follower:hover,
-.container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) span.following:hover {
-    background-color: #c0623a;
+.container.user-profile .card.main .card-body .file-profile-upload>input {
+    display: none;
 }
 
-.container.user-profile .card.main .card-body ul:last-child li:first-child img.profile-badge {
-    width: 75px;
+.container.user-profile .card.main .card-body img.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    top: -5rem;
+    left: 2rem;
+    margin-right: 3rem;
+
 }
 
-.container.user-profile .card.secondary-top .card-body {
+.container.user-profile .card.main .card-body .card-badge-section {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    right: 0;
 }
 
-.container.user-profile .card.secondary-top .card-body span.badge-achivements {
-    font-size: 0.8rem;
-    margin: .5rem;
-    background-color: #FF8E5E;
-    padding: 0.3rem;
-    color: #fff;
-    border-radius: 0.3rem;
+.container.user-profile .card.main .card-body .card-badge-section .card.user-badge {
+    text-align: left;
+    color: #242526;
+    padding: .5rem;
 }
 
-.container.user-profile .card.secondary-bottom .card-body ul li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.container.user-profile .card.secondary-bottom .card-body ul li .recipe-title {
-    font-size: 1rem;
-}
-
-.container.user-profile .card.secondary-bottom .card-body ul li .score {
-    margin-right: .2rem;
+.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .title {
     text-align: center;
 }
 
-.container.user-profile .card.secondary-bottom .card-body ul li .score .stars * {
-    margin: .5rem .2rem;
-    color: #FF8E5E;
-    font-size: 1rem;
+.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .badge-icon {
+    color: #FFE602;
 }
 
-.container.user-profile .card.secondary-bottom .card-body ul li .score .comments {
-    font-size: 1rem;
+.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .badge-title {
+    font-weight: 200;
 }
 
 @media (max-width: 576px) {
@@ -176,12 +137,20 @@
         display: block;
     }
 
-    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-        display: block;
+    .container.user-profile .card.main .card-body img.profile-pic {
+        top: -6rem;
+        margin-right: 8rem;
+        left: unset;
     }
 
-    .container.user-profile .card .card-body ul:last-child li {
-        border-bottom: 0;
+    .container.user-profile .card.main .card-body .username-section {
+        position: relative;
+        top: -5rem;
+        text-align: center;
+    }
+
+    .container.user-profile .card.main .card-body .card-badge-section {
+        display: none;
     }
 }
 
@@ -190,59 +159,73 @@
         display: block;
     }
 
-    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-        display: block;
+    .container.user-profile .card.main .card-body img.profile-pic {
+        top: -6rem;
+        margin-right: 8rem;
+        left: unset;
     }
 
-    .container.user-profile .card .card-body ul:last-child li {
-        border-bottom: 0;
+    .container.user-profile .card.main .card-body .username-section {
+        position: relative;
+        top: -5rem;
+        text-align: center;
+    }
+
+    .container.user-profile .card.main .card-body .card-badge-section {
+        display: none;
+    }
+
+    .container.user-profile .card.main .card-body .badge-section.mobile {
+        position: relative;
+        top: -3rem;
     }
 }
 
 @media (min-width: 768px) {
+    .container.user-profile .card.main .card-body img.profile-pic {
+        margin-right: 3rem;
+    }
+
     .container.user-profile .card.main .card-body {
         display: block;
     }
 
-    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-        display: block;
-    }
-
-    .container.user-profile .card .card-body ul:last-child li {
-        border-bottom: 0;
+    .container.user-profile .card.main .card-body .card-badge-section {
+        display: none;
     }
 
 }
 
 @media (min-width: 992px) {
+    .container.user-profile .card.main .card-body img.profile-pic {
+        margin-right: 3rem;
+    }
 
     .container.user-profile .card.main .card-body {
-        display: block;
+        display: flex;
     }
 
-    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-        display: inline-block;
+    .container.user-profile .card.main .card-body .username-section {
+        position: unset;
+        top: unset;
+        text-align: unset;
     }
 
-    .container.user-profile .card .card-body ul:last-child li {
-        border-bottom: 1px solid #bdbdbd9c;
+    .container.user-profile .card.main .card-body .card-badge-section {
+        display: flex;
     }
 
+    .container.user-profile .card.main .card-body .badge-section.mobile {
+        display: none;
+    }
 }
 
 @media (min-width: 1200px) {
+    .container.user-profile .card.main .card-body img.profile-pic {
+        margin-right: 3rem;
+    }
+
     .container.user-profile .card.main .card-body {
         display: flex;
-        justify-content: center;
-    }
-
-    .container.user-profile .card.main .card-body ul:last-child li:not(:first-child):not(:last-child) {
-        display: inline-block;
-    }
-
-    .container.user-profile .card .card-body ul:last-child li {
-        border-bottom: 1px solid #bdbdbd9c;
     }
 }
-
-@media (min-width: 1400px) {}

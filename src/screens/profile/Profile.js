@@ -1,12 +1,10 @@
 import React, { useReducer, useState, useRef } from 'react'
 import jwt_decode from 'jwt-decode'
-import { BsStarFill } from 'react-icons/bs'
-import { AiOutlineComment } from 'react-icons/ai'
 import '../../css/users/profile.css'
 import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
-import { AiFillEdit } from 'react-icons/ai'
+import { GiTrophy } from 'react-icons/gi'
 import profileReducer from '../../reducers/user/ProfileReducer'
 import { initialProfileState } from '../../states/user/Profile'
 import profileActionTypes from '../../action-types/user/Profile'
@@ -14,7 +12,6 @@ import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import updateProfileController from '../../controllers/user/updateProfileController'
 function Profile() {
     const [editable, setEditable] = useState(false)
-
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
     const { _id, name, email, imageUrl, googleId, createdAt, isUpdated } = userData
@@ -34,130 +31,77 @@ function Profile() {
     const handleProfile = (e) => {
         profileImage.current.src = window.URL.createObjectURL(e.target.files[0])
         profileImageFile.current = e.target.files[0]
+        return updateProfile()
+    }
+
+    const cancelUpdate = () => {
+        setEditable(prevState => !prevState)
+        profileDispatcher({ type: profileActionTypes.SET_DEFAULT })
     }
 
     return (
         <div className="container user-profile">
             <div className="row">
-                <div className="col-md-7">
+                <div className="col-md-12">
                     <div className="card main">
                         <div className="card-header">
-                            {
-                                isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
-                            }
-                            {editable && <input type="file" className="form-control mt-2" onChange={(e) => handleProfile(e)} />}
-                        </div>
-                        <div className="edit-profile-container">
-                            {editable ? (<span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}>Cancel</span>) : (<span className="edit-profile-btn" onClick={() => setEditable(prevState => !prevState)}> <AiFillEdit /> Edit</span>)}
-                        </div>
-                        <div className="card-body">
-                            <ul>
-                                {editable ? (<>
-                                    <li>
-                                        Name:
-                                        <input
-                                            type="text"
-                                            className="form-control w-75 d-inline-block ms-3"
-                                            placeholder="enter your name..."
-                                            value={userName.value}
-                                            onChange={(event) => profileDispatcher({ type: profileActionTypes.SET_NAME, payload: event.target.value })}
-                                        />
-                                        {userName.error.status && <InvalidFeedback marginLeft="4rem" marginBottom="0" message={userName.error.message} isError={userName.error.status} />}
-                                    </li>
-                                </>) : (<>
-                                    <li>
-                                        Name: <span>{name}</span>
-                                    </li>
-                                </>)}
-                                <li>Email:  <span>{email}</span> </li>
-                                <li>Member Since: <span>{getDate(createdAt)}</span> </li>
-                                <li>Registration Status: <span>{getRegistrationStatus(userData)}</span></li>
-                            </ul>
-                            <ul>
-                                <li>
-                                    <div>Badge</div>
-                                    <img src="https://images.vexels.com/media/users/3/212679/isolated/preview/9763b142eacea63eef0e268ab4e21052-best-chef-diamond-badge-by-vexels.png" className="profile-badge" alt="profile-badge" />
-                                </li>
-                                <li><span className="follower">Follower: 219</span> </li>
-                                <li><span className="following">Following: 71</span> </li>
-                                <li>
-                                    {editable ? (<button className="btn update" onClick={() => updateProfile()}>Update Account</button>) : (<button className="btn btn-danger">Delete Account</button>)}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-5">
-                    <div className="card secondary-top">
-                        <div className="card-header">
-                            <h5>Achievements</h5>
-                        </div>
-                        <div className="card-body">
-                            <span className="badge-achivements">10 Followers </span>|
-                            <span className="badge-achivements">50 Followers </span>|
-                            <span className="badge-achivements">100 Followers </span>|
-                            <span className="badge-achivements">First Recipe </span>|
-                            <span className="badge-achivements">100 Likes </span>|
-                            <span className="badge-achivements">1000 Likes </span>|
-                        </div>
-                    </div>
-                    <div className="card secondary-bottom">
-                        <div className="card-header">
-                            <h5>Best Recipes</h5>
-                        </div>
-                        <div className="card-body">
-                            <ul>
-                                <li>
-                                    <span className="recipe-title">Nasi Goreng Tenis</span>
-                                    <div className="score">
-                                        <div className="stars">
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                        </div>
-                                        <span className="comments"><AiOutlineComment />: 132</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span className="recipe-title">Bubur Ayam SD</span>
-                                    <div className="score">
-                                        <div className="stars">
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                        </div>
-                                        <span className="comments"><AiOutlineComment />: 51</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span className="recipe-title">Ayam Geprek Kamila</span>
-                                    <div className="score">
-                                        <div className="stars">
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                        </div>
-                                        <span className="comments"><AiOutlineComment />: 23</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span className="recipe-title">Ketoprak Simpang</span>
-                                    <div className="score">
-                                        <div className="stars">
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                        </div>
-                                        <span className="comments"><AiOutlineComment />: 10</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
+                        </div>
+                        <div className="card-body">
+                            <div className="profile-picture">
+                                <div className="file-profile-upload">
+                                    <label htmlFor="file-profile-input">
+                                        {
+                                            isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
+                                        }
+                                    </label>
+                                    <input id="file-profile-input" onChange={(e) => handleProfile(e)} className="form-control mt-2" type="file" />
+                                </div>
+                            </div>
+                            <div className="username-section">
+                                <div className="username">
+                                    {editable ? (<input
+                                        type="text"
+                                        className="form-control w-75 d-inline-block mb-2"
+                                        placeholder="enter your name..."
+                                        value={userName.value}
+                                        onChange={(event) => profileDispatcher({ type: profileActionTypes.SET_NAME, payload: event.target.value })}
+                                    />) : (name)}
+                                    {userName.error.status && <InvalidFeedback marginLeft="0" marginBottom="0" message={userName.error.message} isError={userName.error.status} />}
+                                </div>
+                                <p className="status">Senior Chef</p>
+                                <div className="user-follow">
+                                    <div className="following">
+                                        <p>165</p>
+                                        <p>Following</p>
+                                    </div>
+                                    <div className="followers">
+                                        <p>2817</p>
+                                        <p>Followers</p>
+                                    </div>
+                                    {editable ? (
+                                        <>
+                                            <button className="btn cancel" onClick={() => cancelUpdate()}>Cancel</button>
+                                            <button className="btn update" onClick={() => updateProfile()}>Update Profile</button>
+                                        </>
+                                    ) : (<button className="btn edit-profile" onClick={() => setEditable(prevState => !prevState)}>Edit Profile</button>)}
+                                </div>
+                            </div>
+                            <div class="card-badge-section desktop">
+                                <div className="card user-badge">
+                                    <p className="title"> Loyalty Badge</p>
+                                    <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
+                                    <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
+                                </div>
+                            </div>
+                            <div class="badge-section mobile">
+                                <p className="title"> Loyalty Badge</p>
+                                <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
+                                <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
