@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 import authRouter from './routes/auth.js'
 import userRouter from './routes/user.js'
+import blogRouter from './routes/blog.js'
 import connectToDB from './database/mongoose.js'
 dotenv.config()
 const app = express()
@@ -34,6 +35,7 @@ app.use(session({
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/blog', blogRouter)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
