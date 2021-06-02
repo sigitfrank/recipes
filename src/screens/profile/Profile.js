@@ -87,14 +87,14 @@ function Profile() {
                                     ) : (<button className="btn edit-profile" onClick={() => setEditable(prevState => !prevState)}>Edit Profile</button>)}
                                 </div>
                             </div>
-                            <div class="card-badge-section desktop">
+                            <div className="card-badge-section desktop">
                                 <div className="card user-badge">
                                     <p className="title"> Loyalty Badge</p>
                                     <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
                                     <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
                                 </div>
                             </div>
-                            <div class="badge-section mobile">
+                            <div className="badge-section mobile">
                                 <p className="title"> Loyalty Badge</p>
                                 <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
                                 <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
