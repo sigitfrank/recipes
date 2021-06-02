@@ -11,7 +11,7 @@ function HomeContent() {
         </div>
         <div className="row recipes-gallery">
             <Recipes/>
-          </div>
+        </div>
       </section>
     </div>
   </div>)

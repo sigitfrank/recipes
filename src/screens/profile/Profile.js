@@ -10,6 +10,7 @@ import { initialProfileState } from '../../states/user/Profile'
 import profileActionTypes from '../../action-types/user/Profile'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import updateProfileController from '../../controllers/user/updateProfileController'
+import Recipes from '../home/components/Recipes'
 function Profile() {
     const [editable, setEditable] = useState(false)
     const { accessToken } = useCheckAuth()
@@ -44,10 +45,9 @@ function Profile() {
             <div className="row">
                 <div className="col-md-12">
                     <div className="card main">
-                        <div className="card-header">
-
+                        <div className="card-header profile">
                         </div>
-                        <div className="card-body">
+                        <div className="card-body profile">
                             <div className="profile-picture">
                                 <div className="file-profile-upload">
                                     <label htmlFor="file-profile-input">
@@ -98,6 +98,13 @@ function Profile() {
                                 <p className="title"> Loyalty Badge</p>
                                 <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
                                 <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
+                            </div>
+                        </div>
+
+                        <div className="my-recipes">
+                            <h2>My Recipes</h2>
+                            <div className="row recipes-gallery">
+                                <Recipes />
                             </div>
                         </div>
                     </div>

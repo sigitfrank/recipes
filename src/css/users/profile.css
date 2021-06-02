@@ -2,17 +2,7 @@
     margin-top: 3rem;
 }
 
-.container.user-profile ul {
-    list-style-type: none;
-}
-
-.container.user-profile .card {
-    border: 0;
-    box-shadow: -5px 5px 3px rgb(187, 187, 187);
-    background-color: #FAFAFA;
-}
-
-.container.user-profile .card.main .card-header {
+.container.user-profile .card.main .card-header.profile {
     text-align: center;
     background-image: url('https://media.istockphoto.com/vectors/seamless-pattern-supermarket-grocery-store-food-drinks-vegetables-vector-id1173579665?b=1&k=6&m=1173579665&s=612x612&w=0&h=sq9_D9xMDv9Q0LyflpQ1ddZ-Yfd34UunevsMs6Dz2Q4=');
     position: relative;
@@ -20,25 +10,25 @@
     height: 13rem;
 }
 
-.container.user-profile .card.main .card-body {
+.container.user-profile .card.main .card-body.profile {
     display: flex;
     margin: 0 1rem;
     position: relative;
 }
 
-.container.user-profile .card.main .card-body .username-section p.username {
+.container.user-profile .card.main .card-body.profile .username-section p.username {
     margin-bottom: 0;
 }
 
-.container.user-profile .card.main .card-body .username-section .user-follow {
+.container.user-profile .card.main .card-body.profile .username-section .user-follow {
     display: flex;
     gap: 1rem;
     text-align: center;
     justify-content: center;
 }
 
-.container.user-profile .card.main .card-body .username-section .user-follow .following,
-.container.user-profile .card.main .card-body .username-section .user-follow .followers {
+.container.user-profile .card.main .card-body.profile .username-section .user-follow .following,
+.container.user-profile .card.main .card-body.profile .username-section .user-follow .followers {
     background-color: #fff;
     border: 1px solid #E8E8E8;
     padding: .2rem;
@@ -46,11 +36,11 @@
     border-radius: .5rem;
 }
 
-.container.user-profile .card.main .card-body .username-section .user-follow p {
+.container.user-profile .card.main .card-body.profile .username-section .user-follow p {
     margin: 0;
 }
 
-.container.user-profile .card.main .card-body .username-section button.btn {
+.container.user-profile .card.main .card-body.profile .username-section button.btn {
     cursor: pointer;
     transition: .5s;
     border-radius: .5rem;
@@ -58,19 +48,19 @@
     font-weight: 500;
 }
 
-.container.user-profile .card.main .card-body .username-section button.btn.cancel {
+.container.user-profile .card.main .card-body.profile .username-section button.btn.cancel {
     background-color: #834a32;
 }
 
-.container.user-profile .card.main .card-body .username-section button.btn.update {
+.container.user-profile .card.main .card-body.profile .username-section button.btn.update {
     background-color: #FF8E5E;
 }
 
-.container.user-profile .card.main .card-body .username-section button.btn.edit-profile {
+.container.user-profile .card.main .card-body.profile .username-section button.btn.edit-profile {
     background-color: #FF8E5E;
 }
 
-.container.user-profile .card.main .card-body .username-section button.btn:hover {
+.container.user-profile .card.main .card-body.profile .username-section button.btn:hover {
     background: #fff;
     color: #FF8E5E;
     box-shadow: 0 3px 0.1rem #FF8E5E;
@@ -85,19 +75,19 @@
     border-bottom: 2px solid #FF8E5E;
 }
 
-.container.user-profile .card.main .card-body p.username {
+.container.user-profile .card.main .card-body.profile p.username {
     font-weight: bold;
 }
 
-.container.user-profile .card.main .card-body .file-profile-upload img {
+.container.user-profile .card.main .card-body.profile .file-profile-upload img {
     cursor: pointer;
 }
 
-.container.user-profile .card.main .card-body .file-profile-upload>input {
+.container.user-profile .card.main .card-body.profile .file-profile-upload>input {
     display: none;
 }
 
-.container.user-profile .card.main .card-body img.profile-pic {
+.container.user-profile .card.main .card-body.profile img.profile-pic {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -108,124 +98,188 @@
 
 }
 
-.container.user-profile .card.main .card-body .card-badge-section {
+.container.user-profile .card.main .card-body.profile .card-badge-section {
     display: flex;
     position: absolute;
     right: 0;
 }
 
-.container.user-profile .card.main .card-body .card-badge-section .card.user-badge {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge {
     text-align: left;
     color: #242526;
     padding: .5rem;
 }
 
-.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .title {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .title {
     text-align: center;
 }
 
-.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .badge-icon {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-icon {
     color: #FFE602;
 }
 
-.container.user-profile .card.main .card-body .card-badge-section .card.user-badge .badge-title {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-title {
     font-weight: 200;
 }
 
+.container.user-profile .my-recipes .card {
+    border: 0;
+    box-shadow: -2px 2px 5px rgb(187, 187, 187);
+    background-color: #FAFAFA;
+}
+
+.container.user-profile .card.main .my-recipes {
+    padding: 1rem;
+}
+
+.container.user-profile .my-recipes .card-header {
+    background: unset;
+    border: 0;
+    position: relative;
+}
+
+.container.user-profile .my-recipes .recipes-gallery .card-header .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.585);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.container.user-profile .my-recipes .card-header:hover .overlay {
+    opacity: 1;
+}
+
+
+.container.user-profile .my-recipes .recipes-gallery .card-header span.author {
+    color: #fff;
+}
+
+.container.user-profile .my-recipes .recipes-description {
+    background: #FFEFE9;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+}
+
+.container.user-profile .my-recipes .recipes-description ul li {
+    font-weight: 100;
+}
+
+.container.user-profile .my-recipes .recipes-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.container.user-profile .my-recipes .line {
+    height: 2px;
+    width: 25%;
+    background: #FF8E5E;
+    margin-bottom: 1rem;
+}
+
 @media (max-width: 576px) {
-    .container.user-profile .card.main .card-body {
+    .container.user-profile .card.main .card-body.profile {
         display: block;
     }
 
-    .container.user-profile .card.main .card-body img.profile-pic {
+    .container.user-profile .card.main .card-body.profile img.profile-pic {
         top: -6rem;
         margin-right: 8rem;
         left: unset;
     }
 
-    .container.user-profile .card.main .card-body .username-section {
+    .container.user-profile .card.main .card-body.profile .username-section {
         position: relative;
         top: -5rem;
         text-align: center;
     }
 
-    .container.user-profile .card.main .card-body .card-badge-section {
+    .container.user-profile .card.main .card-body.profile .card-badge-section {
         display: none;
     }
 }
 
 @media (min-width: 576px) {
-    .container.user-profile .card.main .card-body {
+    .container.user-profile .card.main .card-body.profile {
         display: block;
     }
 
-    .container.user-profile .card.main .card-body img.profile-pic {
+    .container.user-profile .card.main .card-body.profile img.profile-pic {
         top: -6rem;
         margin-right: 8rem;
         left: unset;
     }
 
-    .container.user-profile .card.main .card-body .username-section {
+    .container.user-profile .card.main .card-body.profile .username-section {
         position: relative;
         top: -5rem;
         text-align: center;
     }
 
-    .container.user-profile .card.main .card-body .card-badge-section {
+    .container.user-profile .card.main .card-body.profile .card-badge-section {
         display: none;
     }
 
-    .container.user-profile .card.main .card-body .badge-section.mobile {
+    .container.user-profile .card.main .card-body.profile .badge-section.mobile {
         position: relative;
         top: -3rem;
     }
 }
 
 @media (min-width: 768px) {
-    .container.user-profile .card.main .card-body img.profile-pic {
+    .container.user-profile .card.main .card-body.profile img.profile-pic {
         margin-right: 3rem;
     }
 
-    .container.user-profile .card.main .card-body {
+    .container.user-profile .card.main .card-body.profile {
         display: block;
     }
 
-    .container.user-profile .card.main .card-body .card-badge-section {
+    .container.user-profile .card.main .card-body.profile .card-badge-section {
         display: none;
     }
 
 }
 
 @media (min-width: 992px) {
-    .container.user-profile .card.main .card-body img.profile-pic {
+    .container.user-profile .card.main .card-body.profile img.profile-pic {
         margin-right: 3rem;
     }
 
-    .container.user-profile .card.main .card-body {
+    .container.user-profile .card.main .card-body.profile {
         display: flex;
     }
 
-    .container.user-profile .card.main .card-body .username-section {
+    .container.user-profile .card.main .card-body.profile .username-section {
         position: unset;
         top: unset;
         text-align: unset;
     }
 
-    .container.user-profile .card.main .card-body .card-badge-section {
+    .container.user-profile .card.main .card-body.profile .card-badge-section {
         display: flex;
     }
 
-    .container.user-profile .card.main .card-body .badge-section.mobile {
+    .container.user-profile .card.main .card-body.profile .badge-section.mobile {
         display: none;
     }
 }
 
 @media (min-width: 1200px) {
-    .container.user-profile .card.main .card-body img.profile-pic {
+    .container.user-profile .card.main .card-body.profile img.profile-pic {
         margin-right: 3rem;
     }
 
-    .container.user-profile .card.main .card-body {
+    .container.user-profile .card.main .card-body.profile {
         display: flex;
     }
 }
