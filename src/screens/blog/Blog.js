@@ -35,7 +35,6 @@ function Blog() {
         }
         getBlogs()
     }, [page])
-
     return (
         <>
             {singleArticle && (<header className="blog" style={parallaxStyling({ bgImage: '/assets/blog/header.png', height: '800px' })}>
@@ -90,9 +89,9 @@ function Blog() {
                     </div>
                     <nav aria-label="blog-pagination">
                         <ul className="pagination justify-content-start">
-                            <li className="page-item" onClick={() => changePage({ type: 'prev', page, setPage })}>
+                            {page > 1 && (<li className="page-item" onClick={() => changePage({ type: 'prev', page, setPage })}>
                                 <span className="page-link">Previous</span>
-                            </li>
+                            </li>)}
                             <li className="page-item" onClick={() => changePage({ type: 'next', page, setPage })}>
                                 <span className="page-link">Next</span>
                             </li>
