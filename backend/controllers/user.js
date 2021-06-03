@@ -1,6 +1,9 @@
 import { unlink } from 'fs/promises';
+import generateAccessToken from '../middleware/generateAccessToken.js';
 import USER from '../models/User.js'
 import validateImageProfile from '../validations/user/validateImageProfile.js'
+import fs from 'fs'
+import { profileFilePath } from '../constants/files.js';
 export const getUsers = (req, res) => {
     USER.find({}, (err, users) => {
         if (err) return res.status(200).json({ success: false, msg: 'Something wrong' })
@@ -8,23 +11,40 @@ export const getUsers = (req, res) => {
     })
 }
 export const updateUser = (req, res) => {
-    const { _id, name} = req.body
+    const { _id, name } = req.body
     const validateImage = validateImageProfile()
     validateImage(req, res, (err) => {
-        const imageUrl = req.file.filename
         if (err) return res.status(400).json({ success: false, msg: err })
         const updateProfile = async () => {
-            const filter = { _id: _id }
-            const update = { name, imageUrl }
             const user = await USER.findById(_id)
-            if (user.imageUrl)
-                await unlink(`./public/uploads/images/${user.imageUrl}`)
+            let filename = user.imageUrl
+            let isUpdated = false
+            if (req.file) {
+                if (req.file.filename !== user.imageUrl) {
+                    if (fs.existsSync(`${profileFilePath}/${user.imageUrl}`)) {
+                        await unlink(`${profileFilePath}/${user.imageUrl}`)
+                    }
+                }
+                filename = req.file.filename
+                isUpdated = true
+            }
+
+            if(user.imageUrl) isUpdated = true
+
+            const filter = { _id: _id }
+            const update = {
+                name: name === 'null' ? user.name : name,
+                imageUrl: filename === 'null' ? user.imageUrl : filename,
+                isUpdated
+            }
 
             const isProfileUpdated = await USER.findOneAndUpdate(filter, update, { new: true })
             if (!isProfileUpdated) return res.status(400).json({ success: false, msg: "Profile failed to update!" })
+            const userData = { _id: isProfileUpdated._id, name: isProfileUpdated.name, email: isProfileUpdated.email, imageUrl: isProfileUpdated.imageUrl, googleId: isProfileUpdated.googleId, facebookId: isProfileUpdated.facebookId, createdAt: isProfileUpdated.createdAt, isUpdated: isProfileUpdated.isUpdated }
 
+            const userAccessToken = generateAccessToken({ userData })
 
-            return res.status(200).json({ success: true, msg: "Profile Updated!" })
+            return res.status(200).json({ success: true, msg: "Profile Updated!", accessToken: userAccessToken })
         }
         updateProfile()
     })

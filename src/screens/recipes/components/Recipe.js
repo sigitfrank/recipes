@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade';
-function Recipe({ i }) {
+function Recipe({ e, i }) {
 
   return (
     <div className={`container-fluid recipes-list ${i % 2 === 0 ? 'content' : ''}`}>

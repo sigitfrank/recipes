@@ -16,4 +16,5 @@ export const TOKEN_URL = `${BASE_URL}/api/${AUTH_URL}/token`
 
 const USER_URL = 'user'
 export const GET_USERS_URL = `${BASE_URL}/api/${USER_URL}`
+export const UPDATE_USER_URL = `${BASE_URL}/api/${USER_URL}`
 export const DELETE_USER_URL = `${BASE_URL}/api/${USER_URL}/:id`

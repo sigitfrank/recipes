@@ -1,36 +1,28 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useState, useRef, useContext } from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
 import { BsSearch } from 'react-icons/bs'
 import { RiMenu2Fill } from 'react-icons/ri'
-import { TYPING_SEARCH_RECIPES, SEARCHING_RECIPES } from '../action-types/Navbar'
-import NavbarReducer from '../reducers/NavbarReducer'
 import '../css/navbar.css'
 import { AuthContext } from '../context/AppProvider'
 import logout from '../controllers/auth/logout'
-import { GET_USERS_URL } from '../api/endpoints'
-import authAxios from '../helpers/authAxios'
 import Fade from 'react-reveal/Fade'
-import checkCurrentaPage from '../helpers/checkCurrentPage'
-
-const initialNavbarState = {
-  search: ''
-}
+import SkeletonLoading from './SkeletonLoading'
+import { SearchContext } from '../routes/Routes'
 
 function Navbar() {
   const [dropdownMenu, setDropdownMenu] = useState(false)
   const { isLoading, isLoggedIn, user } = useContext(AuthContext)
+  const { setSearch } = useContext(SearchContext)
+  const searchInput = useRef(null)
   const userData = user && user.userData
-  const [navbarState, navbarDispatcher] = useReducer(NavbarReducer, initialNavbarState)
-  const { search } = navbarState
-  const getUsers = async () => {
-    const { accessToken } = userData
-    try {
-      const users = await authAxios(accessToken).get(GET_USERS_URL)
-    } catch (error) {
-      // give user choice to continue request or logout. If continue, then request new token by refreshToken url
-      alert('Your session is expired, redirecting to login page')
-      logout()
-    }
+  const history = useHistory()
+
+
+  const searchRecipe = () => {
+    const search = searchInput.current.value
+    setSearch(search)
+    searchInput.current.value = ''
+    return history.push(`/recipes?search=${search}`)
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,7 +33,6 @@ function Navbar() {
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <RiMenu2Fill />
         </button>
-
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto py-3 ms-4 mb-lg-0">
             <li className="nav-item">
@@ -59,27 +50,26 @@ function Navbar() {
           </ul>
           <form className="d-flex search-form" onSubmit={(e) => e.preventDefault()}>
             <div className="input-group me-3">
-              <button className="btn ms-n5" type="button" onClick={() => navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })}>
+              <button className="btn ms-n5" type="button" onClick={() => searchRecipe()}>
                 <BsSearch />
               </button>
-              <input className="form-control" value={search} onKeyUp={(e) => e.key === 'Enter' && navbarDispatcher({ type: SEARCHING_RECIPES, payload: search })} onChange={(e) => navbarDispatcher({ type: TYPING_SEARCH_RECIPES, payload: e.target.value })} type="search" placeholder="ex: Spaghetti carbonara" />
+              <input className="form-control" type="search" ref={searchInput} onKeyUp={(e) => e.key === 'Enter' && searchRecipe()} placeholder="ex: Spaghetti carbonara" />
             </div>
-            {isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
+            {isLoading ? (<SkeletonLoading width={100} height={50} />) : isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name}!</span>
               {
-                userData.googleId ? (<img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${userData.imageUrl}`} alt="user-avatar" />) : (
-                  <img className="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} alt="user-avatar" />)
+                userData.isUpdated || !userData.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />) : (<img src={userData.imageUrl} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />)
               }
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>
-                  <li> <NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
+                  <li><NavLink className="dropdown-item" to="/profile">Profile</NavLink></li>
                   <li><NavLink className="dropdown-item" to="/add-recipes">Your Recipes</NavLink></li>
                   <li><a className="dropdown-item" href="/">Your Videos</a></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li><span className="dropdown-item" onClick={() => logout()}>Logout</span></li>
                 </ul>
               </Fade>)}
-            </div>) : isLoading ? (<div>Loading...</div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
+            </div>) : (<button className="btn sign-in" data-bs-toggle="modal" data-bs-target="#SignInModal" type="button">Sign in</button>)}
           </form>
         </div>
       </div>

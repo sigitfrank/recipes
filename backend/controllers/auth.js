@@ -22,7 +22,8 @@ export const createUser = (req, res) => {
             token,
             refreshToken: null,
             googleId: null,
-            facebookId: null
+            facebookId: null,
+            isUpdated: false,
         })
         return newUser.save().then(user => {
             res.status(201).json({ success: true, msg: 'User Created Successfully. Please check your email to activate your account', user })
@@ -80,7 +81,7 @@ export const login = (req, res) => {
         if (user.googleId) return res.status(400).json({ success: false, msg: 'Your email is created through google login. Please login using your google account' })
         if (user.facebookId) return res.status(400).json({ success: false, msg: 'Your email is created through facebook login. Please login using your facebook account' })
         if (!validatePassword) return res.status(400).json({ success: false, msg: 'Password is incorrect, please try again.' })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
+        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt }
         const userAccessToken = generateAccessToken({ userData })
         const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
         // updateUserAccessToken
@@ -111,23 +112,24 @@ export const loginWithGoogle = (req, res) => {
     const token = `${getRandomString(8)}&${getExpiredTime(1)}`
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
-        const userAccessToken = generateAccessToken({ userData })
-        const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
+        const refreshToken = jwt.sign({ email }, process.env.SESSION_SECRET)
         if (user) {
+            const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt, isUpdated: user.isUpdated }
+            const userAccessToken = generateAccessToken({ userData })
             if (user.facebookId) return res.status(400).json({ success: false, msg: "You are already registered with facebook account. Please login with your facebook account!" })
             if (!user.googleId) return res.status(400).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
             const filter = { email }
             const update = {
-                name,
-                email,
+                name: user.name,
+                email: user.email,
                 email_verified_at: currentTime(),
                 password: accessToken,
-                imageUrl,
-                token,
+                imageUrl: user.imageUrl,
+                token: user.token,
                 refreshToken,
-                googleId,
-                facebookId: null
+                googleId: user.googleId,
+                facebookId: null,
+                isUpdated: user.isUpdated
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
             if (!updateUser) return res.status(400).json({ success: false, msg: `Login with google failed` })
@@ -144,9 +146,12 @@ export const loginWithGoogle = (req, res) => {
             token,
             refreshToken,
             googleId,
-            facebookId: null
+            facebookId: null,
+            isUpdated: false
         })
         return newUser.save().then(user => {
+            const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt, isUpdated: user.isUpdated }
+            const userAccessToken = generateAccessToken({ userData })
             res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with google', accessToken: userAccessToken, refreshToken })
         }).catch(error => {
             res.status(400).json({ success: false, msg: `Login with google failed: ${error}` })
@@ -161,23 +166,26 @@ export const loginWithFacebook = (req, res) => {
 
     const registerUser = async () => {
         const user = await USER.findOne({ email })
-        const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId }
-        const userAccessToken = generateAccessToken({ userData })
-        const refreshToken = jwt.sign({ userData }, process.env.SESSION_SECRET)
+        const refreshToken = jwt.sign({ email }, process.env.SESSION_SECRET)
         if (user) {
+            const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt, isUpdated: user.isUpdated }
+            const userAccessToken = generateAccessToken({ userData })
+
             if (user.googleId) return res.status(400).json({ success: false, msg: "You are already registered with google account. Please login with your google account!" })
             if (!user.facebookId) return res.status(400).json({ success: false, msg: "You are already registered manually. Please login with your account!" })
 
             const filter = { email }
             const update = {
-                name,
-                email,
+                name: user.name,
+                email: user.email,
                 email_verified_at: currentTime(),
                 password: accessToken,
-                token,
+                imageUrl: user.imageUrl,
+                token: user.token,
                 refreshToken,
                 googleId: null,
-                facebookId
+                facebookId: user.facebookId,
+                isUpdated: user.isUpdated
             }
             const updateUser = USER.findOneAndUpdate(filter, update, { new: true })
             if (!updateUser) return res.status(400).json({ success: false, msg: `Login with facebook failed` })
@@ -194,9 +202,12 @@ export const loginWithFacebook = (req, res) => {
             token,
             refreshToken,
             googleId: null,
-            facebookId
+            facebookId,
+            isUpdated: false
         })
         return newUser.save().then(user => {
+            const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt, isUpdated: user.isUpdated }
+            const userAccessToken = generateAccessToken({ userData })
             res.status(201).json({ success: true, isLoggedIn: true, msg: 'User Created Successfully. Automatically login with facebook', accessToken: userAccessToken, refreshToken })
         }).catch(error => {
             res.status(400).json({ success: false, msg: `Login with facebook failed: ${error}` })
@@ -217,7 +228,8 @@ export const refreshToken = (req, res) => {
         if (!user) return res.sendStatus(403)
         jwt.verify(refreshToken, process.env.SESSION_SECRET, (err, user) => {
             if (err) return res.sendStatus(403)
-            const accessToken = generateAccessToken({ email: user.email })
+            const userData = { _id: user._id, name: user.name, email: user.email, imageUrl: user.imageUrl, googleId: user.googleId, facebookId: user.facebookId, createdAt: user.createdAt, isUpdated: user.isUpdated }
+            const accessToken = generateAccessToken({ userData })
             return res.status(200).json({ success: true, accessToken })
         })
     }
