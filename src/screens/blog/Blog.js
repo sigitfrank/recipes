@@ -15,8 +15,14 @@ function Blog() {
     const [singleArticle, setSingleArticle] = useState('')
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
+
     const styleHeader = {
-        backgroundImage: "url('/assets/blog/header.png')"
+        backgroundImage: "url('/assets/blog/header.png')",
+        height: '800px',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
     }
 
     useEffect(() => {
