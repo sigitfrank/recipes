@@ -38,6 +38,7 @@ header.blog .description .read:hover {
     box-shadow: 0 3px 0.1rem #FF8E5E;
 }
 
+
 section {
     margin-top: 1rem;
 }
@@ -87,7 +88,16 @@ section.blog-main .content .category {
 section.blog-main .content .title {
     font-size: 1.6rem;
     font-weight: 500;
-    margin-bottom: 0;
+    margin: .5rem 0;
+}
+
+section.blog-main .content .title a {
+    color: #000;
+    transition: .3s;
+}
+
+section.blog-main .content .title a:hover {
+    color: rgb(94, 94, 94);
 }
 
 section.blog-main .content .author {
@@ -167,6 +177,13 @@ section.blog-main .top-articles .article .content span.author {
     display: none;
 }
 
+section.blog-main nav .page-item {
+    cursor: pointer;
+}
+
+section.blog-main nav .page-item .page-link {
+    color: #FF8E5E;
+}
 
 
 /* RESPONSIVE */

@@ -8,6 +8,16 @@
     position: relative;
     border-radius: 1rem;
     height: 13rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container.user-profile .card.main .card-header.profile .member-since {
+    background-color: #FFEFE9;
+    padding: .5rem;
+    border-radius: .5rem;
+    opacity: .8;
 }
 
 .container.user-profile .card.main .card-body.profile {
@@ -16,8 +26,13 @@
     position: relative;
 }
 
-.container.user-profile .card.main .card-body.profile .username-section p.username {
-    margin-bottom: 0;
+.container.user-profile .card.main .card-body.profile .username-section .email,
+.container.user-profile .card.main .card-body.profile .username-section .status {
+    color: rgb(175, 175, 175);
+}
+
+.container.user-profile .card.main .card-body.profile .username-section .status {
+    margin-bottom: .5rem;
 }
 
 .container.user-profile .card.main .card-body.profile .username-section .user-follow {
@@ -114,11 +129,13 @@
     text-align: center;
 }
 
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-icon {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-icon,
+.container.user-profile .card.main .card-body.profile .badge-section.mobile .badge-icon {
     color: #FFE602;
 }
 
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-title {
+.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-title,
+.container.user-profile .card.main .card-body.profile .badge-section.mobile .badge-title {
     font-weight: 200;
 }
 
@@ -192,7 +209,7 @@
     }
 
     .container.user-profile .card.main .card-body.profile img.profile-pic {
-        top: -6rem;
+        top: -5rem;
         margin-right: 8rem;
         left: unset;
     }
@@ -214,7 +231,7 @@
     }
 
     .container.user-profile .card.main .card-body.profile img.profile-pic {
-        top: -6rem;
+        top: -5rem;
         margin-right: 8rem;
         left: unset;
     }

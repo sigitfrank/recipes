@@ -1,7 +1,8 @@
 import React from 'react'
 import Fade from 'react-reveal/Fade';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
-function Sidebar() {
+import getDate from '../../../helpers/getDate';
+function Sidebar({ articles }) {
     return (
         <div className="col-md-3">
             <div className="social-media-links">
@@ -24,37 +25,23 @@ function Sidebar() {
                 </Fade>
             </div>
             <div className="top-articles">
-                <Fade top cascade>
-                    <p className="top-category">Top Articles</p>
-                    <div className="article">
-                        <img src="/assets/blog/blog-lists/2.png" alt="blog-list" className="img-fluid" />
-                        <div className="content">
-                            <span className="category">Food News</span>
-                            <p className="title">How McDonald's Makes Money: Franchising Fast Food</p>
-                            <span className="author">M Yunan Adiyaksatama - March 2021</span>
-                        </div>
-                    </div>
-                </Fade>
-                <Fade top cascade>
-                    <div className="article">
-                        <img src="/assets/blog/blog-lists/2.png" alt="blog-list" className="img-fluid" />
-                        <div className="content">
-                            <span className="category">Food News</span>
-                            <p className="title">How McDonald's Makes Money: Franchising Fast Food</p>
-                            <span className="author">M Yunan Adiyaksatama - March 2021</span>
-                        </div>
-                    </div>
-                </Fade>
-                <Fade top cascade>
-                    <div className="article">
-                        <img src="/assets/blog/blog-lists/2.png" alt="blog-list" className="img-fluid" />
-                        <div className="content">
-                            <span className="category">Food News</span>
-                            <p className="title">How McDonald's Makes Money: Franchising Fast Food</p>
-                            <span className="author">M Yunan Adiyaksatama - March 2021</span>
-                        </div>
-                    </div>
-                </Fade>
+                {
+                    articles.map((article, index) => {
+                        const { author, title, url, urlToImage, source, publishedAt } = article
+                        const { name } = source
+                        return (index >= 13) && (<Fade top cascade key={index}>
+                            <p className="top-category">Other Articles</p>
+                            <div className="article">
+                                <img src={urlToImage} alt="blog-list" className="img-fluid" />
+                                <div className="content">
+                                    <span className="category">{name}</span>
+                                    <p className="title"> <a target="_blank" rel="noopener noreferrer" href={url}> {title}</a></p>
+                                    <span className="author">{author} - {getDate(publishedAt)}</span>
+                                </div>
+                            </div>
+                        </Fade>)
+                    })
+                }
             </div>
         </div>
     )
