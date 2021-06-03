@@ -46,6 +46,7 @@ function Profile() {
                 <div className="col-md-12">
                     <div className="card main">
                         <div className="card-header profile">
+                            <span className="member-since">Member since {getDate(createdAt)}</span>
                         </div>
                         <div className="card-body profile">
                             <div className="profile-picture">
@@ -69,7 +70,10 @@ function Profile() {
                                     />) : (name)}
                                     {userName.error.status && <InvalidFeedback marginLeft="0" marginBottom="0" message={userName.error.message} isError={userName.error.status} />}
                                 </div>
-                                <p className="status">Senior Chef</p>
+                                <div className="email">
+                                    {email}
+                                </div>
+                                <div className="status">Senior Chef </div>
                                 <div className="user-follow">
                                     <div className="following">
                                         <p>165</p>

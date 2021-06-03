@@ -7,12 +7,14 @@ import Fade from 'react-reveal'
 import axios from 'axios'
 import { GET_BLOGS_URL } from '../../api/endpoints'
 import SkeletonLoading from '../../components/SkeletonLoading'
+import { loadingBlogs } from '../../constants/blog'
+import changePage from '../../controllers/blog/changePage'
 
 function Blog() {
     const [articles, setArticles] = useState([])
     const [singleArticle, setSingleArticle] = useState('')
     const [loading, setLoading] = useState(false)
-    const errors = [1, 2, 3, 4, 5, 6]
+    const [page, setPage] = useState(1)
     const styleHeader = {
         backgroundImage: "url('/assets/blog/header.png')"
     }
@@ -21,8 +23,12 @@ function Blog() {
         setLoading(true)
         const getBlogs = async () => {
             try {
-                const response = await axios.get(GET_BLOGS_URL)
-                const { articles } = response.data
+                const data = {
+                    page
+                }
+                const response = await axios.post(GET_BLOGS_URL, data)
+                const { articles, pageState } = response.data
+                if (pageState > 6 || pageState < 1) setPage(pageState)
                 setArticles(articles)
                 setSingleArticle(articles[0])
                 setLoading(false)
@@ -30,9 +36,9 @@ function Blog() {
                 setLoading(false)
             }
         }
-
         getBlogs()
-    }, [])
+    }, [page])
+
     return (
         <>
             {singleArticle && (<header className="blog" style={styleHeader}>
@@ -56,7 +62,7 @@ function Blog() {
                         <div className="col-md-9">
                             <div className="row">
                                 {
-                                    errors.map(error => {
+                                    loadingBlogs.map(error => {
                                         return (
                                             <div className="col-md-4" key={error}>
                                                 <div className="blog">
@@ -85,16 +91,13 @@ function Blog() {
                         <ListBlogs articles={articles} />
                         <Sidebar articles={articles} />
                     </div>
-                    <nav aria-label="Page navigation example">
+                    <nav aria-label="blog-pagination">
                         <ul className="pagination justify-content-start">
-                            <li className="page-item disabled">
-                                <span className="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</span>
+                            <li className="page-item" onClick={() => changePage({ type: 'prev', page, setPage })}>
+                                <span className="page-link">Previous</span>
                             </li>
-                            <li className="page-item"><span className="page-link" href="#">1</span></li>
-                            <li className="page-item"><span className="page-link" href="#">2</span></li>
-                            <li className="page-item"><span className="page-link" href="#">3</span></li>
-                            <li className="page-item">
-                                <span className="page-link" href="#">Next</span>
+                            <li className="page-item" onClick={() => changePage({ type: 'next', page, setPage })}>
+                                <span className="page-link">Next</span>
                             </li>
                         </ul>
                     </nav>
