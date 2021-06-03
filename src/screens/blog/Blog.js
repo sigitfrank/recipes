@@ -7,7 +7,7 @@ import Fade from 'react-reveal'
 import axios from 'axios'
 import { GET_BLOGS_URL } from '../../api/endpoints'
 import SkeletonLoading from '../../components/SkeletonLoading'
-import { loadingBlogs } from '../../constants/blog'
+import { loadingBlogs, parallaxStyling } from '../../constants/blog'
 import changePage from '../../controllers/blog/changePage'
 
 function Blog() {
@@ -15,15 +15,6 @@ function Blog() {
     const [singleArticle, setSingleArticle] = useState('')
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
-
-    const styleHeader = {
-        backgroundImage: "url('/assets/blog/header.png')",
-        height: '800px',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-    }
 
     useEffect(() => {
         setLoading(true)
@@ -47,7 +38,7 @@ function Blog() {
 
     return (
         <>
-            {singleArticle && (<header className="blog" style={styleHeader}>
+            {singleArticle && (<header className="blog" style={parallaxStyling({ bgImage: '/assets/blog/header.png', height: '800px' })}>
                 <div className="description">
                     <Fade cascade top>
                         <h1>{singleArticle.title}</h1>
