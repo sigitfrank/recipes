@@ -26,9 +26,16 @@
     position: relative;
 }
 
-.container.user-profile .card.main .card-body.profile .username-section .email,
 .container.user-profile .card.main .card-body.profile .username-section .status {
+    color: rgb(0, 0, 179);
+    font-size: 1.3rem;
+}
+
+.container.user-profile .card.main .card-body.profile .username-section .email,
+.container.user-profile .card.main .card-body.profile .username-section .status span {
     color: rgb(175, 175, 175);
+    margin-right: .5rem;
+    font-size: 1rem;
 }
 
 .container.user-profile .card.main .card-body.profile .username-section .status {
@@ -96,6 +103,11 @@
 
 .container.user-profile .card.main .card-body.profile .file-profile-upload img {
     cursor: pointer;
+    transition: .5s;
+}
+
+.container.user-profile .card.main .card-body.profile .file-profile-upload img:hover {
+    opacity: .5;
 }
 
 .container.user-profile .card.main .card-body.profile .file-profile-upload>input {

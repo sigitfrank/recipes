@@ -11,6 +11,7 @@ import profileActionTypes from '../../action-types/user/Profile'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
 import updateProfileController from '../../controllers/user/updateProfileController'
 import Recipes from '../home/components/Recipes'
+import { HiOutlineBadgeCheck } from 'react-icons/hi'
 function Profile() {
     const [editable, setEditable] = useState(false)
     const { accessToken } = useCheckAuth()
@@ -63,7 +64,7 @@ function Profile() {
                                 <div className="username">
                                     {editable ? (<input
                                         type="text"
-                                        className="form-control w-75 d-inline-block mb-2"
+                                        className="form-control w-75 d-inline-block my-2"
                                         placeholder="enter your name..."
                                         value={userName.value}
                                         onChange={(event) => profileDispatcher({ type: profileActionTypes.SET_NAME, payload: event.target.value })}
@@ -73,7 +74,10 @@ function Profile() {
                                 <div className="email">
                                     {email}
                                 </div>
-                                <div className="status">Senior Chef </div>
+                                <div className="status">
+                                    <span>Senior Chef</span>
+                                    <HiOutlineBadgeCheck />
+                                </div>
                                 <div className="user-follow">
                                     <div className="following">
                                         <p>165</p>
