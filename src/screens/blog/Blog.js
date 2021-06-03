@@ -20,10 +20,7 @@ function Blog() {
         setLoading(true)
         const getBlogs = async () => {
             try {
-                const data = {
-                    page
-                }
-                const response = await axios.post(GET_BLOGS_URL, data)
+                const response = await axios.post(GET_BLOGS_URL, { page })
                 const { articles, pageState } = response.data
                 if (pageState > 6 || pageState < 1) setPage(pageState)
                 setArticles(articles)
