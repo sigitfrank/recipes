@@ -90,6 +90,22 @@ section.blog-main .content .title {
     margin-bottom: 0;
 }
 
+section.blog-main .content .title a {
+    color: #222;
+    transition: .2s;
+}
+
+section.blog-main .content .title a:hover {
+    color: #555;
+    text-shadow: 1px 1px #ddd;
+
+}
+
+section.blog-main ul.pagination li.page-item .page-link {
+    color: #FF8E5E;
+    cursor: pointer;
+}
+
 section.blog-main .content .author {
     color: #AFAFAF;
     font-size: 0.9rem;
