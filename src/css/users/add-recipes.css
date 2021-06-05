@@ -202,7 +202,7 @@ form.add-recipes button.btn.add-more:hover,
 }
 
 .form-group.recipe-categories {
-    z-index: 9999;
+    z-index: 2;
 }
 
 .form-group.recipe-cook-time,
