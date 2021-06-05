@@ -48,8 +48,10 @@ function Routes() {
             </>)} />
 
             <Route path='/add-recipes' exact render={() => (<>
-                <Navbar />
-                <AddRecipes />
+                {JSON.parse(loginStatus) ? (<>
+                    <Navbar />
+                    <AddRecipes />
+                </>) : history.push('/')}
             </>)} />
 
 
