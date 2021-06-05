@@ -17,7 +17,6 @@ function Navbar() {
   const userData = user && user.userData
   const history = useHistory()
 
-
   const searchRecipe = () => {
     const search = searchInput.current.value
     setSearch(search)
@@ -56,7 +55,7 @@ function Navbar() {
               <input className="form-control" type="search" ref={searchInput} onKeyUp={(e) => e.key === 'Enter' && searchRecipe()} placeholder="ex: Spaghetti carbonara" />
             </div>
             {isLoading ? (<SkeletonLoading width={100} height={50} />) : isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
-              <span className="greeting">Hi, {userData.name}!</span>
+              <span className="greeting">Hi, {userData.name.length <= 7 ? userData.name : userData.name.substr(0, 7) + '....'}!</span>
               {
                 userData.isUpdated || !userData.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />) : (<img src={userData.imageUrl} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />)
               }
