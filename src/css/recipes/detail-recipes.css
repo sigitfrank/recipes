@@ -18,6 +18,7 @@
 
 .detail-recipes .food-gallery {
     margin-top: 1rem;
+    position: relative;
 }
 
 .detail-recipes .food-gallery img.main {
@@ -71,7 +72,13 @@
     border-radius: 1rem;
 }
 
-
 .detail-recipes .recipes-body .card.card-directions li p {
     font-weight: 100;
+}
+
+.detail-recipes .recipes-header h2.recipes-title,
+.detail-recipes .recipes-author,
+.detail-recipes .card.recipes-property,
+.detail-recipes .food-gallery {
+    z-index: 3;
 }

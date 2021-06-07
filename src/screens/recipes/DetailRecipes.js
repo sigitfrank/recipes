@@ -12,7 +12,7 @@ function DetailRecipes() {
         <div className="container-fluid detail-recipes content">
             <div className="container">
                 <section className="row recipes-header">
-                    <h2>Spaghetti Carbonara</h2>
+                    <h2 className="recipes-title">Spaghetti Carbonara</h2>
                     <div className="recipes-author">
                         <img src="https://asset-a.grid.id/crop/0x0:0x0/x/photo/2018/05/01/24787058.jpg" alt="author" />
                         <span>By Juna The Master</span>

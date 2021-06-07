@@ -33,6 +33,7 @@ a {
 .bg-half-circle {
   position: absolute;
   right: 0;
+  z-index: 2;
 }
 
 .invalid-feedback {
