@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import '../../css/blog/blog.css'
 import Categories from './components/Categories'
 import ListBlogs from './components/ListBlogs'
@@ -59,11 +59,11 @@ function Blog() {
                                         return (
                                             <div className="col-md-4" key={error}>
                                                 <div className="blog">
-                                                    <SkeletonLoading width={"100%"} height={150} />
+                                                    <SkeletonLoading height={150} />
                                                     <div className="content">
-                                                        <SkeletonLoading width={"100%"} height={50} />
-                                                        <SkeletonLoading width={"100%"} height={50} />
-                                                        <SkeletonLoading width={"100%"} height={50} />
+                                                        <SkeletonLoading height={50} />
+                                                        <SkeletonLoading height={50} />
+                                                        <SkeletonLoading height={50} />
                                                     </div>
                                                 </div>
                                             </div>)
@@ -72,10 +72,10 @@ function Blog() {
                             </div>
                         </div>
                         <div className="col-md-3">
-                            <SkeletonLoading width={"100%"} height={300} />
-                            <SkeletonLoading width={"100%"} height={100} />
-                            <SkeletonLoading width={"100%"} height={100} />
-                            <SkeletonLoading width={"100%"} height={100} />
+                            <SkeletonLoading height={300} />
+                            <SkeletonLoading height={100} />
+                            <SkeletonLoading height={100} />
+                            <SkeletonLoading height={100} />
                         </div>
                     </div>
                 </section>) : articles && (<section className="blog-main">
