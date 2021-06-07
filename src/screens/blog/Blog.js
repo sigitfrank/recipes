@@ -36,8 +36,8 @@ function Blog() {
         <>
             {singleArticle && (<header className="blog" style={parallaxStyling({ bgImage: '/assets/blog/header.png' })}>
                 <div className="description">
+                    <h1>{singleArticle.title}</h1>
                     <Fade cascade top>
-                        <h1>{singleArticle.title}</h1>
                         <div className="content">
                             <p>{singleArticle.description}</p>
                         </div>
