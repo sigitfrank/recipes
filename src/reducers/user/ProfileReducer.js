@@ -9,10 +9,13 @@ const ProfileReducer = (state = {}, action) => {
     if (action.type === profileActionTypes.SET_INITIAL_PROFILE_DATA) {
         const { name } = action.payload
         return {
-            ...state, userName: {
+            ...state, 
+            userName: {
                 value: name,
                 error: defaultError
-            }
+            },
+            setInitial: true
+
         }
     }
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../../css/blog/blog.css'
-import Categories from './components/Categories'
+// import Categories from './components/Categories'
 import ListBlogs from './components/ListBlogs'
 import Sidebar from './components/Sidebar'
 import Fade from 'react-reveal'

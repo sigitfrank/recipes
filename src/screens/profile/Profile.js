@@ -1,10 +1,9 @@
 import React, { useReducer, useState, useEffect, useRef } from 'react'
 import jwt_decode from 'jwt-decode'
 import '../../css/users/profile.css'
-import getRegistrationStatus from '../../helpers/getRegistrationStatus'
+// import getRegistrationStatus from '../../helpers/getRegistrationStatus'
 import getDate from '../../helpers/getDate'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
-import { GiTrophy } from 'react-icons/gi'
 import profileReducer from '../../reducers/user/ProfileReducer'
 import { initialProfileState } from '../../states/user/Profile'
 import profileActionTypes from '../../action-types/user/Profile'
@@ -20,14 +19,16 @@ function Profile() {
     const { userData } = jwt_decode(accessToken)
     const { _id, name, email, imageUrl, googleId, createdAt, isUpdated } = userData
     const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
-    const { userName } = profileState
+    const { userName, setInitial } = profileState
 
     const profileImage = useRef(null)
     const profileImageFile = useRef(null)
 
     useEffect(() => {
-        profileDispatcher({ type: profileActionTypes.SET_INITIAL_PROFILE_DATA, payload: userData })
-    }, [])
+        if (!setInitial)
+            profileDispatcher({ type: profileActionTypes.SET_INITIAL_PROFILE_DATA, payload: userData })
+
+    }, [setInitial, userData])
 
     return (
         <div className="container user-profile">

@@ -4,5 +4,6 @@ export const initialProfileState = {
         value: '',
         error: defaultError
     },
-    feedbackMessage: ''
+    feedbackMessage: '',
+    setInitial: false
 }
