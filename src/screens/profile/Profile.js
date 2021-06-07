@@ -46,7 +46,7 @@ function Profile() {
                                             isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
                                         }
                                     </label>
-                                    <input id="file-profile-input" onChange={(e) => handleProfile({ profileImage, profileImageFile, e, updateProfile })} className="form-control mt-2" type="file" />
+                                    <input id="file-profile-input" onChange={(e) => handleProfile({ profileImage, profileImageFile, e, updateProfile, _id, userName, profileDispatcher, accessToken })} className="form-control mt-2" type="file" />
                                 </div>
                             </div>
                             <div className="username-section">
