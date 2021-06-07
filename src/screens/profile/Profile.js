@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useRef } from 'react'
+import React, { useReducer, useState, useEffect, useRef } from 'react'
 import jwt_decode from 'jwt-decode'
 import '../../css/users/profile.css'
 import getRegistrationStatus from '../../helpers/getRegistrationStatus'
@@ -9,9 +9,11 @@ import profileReducer from '../../reducers/user/ProfileReducer'
 import { initialProfileState } from '../../states/user/Profile'
 import profileActionTypes from '../../action-types/user/Profile'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
-import updateProfileController from '../../controllers/user/updateProfileController'
 import Recipes from '../home/components/Recipes'
 import { HiOutlineBadgeCheck } from 'react-icons/hi'
+import handleProfile from '../../controllers/profile/handleProfile'
+import cancelUpdate from '../../controllers/profile/cancelUpdate'
+import updateProfile from '../../controllers/profile/updateProfile'
 function Profile() {
     const [editable, setEditable] = useState(false)
     const { accessToken } = useCheckAuth()
@@ -22,24 +24,10 @@ function Profile() {
 
     const profileImage = useRef(null)
     const profileImageFile = useRef(null)
-    const updateProfile = () => {
-        const profileData = {
-            _id,
-            userName: userName.value,
-            imageUrl: profileImageFile.current,
-        }
-        return updateProfileController({ profileDispatcher, profileData, accessToken })
-    }
-    const handleProfile = (e) => {
-        profileImage.current.src = window.URL.createObjectURL(e.target.files[0])
-        profileImageFile.current = e.target.files[0]
-        return updateProfile()
-    }
 
-    const cancelUpdate = () => {
-        setEditable(prevState => !prevState)
-        profileDispatcher({ type: profileActionTypes.SET_DEFAULT })
-    }
+    useEffect(() => {
+        profileDispatcher({ type: profileActionTypes.SET_INITIAL_PROFILE_DATA, payload: userData })
+    }, [])
 
     return (
         <div className="container user-profile">
@@ -57,7 +45,7 @@ function Profile() {
                                             isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
                                         }
                                     </label>
-                                    <input id="file-profile-input" onChange={(e) => handleProfile(e)} className="form-control mt-2" type="file" />
+                                    <input id="file-profile-input" onChange={(e) => handleProfile({ profileImage, profileImageFile, e, updateProfile })} className="form-control mt-2" type="file" />
                                 </div>
                             </div>
                             <div className="username-section">
@@ -89,8 +77,8 @@ function Profile() {
                                     </div>
                                     {editable ? (
                                         <>
-                                            <button className="btn cancel" onClick={() => cancelUpdate()}>Cancel</button>
-                                            <button className="btn update" onClick={() => updateProfile()}>Update Profile</button>
+                                            <button className="btn cancel" onClick={() => cancelUpdate({ setEditable, profileDispatcher })}>Cancel</button>
+                                            <button className="btn update" onClick={() => updateProfile({ _id, userName, profileImageFile, profileDispatcher, accessToken })}>Update Profile</button>
                                         </>
                                     ) : (<button className="btn edit-profile" onClick={() => setEditable(prevState => !prevState)}>Edit Profile</button>)}
                                 </div>
