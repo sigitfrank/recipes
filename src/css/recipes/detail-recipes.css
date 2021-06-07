@@ -1,6 +1,6 @@
 .detail-recipes.content {
     background: #FFF8F4;
-    padding: 1rem 5rem;
+    padding: 1rem;
 }
 
 .detail-recipes .recipes-author img {
@@ -36,22 +36,21 @@
 }
 
 .detail-recipes .card.recipes-property {
-    background: transparent;
     width: 100%;
     margin-top: 1rem;
 }
 
-.detail-recipes .recipes-property li {
-    list-style-type: none;
-    margin-top: 0.7rem;
-    font-weight: 300;
+.detail-recipes .card.recipes-property table tbody tr td {
+    padding-left: .5rem;
 }
 
-.detail-recipes .recipes-property li span {
-    font-weight: 600;
+.detail-recipes .recipes-property li {
+    margin-top: 0.7rem;
+    font-weight: 400;
     margin-right: 0.5rem;
 }
 
+.detail-recipes .recipes-property .line,
 .detail-recipes .recipes-body .line {
     height: 2px;
     width: 100%;
@@ -59,20 +58,19 @@
     margin-bottom: 1rem;
 }
 
-.detail-recipes .recipes-body .ingredients,
+.detail-recipes .recipes-property .line {
+    width: 60%;
+}
+
 .detail-recipes .recipes-body .directions {
     margin-top: 2rem;
 }
 
-.detail-recipes .recipes-body .card.card-ingredients,
 .detail-recipes .recipes-body .card.card-directions {
     border: 0;
     border-radius: 1rem;
 }
 
-.detail-recipes .recipes-body .card.card-ingredients li {
-    margin-top: 0.5rem;
-}
 
 .detail-recipes .recipes-body .card.card-directions li p {
     font-weight: 100;

@@ -30,30 +30,34 @@ function DetailRecipes() {
                     <div className="col-md-4">
                         <div className="card recipes-property">
                             <div className="card-body">
-                                <ul>
-                                    <li><span>Prep</span>: 20 mins</li>
-                                    <li><span>Cook</span>: 15 mins</li>
-                                    <li><span>Additional</span>: 5 mins</li>
-                                    <li><span>Total</span>: 40 mins</li>
-                                    <li><span>Servings</span>: 4</li>
-                                    <li><span>Yield</span>: 4 servings</li>
-                                </ul>
+                                <h2>Category</h2>
+                                <div className="line"></div>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Category</td>
+                                            <td>:</td>
+                                            <td>Lunch, Vegetables</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cook Time</td>
+                                            <td>:</td>
+                                            <td>20 Mins</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Serves</td>
+                                            <td>:</td>
+                                            <td>4 Plates</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
                         </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div className="container-fluid detail-recipes">
-            <div className="container">
-                <section className="row recipes-body">
-                    <div className="ingredients">
-                        <div className="col-md-2">
-                            <h2>Ingredients</h2>
-                            <div className="line"></div>
-                        </div>
-                        <div className="col-md-12">
-                            <div className="card card-ingredients">
+                        <div className="card recipes-property">
+                            <div className="card-body">
+                                <h2>Ingredients</h2>
+                                <div className="line"></div>
                                 <ul>
                                     <li>1 tablespoon extra virgin olive oil or unsalted butter</li>
                                     <li>1/2 pound pancetta or thick cut bacon, diced</li>
@@ -66,6 +70,12 @@ function DetailRecipes() {
                             </div>
                         </div>
                     </div>
+                </section>
+            </div>
+        </div>
+        <div className="container-fluid detail-recipes">
+            <div className="container">
+                <section className="row recipes-body">
                     <div className="directions">
                         <div className="col-md-2">
                             <h2>Directions</h2>
