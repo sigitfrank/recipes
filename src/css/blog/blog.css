@@ -1,6 +1,7 @@
 header.blog {
-    height: 55rem;
-    background-position: center center;
+    height: 800px;
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -197,7 +198,7 @@ section.blog-main .top-articles .article .content span.author {
     }
 
     header.blog {
-        height: 50rem;
+        height: 500px;
     }
 
 
@@ -271,6 +272,10 @@ section.blog-main .top-articles .article .content span.author {
 @media (min-width: 576px) {
     section.category ul {
         display: flex;
+    }
+
+    header.blog {
+        height: 500px;
     }
 
     header.blog .description {
@@ -353,6 +358,10 @@ section.blog-main .top-articles .article .content span.author {
 
     section.blog-main .content .title {
         font-size: 1.1rem;
+    }
+
+    header.blog {
+        height: 800px;
     }
 
     header.blog .description h1 {
@@ -442,7 +451,7 @@ section.blog-main .top-articles .article .content span.author {
     }
 
     header.blog {
-        height: 55rem;
+        height: 800px;
     }
 
     header.blog .description {

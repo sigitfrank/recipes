@@ -34,7 +34,7 @@ function Blog() {
     }, [page])
     return (
         <>
-            {singleArticle && (<header className="blog" style={parallaxStyling({ bgImage: '/assets/blog/header.png', height: '800px' })}>
+            {singleArticle && (<header className="blog" style={parallaxStyling({ bgImage: '/assets/blog/header.png' })}>
                 <div className="description">
                     <Fade cascade top>
                         <h1>{singleArticle.title}</h1>
