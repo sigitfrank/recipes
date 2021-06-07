@@ -63,7 +63,7 @@ function Profile() {
                                     {email}
                                 </div>
                                 <div className="status">
-                                    <span>Senior Chef</span>
+                                    <span>Verified</span>
                                     <HiOutlineBadgeCheck />
                                 </div>
                                 <div className="user-follow">
@@ -77,23 +77,11 @@ function Profile() {
                                     </div>
                                     {editable ? (
                                         <>
-                                            <button className="btn cancel" onClick={() => cancelUpdate({ setEditable, profileDispatcher })}>Cancel</button>
+                                            <button className="btn cancel" onClick={() => cancelUpdate({ setEditable, profileDispatcher, userData })}>Cancel</button>
                                             <button className="btn update" onClick={() => updateProfile({ _id, userName, profileImageFile, profileDispatcher, accessToken })}>Update Profile</button>
                                         </>
                                     ) : (<button className="btn edit-profile" onClick={() => setEditable(prevState => !prevState)}>Edit Profile</button>)}
                                 </div>
-                            </div>
-                            <div className="card-badge-section desktop">
-                                <div className="card user-badge">
-                                    <p className="title"> Loyalty Badge</p>
-                                    <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
-                                    <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
-                                </div>
-                            </div>
-                            <div className="badge-section mobile">
-                                <p className="title"> Loyalty Badge</p>
-                                <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Friendship</span></p>
-                                <p> <span className="badge-icon"> <GiTrophy /></span> <span className="badge-title">Sharing is Caring</span></p>
                             </div>
                         </div>
 

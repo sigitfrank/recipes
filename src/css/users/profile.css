@@ -29,6 +29,7 @@
 .container.user-profile .card.main .card-body.profile .username-section .status {
     color: rgb(0, 0, 179);
     font-size: 1.3rem;
+    font-style: italic;
 }
 
 .container.user-profile .card.main .card-body.profile .username-section .email,
@@ -125,32 +126,6 @@
 
 }
 
-.container.user-profile .card.main .card-body.profile .card-badge-section {
-    display: flex;
-    position: absolute;
-    right: 0;
-}
-
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge {
-    text-align: left;
-    color: #242526;
-    padding: .5rem;
-}
-
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .title {
-    text-align: center;
-}
-
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-icon,
-.container.user-profile .card.main .card-body.profile .badge-section.mobile .badge-icon {
-    color: #FFE602;
-}
-
-.container.user-profile .card.main .card-body.profile .card-badge-section .card.user-badge .badge-title,
-.container.user-profile .card.main .card-body.profile .badge-section.mobile .badge-title {
-    font-weight: 200;
-}
-
 .container.user-profile .my-recipes .card {
     border: 0;
     box-shadow: -2px 2px 5px rgb(187, 187, 187);
@@ -232,9 +207,6 @@
         text-align: center;
     }
 
-    .container.user-profile .card.main .card-body.profile .card-badge-section {
-        display: none;
-    }
 }
 
 @media (min-width: 576px) {
@@ -254,10 +226,6 @@
         text-align: center;
     }
 
-    .container.user-profile .card.main .card-body.profile .card-badge-section {
-        display: none;
-    }
-
     .container.user-profile .card.main .card-body.profile .badge-section.mobile {
         position: relative;
         top: -3rem;
@@ -271,10 +239,6 @@
 
     .container.user-profile .card.main .card-body.profile {
         display: block;
-    }
-
-    .container.user-profile .card.main .card-body.profile .card-badge-section {
-        display: none;
     }
 
 }
@@ -292,10 +256,6 @@
         position: unset;
         top: unset;
         text-align: unset;
-    }
-
-    .container.user-profile .card.main .card-body.profile .card-badge-section {
-        display: flex;
     }
 
     .container.user-profile .card.main .card-body.profile .badge-section.mobile {

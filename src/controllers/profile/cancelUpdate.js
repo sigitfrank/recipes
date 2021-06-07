@@ -1,7 +1,7 @@
 import profileActionTypes from "../../action-types/user/Profile"
 
-const cancelUpdate = ({setEditable, profileDispatcher}) => {
+const cancelUpdate = ({ setEditable, profileDispatcher, userData }) => {
     setEditable(prevState => !prevState)
-    profileDispatcher({ type: profileActionTypes.SET_DEFAULT })
+    return profileDispatcher({ type: profileActionTypes.SET_INITIAL_PROFILE_DATA, payload: userData })
 }
 export default cancelUpdate
