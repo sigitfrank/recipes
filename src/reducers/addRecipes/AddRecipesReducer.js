@@ -5,6 +5,9 @@ import { getRandomIngredient } from '../../helpers/randomIngredients'
 import { getRandomStep } from '../../helpers/randomSteps'
 import { toUpperCase } from '../../helpers/toUpperCase'
 import InvalidFeedback from '../../validations/logic/InvalidFeedback'
+import toast from "react-hot-toast"
+import { toastStyling } from "../../helpers/toast"
+
 const addRecipesReducer = (state = {}, action) => {
 
     if (action.type === addRecipeActionTypes.SET_RECIPE_TITLE) {
@@ -45,7 +48,10 @@ const addRecipesReducer = (state = {}, action) => {
         return {
             ...state, mainImage: {
                 value: '',
-                error: defaultError,
+                error: {
+                    status: true,
+                    message: 'Main image must be added'
+                },
                 added: false
             }
         }
@@ -252,22 +258,47 @@ const addRecipesReducer = (state = {}, action) => {
 
 
     if (action.type === addRecipeActionTypes.CHECK_POST_RECIPES) {
-        const { title, description, mainImage, categories, cookTime, servePlates, ingredients, steps } = action.payload
-        if (!title.value) return InvalidFeedback(state, title.value, 'title', 'Recipe title cannot be empty')
-        if (countStringLength(title.value) < 3) return InvalidFeedback(state, title.value, 'title', 'Recipe title min 3 characters')
-        if (!description.value) return InvalidFeedback(state, description.value, 'description', 'Recipe description min 20 characters')
-        if (countStringLength(description.value) < 20) return InvalidFeedback(state, description.value, 'description', `${20 - countStringLength(description.value)} characters left`)
-        if (categories.category.length < 1) return {
-            ...state, categories: {
-                category: [...state.categories.category],
-                error: {
-                    status: true,
-                    message: 'At least one category must be added'
+        const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage } = action.payload
+        if (!mainImage.value){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, mainImage.value, 'mainImage', 'Main image must be added')
+        } 
+        if (!title.value){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, title.value, 'title', 'Recipe title cannot be empty')
+        } 
+        if (countStringLength(title.value) < 3){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, title.value, 'title', 'Recipe title min 3 characters')
+        } 
+        if (!description.value) {
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, description.value, 'description', 'Recipe description min 20 characters')
+        }
+        if (countStringLength(description.value) < 20){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, description.value, 'description', `${20 - countStringLength(description.value)} characters left`)
+        } 
+        if (categories.category.length < 1){
+            toast.error('Please fix all the required fields', toastStyling)
+            return {
+                ...state, categories: {
+                    category: [...state.categories.category],
+                    error: {
+                        status: true,
+                        message: 'At least one category must be added'
+                    }
                 }
             }
         }
-        if (!cookTime.value) return InvalidFeedback(state, cookTime.value, 'cookTime', 'Cook time cannot be empty')
-        if (!servePlates.value) return InvalidFeedback(state, servePlates.value, 'servePlates', 'Serve Plate cannot be empty')
+        if (!cookTime.value){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, cookTime.value, 'cookTime', 'Cook time cannot be empty')
+        }
+        if (!servePlates.value){
+            toast.error('Please fix all the required fields', toastStyling)
+            return InvalidFeedback(state, servePlates.value, 'servePlates', 'Serve Plate cannot be empty')
+        }
         let checkIngredientsState = true
         const currentIngredients = ingredients.map(ingredient => {
             if (!ingredient.value) {
@@ -288,7 +319,10 @@ const addRecipesReducer = (state = {}, action) => {
                 error: defaultError
             }
         })
-        if (!checkIngredientsState) return { ...state, ingredients: currentIngredients, ...state.errors }
+        if (!checkIngredientsState){
+            toast.error('Please fix all the required fields', toastStyling)
+            return { ...state, ingredients: currentIngredients, ...state.errors }
+        } 
         let checkStepsState = true
         const currentSteps = steps.map(step => {
             if (!step.value) {
@@ -309,9 +343,13 @@ const addRecipesReducer = (state = {}, action) => {
                 error: defaultError
             }
         })
-        if (!checkStepsState) return { ...state, steps: currentSteps, ...state.errors }
+        if (!checkStepsState){
+            toast.error('Please fix all the required fields', toastStyling)
+            return { ...state, steps: currentSteps, ...state.errors }
+        } 
 
     }
+
 
     return state
 }
