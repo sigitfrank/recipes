@@ -5,7 +5,7 @@ import { toastStyling } from '../../helpers/toast';
 import { setItem } from '../../helpers/auth/store';
 const loginWithGoogle = (response) => {
     if (response.error) return toast.error('Login cancelled', toastStyling)
-    
+
     const { profileObj } = response
     const name = profileObj.givenName
     const email = profileObj.email
@@ -24,10 +24,13 @@ const loginWithGoogle = (response) => {
                 window.location.reload()
             }, 2000);
         } catch (error) {
-            console.log(error)
-            const errorMessage = error.response.data
-            toast.error(errorMessage.msg, toastStyling)
-            return false
+            if (error.response) {
+                const errorMessage = error.response.data
+                toast.error(errorMessage.msg, toastStyling)
+                return false
+            } else {
+                toast.error(error.message, toastStyling)
+            }
         }
     }
     login()

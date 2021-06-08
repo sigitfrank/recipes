@@ -16,13 +16,17 @@ const registerController = async (data) => {
         registerDispatcher({ type: registerActionTypes.POST_REGISTER_USER, payload: response.data })
         return toast.success(response.data.msg, toastStyling)
     } catch (error) {
-        const errorMessage = error.response.data
-        if (errorMessage.errors) {
-            toast.error(errorMessage.errors[0].msg, toastStyling)
+        if (error.response) {
+            const errorMessage = error.response.data
+            if (errorMessage.errors) {
+                toast.error(errorMessage.errors[0].msg, toastStyling)
+                return false
+            }
+            toast.error(errorMessage.msg, toastStyling)
             return false
+        } else {
+            toast.error(error.message, toastStyling)
         }
-        toast.error(errorMessage.msg, toastStyling)
-        return false
     }
 
 }

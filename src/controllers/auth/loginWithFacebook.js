@@ -21,9 +21,13 @@ const loginWithFacebook = (response) => {
             }, 2000);
 
         } catch (error) {
-            const errorMessage = error.response.data
-            toast.error(errorMessage.msg, toastStyling)
-            return false
+            if (error.response) {
+                const errorMessage = error.response.data
+                toast.error(errorMessage.msg, toastStyling)
+                return false
+            } else {
+                toast.error(error.message, toastStyling)
+            }
         }
     }
     login()

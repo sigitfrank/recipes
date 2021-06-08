@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 const RecipesSchema = new Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -36,9 +40,10 @@ const RecipesSchema = new Schema({
             required: true
         }
     ],
-    // mainImage: {
-    //     type: String,
-    // },
+    mainImage: {
+        type: String,
+        required: true
+    },
     // additionalImages: [
     //     {
     //         type: String,

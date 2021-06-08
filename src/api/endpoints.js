@@ -24,3 +24,4 @@ export const GET_BLOGS_URL = `${BASE_URL}/api/${BLOG_URL}`
 
 const RECIPES_URL = 'recipes'
 export const POST_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`
+export const GET_USER_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`

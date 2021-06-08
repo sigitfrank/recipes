@@ -8,13 +8,18 @@ import profileReducer from '../../reducers/user/ProfileReducer'
 import { initialProfileState } from '../../states/user/Profile'
 import profileActionTypes from '../../action-types/user/Profile'
 import InvalidFeedback from '../../validations/components/InvalidFeedback'
-import Recipes from '../home/components/Recipes'
 import { HiOutlineBadgeCheck } from 'react-icons/hi'
 import handleProfile from '../../controllers/profile/handleProfile'
 import cancelUpdate from '../../controllers/profile/cancelUpdate'
 import updateProfile from '../../controllers/profile/updateProfile'
+import Fade from 'react-reveal/Fade'
+
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { GET_USER_RECIPES_URL } from '../../api/endpoints'
 function Profile() {
     const [editable, setEditable] = useState(false)
+    const [userRecipes, setUserRecipes] = useState([])
     const { accessToken } = useCheckAuth()
     const { userData } = jwt_decode(accessToken)
     const { _id, name, email, imageUrl, googleId, createdAt, isUpdated } = userData
@@ -29,6 +34,20 @@ function Profile() {
             profileDispatcher({ type: profileActionTypes.SET_INITIAL_PROFILE_DATA, payload: userData })
 
     }, [setInitial, userData])
+
+
+    useEffect(() => {
+        const getRecipes = async () => {
+            try {
+                const response = await axios.get(`${GET_USER_RECIPES_URL}/${_id}`)
+                const recipes = response.data.recipes
+                setUserRecipes(recipes)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getRecipes()
+    }, [_id])
 
     return (
         <div className="container user-profile">
@@ -89,13 +108,45 @@ function Profile() {
                         <div className="my-recipes">
                             <h2>My Recipes</h2>
                             <div className="row recipes-gallery">
-                                <Recipes />
+                                {
+                                    userRecipes && (<>
+                                        {userRecipes.map(recipe => (<div className="col-md-4 col-sm-12" key={recipe._id}>
+                                            <div className="card my-3">
+                                                <Fade bottom>
+                                                    <div className="card-header">
+                                                        <img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.mainImage}`} alt="popular-recipes" className="w-100" />
+                                                        <div className="overlay">
+                                                            <span className="author">{recipe.title}</span>
+                                                        </div>
+                                                    </div>
+                                                </Fade>
+                                                <Fade bottom>
+                                                    <div className="card-body">
+                                                        <h4>{recipe.title}</h4>
+                                                        <div className="recipes-description">
+                                                            <h5>Ingredients</h5>
+                                                            <ul>
+                                                                {
+                                                                    recipe.ingredients.map(ingredient => (<li key={ingredient.id}>{ingredient.value}</li>))
+                                                                }
+
+                                                            </ul>
+                                                        </div>
+                                                        <p className="text-center mt-3 mb-0"> <Link to="/recipes/1" className="main-color"> Read more</Link></p>
+                                                    </div>
+                                                </Fade>
+                                            </div>
+                                        </div>))}
+                                    </>
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

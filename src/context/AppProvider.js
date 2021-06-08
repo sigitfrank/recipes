@@ -9,6 +9,7 @@ export const AuthContext = React.createContext()
 
 function AppProvider({ children }) {
     const { loginStatus, accessToken } = useCheckAuth()
+    console.log(accessToken)
     const [authState, setAuthState] = useState({ isLoading: false, isLoggedIn: false, user: {} })
     useEffect(() => {
         let mounted = true;
@@ -21,8 +22,10 @@ function AppProvider({ children }) {
             }).catch(error => {
                 alert('Session has expired, please re-login')
                 removeItemStorage()
-                const errorMessage = error.response.data
-                console.log(errorMessage.msg)
+                if(error.response){
+                    const errorMessage = error.response.data
+                    console.log(errorMessage.msg)
+                }
                 setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
                 setTimeout(() => {
                     window.location.href = '/'

@@ -20,17 +20,18 @@ const loginController = async (data) => {
         toast.success(msg, toastStyling)
         return true
     } catch (error) {
-        const errorMessage = error.response.data
-        if (errorMessage.errors) {
-            toast.error(errorMessage.errors[0].msg, toastStyling)
+        if (error.response) {
+            const errorMessage = error.response.data
+            if (errorMessage.errors) {
+                toast.error(errorMessage.errors[0].msg, toastStyling)
+                return false
+            }
+            toast.error(errorMessage.msg, toastStyling)
             return false
+        } else {
+            toast.error(error.message, toastStyling)
         }
-        toast.error(errorMessage.msg, toastStyling)
-        return false
-
     }
-
-
 }
 
 export default loginController
