@@ -94,4 +94,5 @@ export const initialAddRecipesState = {
             }
         },
     ],
+    isStateValid: false
 }

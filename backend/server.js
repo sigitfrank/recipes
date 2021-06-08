@@ -14,11 +14,10 @@ const app = express()
 
 connectToDB(process.env)
 app.use(express.static('public'))
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({
     extended: true
 }))
+app.use(express.json())
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],

@@ -15,10 +15,12 @@ import { dispatchMainImage, dispatchAdditionalImages } from '../../validations/l
 import { toggleEmoji } from '../../helpers/toggleEmoji'
 import postRecipesController from '../../controllers/recipes/postRecipesController'
 import { Toaster } from 'react-hot-toast'
+import useCheckAuth from '../../helpers/auth/useCheckAuth'
 function AddRecipes() {
     const [mounted, setMounted] = useState(false);
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
     const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage } = addRecipesState
+    const { accessToken } = useCheckAuth()
     const handleFormSubmit = (e) => {
         e.preventDefault()
     }
@@ -215,7 +217,7 @@ function AddRecipes() {
                 </div>
 
                 <div className="container publish">
-                    <button type="button" onClick={() => postRecipesController({ addRecipesState, addRecipesDispatch })} className="btn">Publish</button>
+                    <button type="button" onClick={() => postRecipesController({ addRecipesState, addRecipesDispatch, accessToken })} className="btn">Publish</button>
                 </div>
             </form >
         </>)

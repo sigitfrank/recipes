@@ -21,3 +21,6 @@ export const DELETE_USER_URL = `${BASE_URL}/api/${USER_URL}/:id`
 
 const BLOG_URL = 'blog'
 export const GET_BLOGS_URL = `${BASE_URL}/api/${BLOG_URL}`
+
+const RECIPES_URL = 'recipes'
+export const POST_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`
