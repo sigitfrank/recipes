@@ -10,40 +10,40 @@ const RecipesSchema = new Schema({
         type: String,
         required: true
     },
-    cookTime:{
-        type:String,
-        required:true
+    cookTime: {
+        type: String,
+        required: true
     },
-    servePlates:{
-        type:String,
-        required:true
+    servePlates: {
+        type: String,
+        required: true
     },
     categories: [
         {
-            type: String,
+            type: Object,
             required: true
         }
     ],
     ingredients: [
         {
-            type: String,
+            type: Object,
             required: true
         }
     ],
     steps: [
         {
-            type: String,
+            type: Object,
             required: true
         }
     ],
-    mainImage: {
-        type: String,
-    },
-    additionalImages: [
-        {
-            type: String,
-        }
-    ],
+    // mainImage: {
+    //     type: String,
+    // },
+    // additionalImages: [
+    //     {
+    //         type: String,
+    //     }
+    // ],
 }, {
     timestamps: true
 })
