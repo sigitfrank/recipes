@@ -1,5 +1,6 @@
 import addRecipeActionTypes from '../../action-types/addRecipes/AddRecipes'
 import { defaultError } from '../../constants/error'
+import { countStringLength } from '../../helpers/countStringLength'
 import { getRandomIngredient } from '../../helpers/randomIngredients'
 import { getRandomStep } from '../../helpers/randomSteps'
 import { toUpperCase } from '../../helpers/toUpperCase'
@@ -7,7 +8,9 @@ import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 const addRecipesReducer = (state = {}, action) => {
 
     if (action.type === addRecipeActionTypes.SET_RECIPE_TITLE) {
+        const titleLength = countStringLength(action.payload)
         if (!action.payload) return InvalidFeedback(state, action.payload, 'title', 'Recipe title cannot be empty')
+        if (titleLength < 3) return InvalidFeedback(state, action.payload, 'title', 'Recipe title min 3 characters')
         return {
             ...state, title: {
                 value: action.payload,
@@ -17,8 +20,9 @@ const addRecipesReducer = (state = {}, action) => {
     }
 
     if (action.type === addRecipeActionTypes.SET_RECIPE_DESCRIPTION) {
-
-        if (!action.payload) return InvalidFeedback(state, action.payload, 'description', 'Recipe description cannot be empty')
+        const descriptionLength = countStringLength(action.payload)
+        if (!action.payload) return InvalidFeedback(state, action.payload, 'description', 'Recipe description min 20 characters')
+        if (descriptionLength < 20) return InvalidFeedback(state, action.payload, 'description', `${20 - descriptionLength} characters left`)
         return {
             ...state, description: {
                 value: action.payload,
@@ -105,6 +109,17 @@ const addRecipesReducer = (state = {}, action) => {
     if (action.type === addRecipeActionTypes.REMOVE_RECIPE_CATEGORIES) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             const removedCategories = state.categories.category.filter(category => category.id !== action.payload)
+
+            if (removedCategories.length < 1) return {
+                ...state, categories: {
+                    category: removedCategories,
+                    error: {
+                        status: true,
+                        message: 'At least one category must be added'
+                    }
+                }
+            }
+
             return {
                 ...state, categories: {
                     category: removedCategories,
@@ -233,6 +248,69 @@ const addRecipesReducer = (state = {}, action) => {
                 value: `${currentDescriptionValue} ${action.payload.emoji}`
             }
         }
+    }
+
+
+    if (action.type === addRecipeActionTypes.CHECK_POST_RECIPES) {
+        const { title, description, mainImage, categories, cookTime, servePlates, ingredients, steps } = action.payload
+        if (!title.value) return InvalidFeedback(state, title.value, 'title', 'Recipe title cannot be empty')
+        if (countStringLength(title.value) < 3) return InvalidFeedback(state, title.value, 'title', 'Recipe title min 3 characters')
+        if (!description.value) return InvalidFeedback(state, description.value, 'description', 'Recipe description min 20 characters')
+        if (countStringLength(description.value) < 20) return InvalidFeedback(state, description.value, 'description', `${20 - countStringLength(description.value)} characters left`)
+        if (categories.category.length < 1) return {
+            ...state, categories: {
+                category: [...state.categories.category],
+                error: {
+                    status: true,
+                    message: 'At least one category must be added'
+                }
+            }
+        }
+        if (!cookTime.value) return InvalidFeedback(state, cookTime.value, 'cookTime', 'Cook time cannot be empty')
+        if (!servePlates.value) return InvalidFeedback(state, servePlates.value, 'servePlates', 'Serve Plate cannot be empty')
+        let checkIngredientsState = true
+        const currentIngredients = ingredients.map(ingredient => {
+            if (!ingredient.value) {
+                checkIngredientsState = false
+                return {
+                    ...ingredient,
+                    value: ingredient.value,
+                    error: {
+                        status: true,
+                        message: 'Recipe ingredient cannot be empty'
+                    }
+                }
+
+            }
+            return {
+                ...ingredient,
+                value: ingredient.value,
+                error: defaultError
+            }
+        })
+        if (!checkIngredientsState) return { ...state, ingredients: currentIngredients, ...state.errors }
+        let checkStepsState = true
+        const currentSteps = steps.map(step => {
+            if (!step.value) {
+                checkStepsState = false
+                return {
+                    ...step,
+                    value: step.value,
+                    error: {
+                        status: true,
+                        message: 'Recipe step cannot be empty'
+                    }
+                }
+
+            }
+            return {
+                ...step,
+                value: step.value,
+                error: defaultError
+            }
+        })
+        if (!checkStepsState) return { ...state, steps: currentSteps, ...state.errors }
+
     }
 
     return state

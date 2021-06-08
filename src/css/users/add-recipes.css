@@ -207,7 +207,7 @@ form.add-recipes button.btn.add-more:hover,
 
 .form-group.recipe-cook-time,
 .form-group.recipe-serve-plate {
-    z-index: -9999;
+    z-index: 99999;
 }
 
 

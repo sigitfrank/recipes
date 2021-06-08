@@ -13,6 +13,7 @@ import AdditionalImageGallery from '../../validations/components/addRecipes/Addi
 import MainImageGallery from '../../validations/components/addRecipes/MainImageGallery'
 import { dispatchMainImage, dispatchAdditionalImages } from '../../validations/logic/addRecipes/HandleImages'
 import { toggleEmoji } from '../../helpers/toggleEmoji'
+import postRecipesController from '../../controllers/recipes/postRecipesController'
 function AddRecipes() {
     const [mounted, setMounted] = useState(false);
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
@@ -209,7 +210,7 @@ function AddRecipes() {
         </div>
 
         <div className="container publish">
-            <button type="button" onClick={() => alert('Published')} className="btn">Publish</button>
+            <button type="button" onClick={() => postRecipesController({ addRecipesState, addRecipesDispatch })} className="btn">Publish</button>
         </div>
     </form >)
 }
