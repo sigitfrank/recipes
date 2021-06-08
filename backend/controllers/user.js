@@ -20,21 +20,22 @@ export const updateUser = (req, res) => {
             let filename = user.imageUrl
             let isUpdated = false
             if (req.file) {
-                if (req.file.filename !== user.imageUrl) {
-                    if (fs.existsSync(`${profileFilePath}/${user.imageUrl}`)) {
-                        await unlink(`${profileFilePath}/${user.imageUrl}`)
+                if (`/uploads/images/profile/${_id}/${req.file.filename}` !== user.imageUrl) {
+                    if (fs.existsSync('./public/' + user.imageUrl)) {
+                        await unlink('./public/' + user.imageUrl)
                     }
                 }
                 filename = req.file.filename
                 isUpdated = true
             }
 
-            if(user.imageUrl) isUpdated = true
+            if (user.imageUrl) isUpdated = true
 
+            // ./public/uploads/images/profile/${req.user.userData._id}
             const filter = { _id: _id }
             const update = {
                 name: name === 'null' ? user.name : name,
-                imageUrl: filename === 'null' ? user.imageUrl : filename,
+                imageUrl: filename === 'null' ? user.imageUrl : `${profileFilePath}/${_id}/${filename}`,
                 isUpdated
             }
 

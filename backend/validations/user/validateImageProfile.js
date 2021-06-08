@@ -1,9 +1,15 @@
 import multer from 'multer'
+import fs from 'fs'
+
 import formatFilename from '../../helpers/formatFilename.js'
 const validateImageProfile = () => {
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
-            callback(null, './public/uploads/images')
+            let dirProfile = `./public/uploads/images/profile/${req.user.userData._id}`;
+            if (!fs.existsSync(dirProfile)){
+                fs.mkdirSync(dirProfile);
+            }
+            callback(null, dirProfile)
         },
         filename: (req, file, callback) => {
             formatFilename(callback, file)

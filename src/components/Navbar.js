@@ -57,7 +57,7 @@ function Navbar() {
             {isLoading ? (<SkeletonLoading width={100} height={50} />) : isLoggedIn ? (<div className="user-avatar-container dropdown-toggle">
               <span className="greeting">Hi, {userData.name.length <= 7 ? userData.name : userData.name.substr(0, 7) + '....'}!</span>
               {
-                userData.isUpdated || !userData.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${userData.imageUrl}`} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />) : (<img src={userData.imageUrl} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />)
+                userData.isUpdated || !userData.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${userData.imageUrl}`} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />) : (<img src={userData.imageUrl} className="user-avatar" alt="user-avatar" onClick={() => setDropdownMenu(prevState => !prevState)} />)
               }
               {dropdownMenu && (<Fade cascade top>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{ display: 'block' }}>

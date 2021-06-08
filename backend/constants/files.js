@@ -1,1 +1,1 @@
-export const profileFilePath = './public/uploads/images'
+export const profileFilePath = '/uploads/images/profile'

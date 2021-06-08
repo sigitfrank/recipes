@@ -43,7 +43,7 @@ function Profile() {
                                 <div className="file-profile-upload">
                                     <label htmlFor="file-profile-input">
                                         {
-                                            isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/uploads/images/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
+                                            isUpdated || !googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${imageUrl}`} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />) : (<img src={imageUrl} ref={profileImage} className="img-fluid profile-pic" alt="profile-pic" />)
                                         }
                                     </label>
                                     <input id="file-profile-input" onChange={(e) => handleProfile({ profileImage, profileImageFile, e, updateProfile, _id, userName, profileDispatcher, accessToken })} className="form-control mt-2" type="file" />
