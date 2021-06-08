@@ -25,17 +25,15 @@ export const updateUser = (req, res) => {
                         await unlink('./public/' + user.imageUrl)
                     }
                 }
-                filename = req.file.filename
+                filename = `/uploads/images/profile/${_id}/${req.file.filename}`
                 isUpdated = true
             }
 
             if (user.imageUrl) isUpdated = true
-
-            // ./public/uploads/images/profile/${req.user.userData._id}
             const filter = { _id: _id }
             const update = {
                 name: name === 'null' ? user.name : name,
-                imageUrl: filename === 'null' ? user.imageUrl : `${profileFilePath}/${_id}/${filename}`,
+                imageUrl: filename === 'null' ? user.imageUrl : filename,
                 isUpdated
             }
 
