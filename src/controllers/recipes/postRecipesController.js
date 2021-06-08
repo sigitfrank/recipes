@@ -1,40 +1,40 @@
 import axios from "axios"
 import addRecipeActionTypes from "../../action-types/addRecipes/AddRecipes"
 import { POST_RECIPES_URL } from "../../api/endpoints"
-import authAxios from "../../helpers/authAxios"
-
+import toast from 'react-hot-toast';
+import { toastStyling } from "../../helpers/toast"
 const postRecipesController = async (data) => {
     const { addRecipesState, addRecipesDispatch, accessToken } = data
     const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage, additionalImages, isStateValid } = addRecipesState
     addRecipesDispatch({ type: addRecipeActionTypes.CHECK_POST_RECIPES, payload: addRecipesState })
     if (!isStateValid) return false
     try {
-        const recipesData = {
-            title: title.value,
-            description: description.value,
-            categories: categories.category,
-            cookTime: cookTime.value,
-            servePlates: servePlates.value,
-            ingredients: ingredients,
-            steps: steps,
-            mainImage: mainImage.value.file,
-            additionalImages: additionalImages.value
-        }
-        // const response = await authAxios(accessToken).post(POST_RECIPES_URL, recipesData, {
-        // })
-        console.log(accessToken)
         let formData = new FormData()
         formData.append("title", title.value)
+        formData.append("description", description.value)
+        formData.append("categories", JSON.stringify(categories.category))
+        formData.append("cookTime", cookTime.value)
+        formData.append("servePlates", servePlates.value)
+        formData.append("ingredients", JSON.stringify(ingredients))
+        formData.append("steps", JSON.stringify(steps))
+        formData.append("mainImage", mainImage.value)
+        formData.append("additionalImages", additionalImages)
         const response = await axios.post(POST_RECIPES_URL, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${accessToken}`
             }
         })
-        console.log(response)
+        console.log(response.data)
 
     } catch (error) {
-        console.log(error.response.data)
+        if(error.response.status === 500) {
+            toast.error('Server cannot process your request', toastStyling)
+        } else{
+            const errorMessage = error.response.data
+            toast.error(errorMessage.msg, toastStyling)
+        }
+        return false
     }
 
 }

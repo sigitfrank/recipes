@@ -30,10 +30,15 @@ const updateProfileController = async (data) => {
             window.location.reload()
         }, 2000);
     } catch (error) {
-        console.log(error)
-        const errorMessage = error.response.data
-        toast.error(errorMessage.msg, toastStyling)
-        return false
+        if(error.response.status === 500) {
+            toast.error('Server cannot process your request', toastStyling)
+        } else{
+            const errorMessage = error.response.data
+            toast.error(errorMessage.msg, toastStyling)
+        }
+        return setTimeout(() => {
+            window.location.reload()
+        }, 2000);
     }
 }
 
