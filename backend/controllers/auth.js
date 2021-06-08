@@ -91,11 +91,6 @@ export const login = (req, res) => {
         if (!updateUserAccessToken) return res.status(400).json({ success: false, msg: 'Failed to login, please try again' })
         return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', accessToken: userAccessToken, refreshToken })
     }
-
-    // let second = 1
-    // setInterval(() => {
-    //     console.log(second += 1)
-    // }, 1000);
     userLogin()
 }
 

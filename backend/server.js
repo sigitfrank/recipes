@@ -8,15 +8,17 @@ import authRouter from './routes/auth.js'
 import userRouter from './routes/user.js'
 import blogRouter from './routes/blog.js'
 import connectToDB from './database/mongoose.js'
+import recipesRouter from './routes/recipes.js'
 dotenv.config()
 const app = express()
 
 connectToDB(process.env)
 app.use(express.static('public'))
 app.use(express.json())
-app.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({
     extended: true
-  }));
+}))
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -36,6 +38,7 @@ app.use(session({
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
 app.use('/api/blog', blogRouter)
+app.use('/api/recipes', recipesRouter)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
