@@ -41,7 +41,7 @@ export const postRecipes = (req, res) => {
     })
 }
 
-export const getRecipes = (req, res) => {
+export const getUserRecipesList = (req, res) => {
     const { userId } = req.params
     const getUserRecipes = async () => {
         try {
@@ -70,4 +70,17 @@ export const getSingleRecipe = (req, res) => {
         }
     }
     getRecipe()
+}
+
+export const getRecipesList = (req, res) => {
+    const getRecipes = async () => {
+        try {
+            const recipes = await RECIPES.find({})
+            console.log(recipes)
+            res.status(200).json({ success: true })
+        } catch (error) {
+            res.status(404).json({ success: false, msg: 'Recipe not found', recipe: [] })
+        }
+    }
+    getRecipes()
 }
