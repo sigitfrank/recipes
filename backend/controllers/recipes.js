@@ -68,9 +68,15 @@ export const getSingleRecipe = (req, res) => {
 }
 
 export const getRecipesList = (req, res) => {
+    const { search } = req.body || null
     const getRecipes = async () => {
         try {
-            const recipes = await RECIPES.find({}).select('mainImage title ingredients').populate('userId', 'name imageUrl googleId isUpdated')
+            let recipes = await RECIPES.find({}).select('mainImage title ingredients').populate('userId', 'name imageUrl googleId isUpdated')
+            if (search) {
+                recipes = recipes.filter(recipe => {
+                    return recipe.title.toLowerCase().includes(search.toLowerCase())
+                })
+            }
             res.status(200).json({ success: true, recipes })
         } catch (error) {
             res.status(404).json({ success: false, msg: 'Recipe not found', recipe: [] })

@@ -21,7 +21,7 @@ function Navbar() {
     const search = searchInput.current.value
     setSearch(search)
     searchInput.current.value = ''
-    return history.push(`/recipes?search=${search}`)
+    return history.push(`/recipes`)
   }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">

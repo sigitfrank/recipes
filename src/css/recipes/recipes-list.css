@@ -59,3 +59,26 @@
     background: #FF8E5E;
     margin-bottom: 1rem;
 }
+
+.recipes-list .search-container {
+    margin: 1rem 0;
+    text-align: center;
+    z-index: 9999;
+}
+
+.recipes-list .search-container span.search-keyword,
+.recipes-list .search-container span.search-clearIcon {
+    background-color: #FF8E5E;
+    padding: .3rem;
+    color: #FFEFE9;
+    border-radius: .3rem;
+    margin-right: .2rem;
+}
+
+.recipes-list .search-container span.search-clearIcon {
+    cursor: pointer;
+}
+
+.recipes-list .recipes-not-exist {
+    text-align: center;
+}

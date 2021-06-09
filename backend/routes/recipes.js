@@ -7,6 +7,6 @@ const recipesRouter = express.Router()
 recipesRouter.post('/', authenticateUser, validateImagesRecipes(), postRecipes)
 recipesRouter.get('/user/:userId', getUserRecipesList)
 recipesRouter.get('/:_id', getSingleRecipe)
-recipesRouter.get('/', getRecipesList)
+recipesRouter.post('/search', getRecipesList)
 
 export default recipesRouter
