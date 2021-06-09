@@ -115,7 +115,7 @@ function Profile() {
                                                     <div className="card-header">
                                                         <img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.mainImage}`} alt="popular-recipes" className="w-100" />
                                                         <div className="overlay">
-                                                            <span className="author">{recipe.title}</span>
+                                                            <span className="author">{recipe.userId.name}</span>
                                                         </div>
                                                     </div>
                                                 </Fade>

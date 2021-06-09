@@ -6,8 +6,8 @@ import Recipe from './Recipe'
 const list = [1, 2]
 function Recipes() {
     const [isSearched, setIsSearched] = useState(false)
+    const [recipes, setRecipes] = useState([])
     const { search } = useContext(SearchContext)
-
     useEffect(() => {
         search ? setIsSearched(true) : setIsSearched(false)
     }, [search])
@@ -16,13 +16,14 @@ function Recipes() {
         const getRecipesList = async () => {
             try {
                 const response = await axios.get(GET_RECIPES_LIST)
-                console.log(response)
+                const data = response.data.recipes
+                setRecipes(data)
             } catch (error) {
                 console.log(error)
             }
 
-            getRecipesList()
         }
+        getRecipesList()
     }, [])
 
     if (isSearched)
@@ -34,12 +35,7 @@ function Recipes() {
         </>)
 
     return (<>
-        {
-            list.map((e, i) => (
-                <Recipe key={e} i={i} />
-            ))
-        }
-
+        {recipes && <Recipe recipes={recipes} />}
     </>
     )
 }

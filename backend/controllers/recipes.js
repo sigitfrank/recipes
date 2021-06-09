@@ -45,7 +45,7 @@ export const getUserRecipesList = (req, res) => {
     const { userId } = req.params
     const getUserRecipes = async () => {
         try {
-            const recipes = await RECIPES.find({ userId })
+            const recipes = await RECIPES.find({ userId }).select('mainImage title ingredients').populate('userId', 'name imageUrl googleId isUpdated')
             res.status(200).json({ success: true, recipes })
         } catch (error) {
             res.status(404).json({ success: false, msg: 'User recipes not found', recipes: [] })
@@ -58,13 +58,8 @@ export const getSingleRecipe = (req, res) => {
     const { _id } = req.params
     const getRecipe = async () => {
         try {
-            const recipe = await RECIPES.findById({ _id })
-            const user = await USER.findById({ _id: recipe.userId })
-            const recipeData = {
-                recipe,
-                user
-            }
-            res.status(200).json({ success: true, recipe: recipeData })
+            const recipe = await RECIPES.findById({ _id }).populate('userId', 'name imageUrl googleId isUpdated')
+            res.status(200).json({ success: true, recipe })
         } catch (error) {
             res.status(404).json({ success: false, msg: 'Recipe not found', recipe: {} })
         }
@@ -75,9 +70,8 @@ export const getSingleRecipe = (req, res) => {
 export const getRecipesList = (req, res) => {
     const getRecipes = async () => {
         try {
-            const recipes = await RECIPES.find({})
-            console.log(recipes)
-            res.status(200).json({ success: true })
+            const recipes = await RECIPES.find({}).select('mainImage title ingredients').populate('userId', 'name imageUrl googleId isUpdated')
+            res.status(200).json({ success: true, recipes })
         } catch (error) {
             res.status(404).json({ success: false, msg: 'Recipe not found', recipe: [] })
         }

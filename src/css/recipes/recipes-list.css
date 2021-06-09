@@ -9,6 +9,10 @@
     position: relative;
 }
 
+.recipes-list .recipes-gallery {
+    z-index: 9999;
+}
+
 .recipes-list .recipes-gallery .card-header .overlay {
     position: absolute;
     top: 0;
