@@ -10,7 +10,7 @@
 }
 
 .recipes-list .recipes-gallery {
-    z-index: 9999;
+    z-index: 9998;
 }
 
 .recipes-list .recipes-gallery .card-header .overlay {
@@ -81,4 +81,5 @@
 
 .recipes-list .recipes-not-exist {
     text-align: center;
+    z-index: 9999;
 }

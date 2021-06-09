@@ -82,6 +82,7 @@ nav.navbar img.user-avatar {
 nav.navbar .dropdown-menu {
     right: 1rem;
     top: 4rem;
+    z-index: 9999;
 }
 
 nav.navbar ul.dropdown-menu li *:hover {

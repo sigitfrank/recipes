@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade';
 import { MdClear } from 'react-icons/md'
 function Recipe({ search, setSearch, recipes }) {
+  console.log(recipes)
   return (
     // <div className={`container-fluid recipes-list ${index % 2 === 0 ? 'content' : ''}`}>
     <div className={`container-fluid recipes-list`}>
@@ -13,12 +14,13 @@ function Recipe({ search, setSearch, recipes }) {
             <span className="search-clearIcon" onClick={() => setSearch('')}><MdClear /></span>
           </div>}
 
-          {recipes.length > 0 ? (<><div className="recipes-category">
-            <Fade>
-              <h2>Breakfast Recipes</h2>
-              <div className="line"></div>
-            </Fade>
-          </div>
+          {recipes.length > 0 ? (<>
+            <div className="recipes-category">
+              <Fade>
+                <h2>Recipes List</h2>
+                <div className="line"></div>
+              </Fade>
+            </div>
             <div className="row recipes-gallery">
               {recipes.map(recipe => (<div key={recipe._id} className="col-md-4 col-sm-12">
                 <div className="card my-3">
@@ -47,7 +49,7 @@ function Recipe({ search, setSearch, recipes }) {
                 </div>
               </div>))}
             </div>
-          </>) : (<p className="recipes-not-exist" style={{ zIndex: '9999' }}>Recipes you searched do not exist, try another keyword</p>)}
+          </>) : !search ? (<p className="recipes-not-exist">Loading...</p>) : (<p className="recipes-not-exist">Recipes you searched do not exist, try another keyword</p>)}
         </section>
       </div>
     </div>
