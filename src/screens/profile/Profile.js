@@ -13,9 +13,8 @@ import handleProfile from '../../controllers/profile/handleProfile'
 import cancelUpdate from '../../controllers/profile/cancelUpdate'
 import updateProfile from '../../controllers/profile/updateProfile'
 import Fade from 'react-reveal/Fade'
-
+import authAxios from '../../helpers/authAxios'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { GET_USER_RECIPES_URL } from '../../api/endpoints'
 function Profile() {
     const [editable, setEditable] = useState(false)
@@ -38,7 +37,7 @@ function Profile() {
     useEffect(() => {
         const getRecipes = async () => {
             try {
-                const response = await axios.get(`${GET_USER_RECIPES_URL}/${_id}`)
+                const response = await authAxios(accessToken).get(`${GET_USER_RECIPES_URL}/${_id}`)
                 const recipes = response.data.recipes
                 setUserRecipes(recipes)
             } catch (error) {

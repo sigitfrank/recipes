@@ -5,7 +5,7 @@ import validateImagesRecipes from '../validations/recipes/validateImagesRecipes.
 const recipesRouter = express.Router()
 
 recipesRouter.post('/', authenticateUser, validateImagesRecipes(), postRecipes)
-recipesRouter.get('/user/:userId', getUserRecipesList)
+recipesRouter.get('/user/:userId', authenticateUser, getUserRecipesList)
 recipesRouter.get('/:_id', getSingleRecipe)
 recipesRouter.post('/search', getRecipesList)
 
