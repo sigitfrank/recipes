@@ -2,7 +2,7 @@ import multer from 'multer'
 import fs from 'fs'
 import formatFilename from '../../helpers/formatFilename.js'
 
-const validateMainImageRecipes = () => {
+const validateImagesRecipes = () => {
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
             const dirRecipesUser = `./public/uploads/images/recipes/${req.user.userData._id}`
@@ -60,4 +60,4 @@ const validateMainImageRecipes = () => {
     ])
 }
 
-export default validateMainImageRecipes
+export default validateImagesRecipes

@@ -1,7 +1,7 @@
 import filterAdditionalImages from "../helpers/filterAdditionalImages.js"
 import RECIPES from "../models/Recipes.js"
 import USER from "../models/User.js"
-import validateMainImageRecipes from "../validations/recipes/validateMainImageRecipes.js"
+import validateImagesRecipes from "../validations/recipes/validateImagesRecipes.js"
 
 export const postRecipes = (req, res) => {
     const { userId, title, description, categories, cookTime, servePlates, ingredients, steps } = req.body
@@ -16,8 +16,8 @@ export const postRecipes = (req, res) => {
 
     const filteredAdditionalImages = filterAdditionalImages(additionalImagesValue, req.files, userId)
 
-    const validateMainImage = validateMainImageRecipes()
-    validateMainImage(req, res, (err) => {
+    const validateImages = validateImagesRecipes()
+    validateImages(req, res, (err) => {
         if (err) return res.status(400).json({ success: false, msg: err })
         const newRecipe = new RECIPES({
             userId,
