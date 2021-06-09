@@ -256,7 +256,6 @@ const addRecipesReducer = (state = {}, action) => {
         }
     }
 
-
     if (action.type === addRecipeActionTypes.CHECK_POST_RECIPES) {
         const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage } = action.payload
         if (!mainImage.value) {

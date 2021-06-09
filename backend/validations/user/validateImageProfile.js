@@ -6,20 +6,20 @@ const validateImageProfile = () => {
     const storage = multer.diskStorage({
         destination: (req, file, callback) => {
             let dirProfile = `./public/uploads/images/profile/${req.user.userData._id}`;
-            if (!fs.existsSync(dirProfile)){
+            if (!fs.existsSync(dirProfile)) {
                 fs.mkdirSync(dirProfile);
             }
             callback(null, dirProfile)
         },
         filename: (req, file, callback) => {
-            formatFilename(callback, file)
+            formatFilename(callback, file, 'profile', req.user.userData._id)
         },
     })
     return multer({
         storage: storage,
         limits: {
             fileSize: 1024 * 1024, //1mb
-        }, 
+        },
         fileFilter: (req, file, cb) => {
             const mimetypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/JPEG', 'image/JPG', 'image/PNG']
             if (!mimetypes.includes(file.mimetype)) {

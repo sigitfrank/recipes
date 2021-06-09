@@ -1,19 +1,24 @@
+import filterAdditionalImages from "../helpers/filterAdditionalImages.js"
 import RECIPES from "../models/Recipes.js"
+import USER from "../models/User.js"
 import validateMainImageRecipes from "../validations/recipes/validateMainImageRecipes.js"
 
 export const postRecipes = (req, res) => {
     const { userId, title, description, categories, cookTime, servePlates, ingredients, steps } = req.body
-    let ingredientsValue = [], stepsValue = []
+    const mainImage = `/uploads/images/recipes/${userId}/${req.files.mainImage[0].filename}`
+    let ingredientsValue = [], stepsValue = [], additionalImagesValue = []
     JSON.parse(ingredients).map((ingredient, index) => {
         ingredientsValue = [...ingredientsValue, { id: index + 1, value: ingredient.value }]
     })
     JSON.parse(steps).map((step, index) => {
         stepsValue = [...stepsValue, { id: index + 1, value: step.value }]
     })
+
+    const filteredAdditionalImages = filterAdditionalImages(additionalImagesValue, req.files, userId)
+
     const validateMainImage = validateMainImageRecipes()
     validateMainImage(req, res, (err) => {
         if (err) return res.status(400).json({ success: false, msg: err })
-        const mainImage = `/uploads/images/recipes/${userId}/main/${req.file.filename}`
         const newRecipe = new RECIPES({
             userId,
             title,
@@ -24,8 +29,9 @@ export const postRecipes = (req, res) => {
             ingredients: ingredientsValue,
             steps: stepsValue,
             mainImage,
-            numOfLikes:0,
-            numOfComments:0,
+            additionalImages: filteredAdditionalImages,
+            numOfLikes: 0,
+            numOfComments: 0,
         })
         return newRecipe.save().then(recipe => {
             res.status(201).json({ success: true, msg: 'Recipe created successfully', recipe })
@@ -46,4 +52,22 @@ export const getRecipes = (req, res) => {
         }
     }
     getUserRecipes()
+}
+
+export const getSingleRecipe = (req, res) => {
+    const { _id } = req.params
+    const getRecipe = async () => {
+        try {
+            const recipe = await RECIPES.findById({ _id })
+            const user = await USER.findById({ _id: recipe.userId })
+            const recipeData = {
+                recipe,
+                user
+            }
+            res.status(200).json({ success: true, recipe: recipeData })
+        } catch (error) {
+            res.status(404).json({ success: false, msg: 'Recipe not found', recipe: {} })
+        }
+    }
+    getRecipe()
 }

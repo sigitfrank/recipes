@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback, useEffect } from 'react'
+import React, { useState, useReducer, useCallback, useEffect, useRef } from 'react'
 import Fade from 'react-reveal/Fade'
 import TagInputs from '../../helpers/TagInputs'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'
@@ -17,7 +17,7 @@ import postRecipesController from '../../controllers/recipes/postRecipesControll
 import { Toaster } from 'react-hot-toast'
 import useCheckAuth from '../../helpers/auth/useCheckAuth'
 function AddRecipes() {
-    const [mounted, setMounted] = useState(false);
+    const [mounted, setMounted] = useState(false)
     const [addRecipesState, addRecipesDispatch] = useReducer(AddRecipesReducer, initialAddRecipesState)
     const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage } = addRecipesState
     const { accessToken } = useCheckAuth()
@@ -53,6 +53,7 @@ function AddRecipes() {
             setMounted(false)
         }
     }, [])
+
     return (
         <>
             <Toaster position='bottom-center' />

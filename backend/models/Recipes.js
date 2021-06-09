@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 
 const RecipesSchema = new Schema({
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref:'users',
         required: true
     },
     title: {
@@ -52,11 +53,12 @@ const RecipesSchema = new Schema({
         type: Number,
         required: true
     },
-    // additionalImages: [
-    //     {
-    //         type: String,
-    //     }
-    // ],
+    additionalImages:[
+        {
+            type: Object,
+            required: true
+        }
+    ],
 }, {
     timestamps: true
 })

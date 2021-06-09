@@ -9,14 +9,10 @@ const validateMainImageRecipes = () => {
             if (!fs.existsSync(dirRecipesUser)) {
                 fs.mkdirSync(dirRecipesUser)
             }
-            const dirRecipesMainUser = `./public/uploads/images/recipes/${req.user.userData._id}/main`
-            if (!fs.existsSync(dirRecipesMainUser)) {
-                fs.mkdirSync(dirRecipesMainUser)
-            }
-            callback(null, dirRecipesMainUser)
+            callback(null, dirRecipesUser)
         },
         filename: (req, file, callback) => {
-            formatFilename(callback, file)
+            formatFilename(callback, file, 'recipes', req.user.userData._id)
         },
     })
     return multer({
@@ -24,16 +20,44 @@ const validateMainImageRecipes = () => {
         limits: {
             fileSize: 1024 * 1024, //1mb
         },
-        fileFilter: (req, file, cb) => {
+        fileFilter: (req, file, callback) => {
             const mimetypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/JPEG', 'image/JPG', 'image/PNG']
             if (!mimetypes.includes(file.mimetype)) {
-                cb({ message: 'File extension must be jpg, jpeg, or png' })
-                return cb(null, false)
+                callback({ message: 'File extension must be jpg, jpeg, or png' })
+                return callback(null, false)
 
             }
-            cb(null, true)
+            callback(null, true)
         }
-    }).single('mainImage')
+    }).fields([
+        {
+            name: 'mainImage', maxCount: 1
+        },
+        {
+            name: 'additionalImages1', maxCount: 1
+        },
+        {
+            name: 'additionalImages2', maxCount: 1
+        },
+        {
+            name: 'additionalImages3', maxCount: 1
+        },
+        {
+            name: 'additionalImages4', maxCount: 1
+        },
+        {
+            name: 'additionalImages5', maxCount: 1
+        },
+        {
+            name: 'additionalImages6', maxCount: 1
+        },
+        {
+            name: 'additionalImages7', maxCount: 1
+        },
+        {
+            name: 'additionalImages8', maxCount: 1
+        },
+    ])
 }
 
 export default validateMainImageRecipes

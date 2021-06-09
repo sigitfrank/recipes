@@ -17,11 +17,12 @@ export const TOKEN_URL = `${BASE_URL}/api/${AUTH_URL}/token`
 const USER_URL = 'user'
 export const GET_USERS_URL = `${BASE_URL}/api/${USER_URL}`
 export const UPDATE_USER_URL = `${BASE_URL}/api/${USER_URL}`
-export const DELETE_USER_URL = `${BASE_URL}/api/${USER_URL}/:id`
+export const DELETE_USER_URL = `${BASE_URL}/api/${USER_URL}`
 
 const BLOG_URL = 'blog'
 export const GET_BLOGS_URL = `${BASE_URL}/api/${BLOG_URL}`
 
 const RECIPES_URL = 'recipes'
 export const POST_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`
-export const GET_USER_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`
+export const GET_USER_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}/user`
+export const GET_SINGLE_RECIPE_URL = `${BASE_URL}/api/${RECIPES_URL}`

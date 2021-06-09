@@ -8,7 +8,9 @@ const postRecipesController = async (data) => {
     const { addRecipesState, addRecipesDispatch, accessToken } = data
     const { userData } = jwt_decode(accessToken)
     //additionalImages
-    const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage, isStateValid } = addRecipesState
+    const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage, additionalImages, isStateValid } = addRecipesState
+
+
     addRecipesDispatch({ type: addRecipeActionTypes.CHECK_POST_RECIPES, payload: addRecipesState })
     if (!isStateValid) return false
     try {
@@ -22,7 +24,9 @@ const postRecipesController = async (data) => {
         formData.append("ingredients", JSON.stringify(ingredients))
         formData.append("steps", JSON.stringify(steps))
         formData.append("mainImage", mainImage.value.file)
-
+        additionalImages.map((additionalImage, index) => {
+            formData.append(`additionalImages${index + 1}`, additionalImage.value.file)
+        })
         const response = await axios.post(POST_RECIPES_URL, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',

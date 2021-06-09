@@ -131,7 +131,7 @@ function Profile() {
 
                                                             </ul>
                                                         </div>
-                                                        <p className="text-center mt-3 mb-0"> <Link to="/recipes/1" className="main-color"> Read more</Link></p>
+                                                        <p className="text-center mt-3 mb-0"> <Link to={`/recipes/${recipe._id}`} className="main-color"> Read more</Link></p>
                                                     </div>
                                                 </Fade>
                                             </div>

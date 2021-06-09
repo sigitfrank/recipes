@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { readdir } from 'fs/promises';
-const formatFilename = async (callback, file) => {
-    const dir = './public/uploads/images/'
+const formatFilename = async (callback, file, folder, userId) => {
+    const dir = `./public/uploads/images/${folder}/${userId}/`
     try {
         const files = await readdir(dir);
         const date = moment().format('YYYY-MMMM-Do')
