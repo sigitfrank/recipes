@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback, useEffect, useRef } from 'react'
+import React, { useState, useReducer, useCallback, useEffect } from 'react'
 import Fade from 'react-reveal/Fade'
 import TagInputs from '../../helpers/TagInputs'
 import { initialAddRecipesState } from '../../states/addRecipes/AddRecipes'

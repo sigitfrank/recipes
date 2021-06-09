@@ -1,15 +1,13 @@
 import axios from "axios"
 import addRecipeActionTypes from "../../action-types/addRecipes/AddRecipes"
 import { POST_RECIPES_URL } from "../../api/endpoints"
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'
 import { toastStyling } from "../../helpers/toast"
 import jwt_decode from 'jwt-decode'
 const postRecipesController = async (data) => {
     const { addRecipesState, addRecipesDispatch, accessToken } = data
     const { userData } = jwt_decode(accessToken)
-    //additionalImages
     const { title, description, categories, cookTime, servePlates, ingredients, steps, mainImage, additionalImages, isStateValid } = addRecipesState
-
 
     addRecipesDispatch({ type: addRecipeActionTypes.CHECK_POST_RECIPES, payload: addRecipesState })
     if (!isStateValid) return false
@@ -25,7 +23,7 @@ const postRecipesController = async (data) => {
         formData.append("steps", JSON.stringify(steps))
         formData.append("mainImage", mainImage.value.file)
         additionalImages.map((additionalImage, index) => {
-            formData.append(`additionalImages${index + 1}`, additionalImage.value.file)
+            return formData.append(`additionalImages${index + 1}`, additionalImage.value.file)
         })
         const response = await axios.post(POST_RECIPES_URL, formData, {
             headers: {
