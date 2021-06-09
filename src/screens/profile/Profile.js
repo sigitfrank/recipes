@@ -25,7 +25,6 @@ function Profile() {
     const { _id, name, email, imageUrl, googleId, createdAt, isUpdated } = userData
     const [profileState, profileDispatcher] = useReducer(profileReducer, initialProfileState)
     const { userName, setInitial } = profileState
-
     const profileImage = useRef(null)
     const profileImageFile = useRef(null)
 
@@ -109,7 +108,7 @@ function Profile() {
                             <h2>My Recipes</h2>
                             <div className="row recipes-gallery">
                                 {
-                                    userRecipes && (<>
+                                    userRecipes.length > 0 ? (<>
                                         {userRecipes.map(recipe => (<div className="col-md-4 col-sm-12" key={recipe._id}>
                                             <div className="card my-3">
                                                 <Fade bottom>
@@ -138,9 +137,12 @@ function Profile() {
                                             </div>
                                         </div>))}
                                     </>
-                                    )
+                                    ) : (<div className="col-md-12">
+                                        <div className="empty-recipes-container">
+                                            <span className="empty-recipes">You don't have any recipes yet!</span>
+                                        </div>
+                                    </div>)
                                 }
-
                             </div>
                         </div>
                     </div>

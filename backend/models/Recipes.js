@@ -44,6 +44,14 @@ const RecipesSchema = new Schema({
         type: String,
         required: true
     },
+    numOfLikes: {
+        type: Number,
+        required: true
+    },
+    numOfComments: {
+        type: Number,
+        required: true
+    },
     // additionalImages: [
     //     {
     //         type: String,

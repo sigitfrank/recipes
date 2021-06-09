@@ -23,7 +23,9 @@ export const postRecipes = (req, res) => {
             servePlates,
             ingredients: ingredientsValue,
             steps: stepsValue,
-            mainImage
+            mainImage,
+            numOfLikes:0,
+            numOfComments:0,
         })
         return newRecipe.save().then(recipe => {
             res.status(201).json({ success: true, msg: 'Recipe created successfully', recipe })

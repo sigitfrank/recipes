@@ -156,6 +156,10 @@
     transition: 0.5s;
 }
 
+.container.user-profile .my-recipes .recipes-gallery .empty-recipes-container {
+    text-align: center;
+}
+
 .container.user-profile .my-recipes .card-header:hover .overlay {
     opacity: 1;
 }
