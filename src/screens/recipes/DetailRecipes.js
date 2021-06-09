@@ -96,7 +96,7 @@ function DetailRecipes() {
                                 <div className="card card-directions">
                                     <ul>
                                         {data.recipe.steps.map((step, index) => (<li key={step.id}>
-                                            Step {index}
+                                            Step {index + 1}
                                             <p>
                                                 {step.value}
                                             </p>
