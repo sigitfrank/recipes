@@ -3,6 +3,12 @@
     padding: 1rem;
 }
 
+.detail-recipes .recipes-author {
+    display: flex;
+    align-items: center;
+}
+
+
 .detail-recipes .recipes-author img {
     width: 3rem;
     height: 3rem;
@@ -13,7 +19,13 @@
 
 .detail-recipes .recipes-author span {
     font-weight: 400;
+    color: #000;
+}
+
+.detail-recipes .recipes-author .user-info p {
+    margin-bottom: 0;
     color: #656565;
+    font-size: .8rem;
 }
 
 .detail-recipes .food-gallery {

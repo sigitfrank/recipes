@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { GET_SINGLE_RECIPE_URL } from '../../api/endpoints'
 import '../../css/recipes/detail-recipes.css'
 import formatRecipeCategory from '../../helpers/formatRecipeCategory'
+import getDate from '../../helpers/getDate'
 import { scrollViewTop } from '../../helpers/scrollViewTop'
 function DetailRecipes() {
     const [recipe, setRecipe] = useState(null)
@@ -30,7 +31,11 @@ function DetailRecipes() {
                             {
                                 recipe.userId.isUpdated || !recipe.userId.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.userId.imageUrl}`} alt="author" />) : (<img src={`${recipe.userId.imageUrl}`} alt="author" />)
                             }
-                            <span>{recipe.userId.name}</span>
+                            <div className="user-info">
+                                <span>{recipe.userId.name}</span>
+                                <p>{getDate(recipe.createdAt)}</p>
+                            </div>
+
                         </div>
                         <div className="col-md-8">
                             <div className="food-gallery">

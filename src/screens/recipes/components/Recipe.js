@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade';
 import { MdClear } from 'react-icons/md'
 function Recipe({ search, setSearch, recipes }) {
-  console.log(recipes)
   return (
     // <div className={`container-fluid recipes-list ${index % 2 === 0 ? 'content' : ''}`}>
     <div className={`container-fluid recipes-list`}>
