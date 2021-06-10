@@ -12,13 +12,13 @@ import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
 import ActivateAccount from '../screens/auth/ActivateAccount'
 import useCheckAuth from '../helpers/auth/useCheckAuth'
-export const SearchContext = React.createContext('')
 
+export const SearchContext = React.createContext('')
 function Routes() {
     const { loginStatus } = useCheckAuth()
-
     const [search, setSearch] = useState('')
     const history = useHistory()
+
     return (<>
         <SearchContext.Provider value={{ search, setSearch }}>
             <Route path='/' exact render={() => (<>

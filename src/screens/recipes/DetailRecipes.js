@@ -1,12 +1,14 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { GET_SINGLE_RECIPE_URL } from '../../api/endpoints'
+import { RecipeCarouselContext } from '../../App'
 import '../../css/recipes/detail-recipes.css'
 import formatRecipeCategory from '../../helpers/formatRecipeCategory'
 import getDate from '../../helpers/getDate'
 import { scrollViewTop } from '../../helpers/scrollViewTop'
 function DetailRecipes() {
     const [recipe, setRecipe] = useState(null)
+    const { setRecipesCarousel } = useContext(RecipeCarouselContext)
     useEffect(() => {
         scrollViewTop()
         const getSingleRecipe = async () => {
@@ -20,6 +22,10 @@ function DetailRecipes() {
         }
         getSingleRecipe()
     }, [])
+
+    const handleModalRecipes = (e) => {
+        return setRecipesCarousel([recipe.mainImage, recipe.additionalImages])
+    }
     return (<>
         <img src="/assets/bg-half-circle.png" alt="bg-half-circle" className="bg-half-circle" />
         {recipe ? (<>
@@ -39,10 +45,10 @@ function DetailRecipes() {
                         </div>
                         <div className="col-md-8">
                             <div className="food-gallery">
-                                <img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.mainImage}`} alt="food-pic" className="main" />
+                                <img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.mainImage}`} data-bs-toggle="modal" data-bs-target="#CarouselRecipesModal" onClick={(e) => handleModalRecipes(e)} alt="food-pic" className="main" />
                                 <div className="small-gallery">
                                     {recipe.additionalImages.map(additionalImage => (
-                                        <img key={additionalImage.id} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${additionalImage.value}`} alt="food-pic" />
+                                        <img key={additionalImage.id} src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${additionalImage.value}`} data-bs-toggle="modal" data-idrecipe={`${recipe._id}`} data-bs-target="#CarouselRecipesModal" onClick={(e) => handleModalRecipes(e)} alt="food-pic" />
                                     ))}
                                 </div>
                             </div>

@@ -45,7 +45,7 @@ function Profile() {
             }
         }
         getRecipes()
-    }, [_id])
+    }, [_id, accessToken])
 
     return (
         <div className="container user-profile">
