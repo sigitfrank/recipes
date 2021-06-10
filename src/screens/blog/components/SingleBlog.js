@@ -7,7 +7,7 @@ function SingleBlog({ article }) {
     // https://ps.w.org/tiny-default-thumbnail/assets/icon-256x256.png?rev=2504004
     return (
         <div className="col-md-4">
-            <Fade left cascade>
+            <Fade top cascade>
                 <div className="blog">
                     <img src={urlToImage} alt="blog-list" className="img-fluid" />
                     <div className="content">

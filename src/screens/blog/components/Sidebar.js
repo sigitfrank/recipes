@@ -6,7 +6,7 @@ function Sidebar({ articles }) {
     return (
         <div className="col-md-3">
             <div className="social-media-links">
-                <Fade right>
+                <Fade bottom cascade>
                     <span className="follow-us">Follow Us</span>
                     <ul>
                         <li>
@@ -29,7 +29,7 @@ function Sidebar({ articles }) {
                     articles.map((article, index) => {
                         const { author, title, url, urlToImage, source, publishedAt } = article
                         const { name } = source
-                        return (index >= 13) && (<Fade top cascade key={index}>
+                        return (index >= 13) && (<Fade bottom cascade key={index}>
                             <p className="top-category">Other Articles</p>
                             <div className="article">
                                 <img src={urlToImage} alt="blog-list" className="img-fluid" />
