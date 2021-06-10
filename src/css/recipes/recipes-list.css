@@ -66,8 +66,7 @@
     z-index: 9999;
 }
 
-.recipes-list .search-container span.search-keyword,
-.recipes-list .search-container span.search-clearIcon {
+.recipes-list .search-container span.search-keyword {
     background-color: #FF8E5E;
     padding: .3rem;
     color: #FFEFE9;

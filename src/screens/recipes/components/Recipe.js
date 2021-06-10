@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Fade from 'react-reveal/Fade';
-import { MdClear } from 'react-icons/md'
+import { MdRemoveCircle } from 'react-icons/md'
 function Recipe({ search, setSearch, recipes }) {
   return (
     // <div className={`container-fluid recipes-list ${index % 2 === 0 ? 'content' : ''}`}>
@@ -9,8 +9,8 @@ function Recipe({ search, setSearch, recipes }) {
       <div className="container">
         <section className="row justify-content-center">
           {search && <div className="search-container">
-            Search:  <span className="search-keyword"> {search}</span>
-            <span className="search-clearIcon" onClick={() => setSearch('')}><MdClear /></span>
+            Showing {recipes.length} results for  <span className="search-keyword"> {search}</span>
+            <span className="search-clearIcon" onClick={() => setSearch('')}><MdRemoveCircle /></span>
           </div>}
 
           {recipes.length > 0 ? (<>
