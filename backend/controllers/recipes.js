@@ -68,7 +68,7 @@ export const getSingleRecipe = (req, res) => {
 }
 
 export const getRecipesList = (req, res) => {
-    const { search } = req.body
+    const { search } = req.body || ''
     const getRecipes = async () => {
         try {
             let recipes = await RECIPES.find({}).select('mainImage title ingredients').populate('userId', 'name imageUrl googleId isUpdated')
