@@ -35,7 +35,7 @@ function RegisterModal({ modalAuthDispatcher }) {
                     <h5 className="modal-title" id="SignInModalLabel" >Welcome Abroad, Sign up to explore</h5>
                 </div>
                 <div className="modal-body pt-0">
-                    <form action="" autoComplete="off" className="form-login" >
+                    <form autoComplete="off" className="form-login" >
                         <div className="form-group">
                             <input
                                 type="text"

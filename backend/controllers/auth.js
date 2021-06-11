@@ -73,8 +73,7 @@ export const reSendEmailToActivateAccount = (req, res) => {
 }
 
 export const login = (req, res) => {
-    const { email, password } = req.body
-
+    const { email, password, rememberMe } = req.body
     const userLogin = async () => {
         const user = await USER.findOne({ email })
         const validatePassword = await bcrypt.compare(password, user.password)
@@ -89,9 +88,27 @@ export const login = (req, res) => {
         const update = { refreshToken }
         const updateUserAccessToken = await USER.findOneAndUpdate(filter, update, { new: true })
         if (!updateUserAccessToken) return res.status(400).json({ success: false, msg: 'Failed to login, please try again' })
+
+        if (rememberMe) {
+            req.session.email = email
+            req.session.password = password
+        } else {
+            req.session.email = null
+            req.session.password = null
+        }
         return res.status(200).json({ success: true, isLoggedIn: true, msg: 'You are logged in', accessToken: userAccessToken, refreshToken })
     }
     userLogin()
+}
+
+export const checkRememberMe = (req, res) => {
+    if (!req.session.email) return res.status(404).json({ success: false, msg: 'Not remembered' })
+    return res.status(200).json({
+        success: true, user: {
+            email: req.session.email,
+            password: req.session.password
+        }
+    })
 }
 
 export const getUserLogin = (req, res) => {

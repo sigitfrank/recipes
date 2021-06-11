@@ -1,5 +1,5 @@
 import express from 'express'
-import { createUser, activateUser, reSendEmailToActivateAccount, login, loginWithGoogle, loginWithFacebook, getUserLogin, logout, refreshToken } from '../controllers/auth.js'
+import { createUser, activateUser, reSendEmailToActivateAccount, login, loginWithGoogle, loginWithFacebook, getUserLogin, logout, refreshToken, checkRememberMe} from '../controllers/auth.js'
 import validateActivateAccount from '../validations/auth/validateActivateAccount.js'
 import validateCreateUser from '../validations/auth/validateCreateUser.js'
 import validateLoginUser from '../validations/auth/validateLoginUser.js'
@@ -17,6 +17,8 @@ authRouter.post('/loginData', getUserLogin)
 authRouter.get('/logout', logout)
 authRouter.post('/loginWithGoogle', loginWithGoogle)
 authRouter.post('/loginWithFacebook', loginWithFacebook)
+
+authRouter.get('/checkRememberMe', checkRememberMe)
 
 
 

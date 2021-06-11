@@ -29,7 +29,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 60 * 60 * 24
+        expires: Date.now() + (14 * 24 * 60 * 60)
     }
 }))
 

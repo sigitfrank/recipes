@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer, useRef } from 'react'
 import authActionTypes from '../../action-types/auth/Auth'
 import loginActionTypes from '../../action-types/auth/Login'
 import LoginReducer from '../../reducers/auth/LoginReducer'
@@ -13,24 +13,46 @@ import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
 import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 import axios from 'axios'
 import loginController from '../../controllers/auth/loginController'
+import { getItem } from '../../helpers/auth/store'
+import jwtDecode from 'jwt-decode'
+import { REMEMBER_ME_URL } from '../../api/endpoints'
 
 function Login({ modalAuthDispatcher }) {
+    const rememberMeCheckBox = useRef(null)
     const [loginState, loginDispatcher] = useReducer(LoginReducer, initialLoginState)
     const { email, password, rememberMe, showPassword } = loginState
+
     axios.defaults.withCredentials = true
+
     const loginUser = async () => {
         loginDispatcher({ type: loginActionTypes.CHECK_POST_LOGIN_USER })
         const dataUser = {
             email: email.value,
-            password: password.value
+            password: password.value,
+            rememberMe
         }
         const isLoginSuccess = await loginController({ dataUser })
         if (!isLoginSuccess) return false
-
         return setTimeout(() => {
             window.location.reload()
         }, 2000);
     }
+
+    useEffect(() => {
+
+        const checkRememberMe = async () => {
+            try {
+                const response = await axios.get(REMEMBER_ME_URL)
+                const user = response.data.user
+                loginDispatcher({ type: loginActionTypes.CHECK_REMEMBER_ME, payload: user })
+                rememberMeCheckBox.current.setAttribute('checked', 'checked')
+                return true
+            } catch (error) {
+                console.log(error.response)
+            }
+        }
+        checkRememberMe()
+    }, [])
     return (
         <>
             <div className="modal-content">
@@ -38,7 +60,7 @@ function Login({ modalAuthDispatcher }) {
                     <h5 className="modal-title" id="SignInModalLabel">Welcome Back, Sign in to continue</h5>
                 </div>
                 <div className="modal-body pt-0">
-                    <form action="" autoComplete="off" className="form-login">
+                    <form autoComplete="off" className="form-login">
                         <div className="form-group">
                             <input
                                 type="email"
@@ -68,8 +90,9 @@ function Login({ modalAuthDispatcher }) {
                                         className="form-check-input"
                                         type="checkbox"
                                         value={rememberMe}
-                                        onChange={() => loginDispatcher({ type: loginActionTypes.SET_REMEMBER_ME })}
-                                        id="rememberMe" />
+                                        onClick={() => loginDispatcher({ type: loginActionTypes.SET_REMEMBER_ME })}
+                                        id="rememberMe"
+                                        ref={rememberMeCheckBox} />
                                     <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import Recipe from './Recipe'
 import axios from 'axios'
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GET_RECIPES_LIST } from '../../../api/endpoints'
 function Recipes() {
     const [recipes, setRecipes] = useState([])

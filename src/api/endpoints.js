@@ -14,6 +14,8 @@ export const LOGIN_WITH_FACEBOOK_URL = `${BASE_URL}/api/${AUTH_URL}/loginWithFac
 export const LOGOUT_URL = `${BASE_URL}/api/${AUTH_URL}/logout`
 export const TOKEN_URL = `${BASE_URL}/api/${AUTH_URL}/token`
 
+export const REMEMBER_ME_URL = `${BASE_URL}/api/${AUTH_URL}/checkRememberMe`
+
 const USER_URL = 'user'
 export const GET_USERS_URL = `${BASE_URL}/api/${USER_URL}`
 export const UPDATE_USER_URL = `${BASE_URL}/api/${USER_URL}`

@@ -2,6 +2,7 @@ import loginActionTypes from '../../action-types/auth/Login'
 import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 import { emailValidRegex } from '../../constants/email'
 import { defaultError } from '../../constants/error'
+import { getItem } from '../../helpers/auth/store'
 
 const LoginReducer = (state = {}, action) => {
     if (action.type === loginActionTypes.SET_EMAIL) {
@@ -28,7 +29,11 @@ const LoginReducer = (state = {}, action) => {
         }
     }
 
-    if (action.type === loginActionTypes.SET_REMEMBER_ME) return { ...state, rememberMe: !state.rememberMe }
+    if (action.type === loginActionTypes.SET_REMEMBER_ME) {
+        if (state.rememberMe) return { ...state, rememberMe: false }
+        return { ...state, rememberMe: true }
+
+    }
 
     if (action.type === loginActionTypes.CHECK_POST_LOGIN_USER) {
         const email = state.email.value
@@ -40,16 +45,25 @@ const LoginReducer = (state = {}, action) => {
         return { ...state }
     }
 
-    if (action.type === loginActionTypes.POST_LOGIN_USER) {
-        return {
-            ...state,
-            feedbackMessage: action.payload,
-        }
-    }
-
     if (action.type === loginActionTypes.TOGGLE_PASSWORD) {
         if (typeof action.event.target.className.baseVal !== 'undefined') {
             return { ...state, showPassword: !state.showPassword }
+        }
+    }
+
+    if (action.type === loginActionTypes.CHECK_REMEMBER_ME) {
+        const {email, password} = action.payload
+        return {
+            ...state,
+            email: {
+                value: email,
+                error: defaultError
+            },
+            password: {
+                value: password,
+                error: defaultError
+            },
+            rememberMe: true
         }
     }
 
