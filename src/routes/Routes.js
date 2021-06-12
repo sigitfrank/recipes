@@ -12,6 +12,7 @@ import Profile from '../screens/profile/Profile'
 import AddRecipes from '../screens/users/AddRecipes'
 import ActivateAccount from '../screens/auth/ActivateAccount'
 import useCheckAuth from '../helpers/auth/useCheckAuth'
+import VerifyPhone from '../screens/users/VerifyPhone'
 
 export const SearchContext = React.createContext('')
 function Routes() {
@@ -59,6 +60,13 @@ function Routes() {
                 {JSON.parse(loginStatus) ? (<>
                     <Navbar />
                     <Profile />
+                </>) : history.push('/')}
+            </>)} />
+
+            <Route path='/verify-phone' exact render={() => (<>
+                {JSON.parse(loginStatus) ? (<>
+                    <Navbar />
+                    <VerifyPhone />
                 </>) : history.push('/')}
             </>)} />
 

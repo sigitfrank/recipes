@@ -13,8 +13,6 @@ import loginWithGoogle from '../../controllers/auth/loginWithGoogle'
 import loginWithFacebook from '../../controllers/auth/loginWithFacebook'
 import axios from 'axios'
 import loginController from '../../controllers/auth/loginController'
-import { getItem } from '../../helpers/auth/store'
-import jwtDecode from 'jwt-decode'
 import { REMEMBER_ME_URL } from '../../api/endpoints'
 
 function Login({ modalAuthDispatcher }) {
@@ -48,7 +46,10 @@ function Login({ modalAuthDispatcher }) {
                 rememberMeCheckBox.current.setAttribute('checked', 'checked')
                 return true
             } catch (error) {
-                console.log(error.response)
+                if (error.response) {
+                    console.log(error.response.data.msg)
+                }
+                console.log(error.message)
             }
         }
         checkRememberMe()

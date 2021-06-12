@@ -9,7 +9,7 @@ export const AuthContext = React.createContext()
 
 function AppProvider({ children }) {
     const { loginStatus, accessToken } = useCheckAuth()
-    console.log(accessToken)
+    // console.log(accessToken)
     const [authState, setAuthState] = useState({ isLoading: false, isLoggedIn: false, user: {} })
     useEffect(() => {
         let mounted = true;
@@ -24,7 +24,7 @@ function AppProvider({ children }) {
                 removeItemStorage()
                 if(error.response){
                     const errorMessage = error.response.data
-                    console.log(errorMessage.msg)
+                    // console.log(errorMessage.msg)
                 }
                 setAuthState({ isLoading: false, isLoggedIn: false, user: {} })
                 setTimeout(() => {

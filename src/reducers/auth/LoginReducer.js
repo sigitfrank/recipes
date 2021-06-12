@@ -2,7 +2,6 @@ import loginActionTypes from '../../action-types/auth/Login'
 import InvalidFeedback from '../../validations/logic/InvalidFeedback'
 import { emailValidRegex } from '../../constants/email'
 import { defaultError } from '../../constants/error'
-import { getItem } from '../../helpers/auth/store'
 
 const LoginReducer = (state = {}, action) => {
     if (action.type === loginActionTypes.SET_EMAIL) {

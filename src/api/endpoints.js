@@ -4,6 +4,8 @@ const AUTH_URL = 'auth'
 export const REGISTER_ACCOUNT_URL = `${BASE_URL}/api/${AUTH_URL}/register`
 export const ACTIVATE_ACCOUNT_URL = `${BASE_URL}/api/${AUTH_URL}/activate`
 export const RESEND_EMAIL_ACTIVATION_URL = `${BASE_URL}/api/${AUTH_URL}/reActivate`
+export const SEND_OTP_URL = `${BASE_URL}/api/${AUTH_URL}/sendOtp`
+export const VERIFY_PHONE_URL = `${BASE_URL}/api/${AUTH_URL}/verify`
 
 export const LOGIN_URL = `${BASE_URL}/api/${AUTH_URL}/login`
 export const GET_LOGIN_URL = `${BASE_URL}/api/${AUTH_URL}/loginData`
