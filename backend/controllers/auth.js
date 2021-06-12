@@ -7,7 +7,7 @@ import sendEmail from '../helpers/email/sendEmailRegister.js'
 import { getExpiredTime } from '../helpers/getTime.js'
 import { currentTime } from '../helpers/getTime.js'
 import generateAccessToken from '../middleware/generateAccessToken.js'
-import { google } from 'googleapis';
+import { google } from 'googleapis'
 
 export const createUser = (req, res) => {
     const { name, email, password } = req.body
@@ -256,11 +256,11 @@ export const sendOtp = (req, res) => {
         const identityToolkit = google.identitytoolkit({
             auth: process.env.FIREBASE_API_KEY,
             version: 'v3',
-        });
+        })
         const response = await identityToolkit.relyingparty.sendVerificationCode({
             phoneNumber,
             recaptchaToken: recaptchaToken,
-        });
+        })
         const sessionInfo = response.data.sessionInfo
         return res.status(200).json({ success: true, sessionInfo })
     }
@@ -268,18 +268,18 @@ export const sendOtp = (req, res) => {
 }
 
 export const verifyOtp = (req, res) => {
-    const { verificationCode, sessionInfo } = req.body;
+    const { verificationCode, sessionInfo } = req.body
     const verify = async () => {
 
         const identityToolkit = google.identitytoolkit({
             auth: process.env.FIREBASE_API_KEY,
             version: 'v3',
-        });
+        })
 
         const response = await identityToolkit.relyingparty.verifyPhoneNumber({
             code: verificationCode,
             sessionInfo: sessionInfo,
-        });
+        })
         return res.status(200).json({ success: true, data: response.data })
     }
     verify()

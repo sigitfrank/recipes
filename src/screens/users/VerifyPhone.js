@@ -65,7 +65,7 @@ function VerifyPhone() {
         <div className='container'>
             <div id="recaptcha-container" ref={(ref) => recaptchaContainer = ref}></div> <br />
             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} placeholder="+62802178306187" /><br /><br />
-            <button onClick={() => handleSendCode()}>SendCode</button><br /><br />
+            <button onClick={() => handleSendCode()}>Send OTP</button><br /><br />
 
             <input type="text" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} /><br /><br />
             <button onClick={() => verifCode()}>verif code</button>
