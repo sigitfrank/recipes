@@ -1,14 +1,20 @@
 import axios from 'axios'
 import React, { useState, useEffect, useContext } from 'react'
-import { GET_SINGLE_RECIPE_URL } from '../../api/endpoints'
+import { DELETE_RECIPE_URL, GET_SINGLE_RECIPE_URL } from '../../api/endpoints'
 import { RecipeCarouselContext } from '../../App'
 import '../../css/recipes/detail-recipes.css'
 import formatRecipeCategory from '../../helpers/formatRecipeCategory'
 import getDate from '../../helpers/getDate'
+import { AiFillDelete } from 'react-icons/ai'
 import { scrollViewTop } from '../../helpers/scrollViewTop'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../../context/AppProvider'
 function DetailRecipes() {
     const [recipe, setRecipe] = useState(null)
     const { setRecipesCarousel } = useContext(RecipeCarouselContext)
+    const { user } = useContext(AuthContext)
+    const history = useHistory()
+
     useEffect(() => {
         scrollViewTop()
         const getSingleRecipe = async () => {
@@ -26,13 +32,32 @@ function DetailRecipes() {
     const handleModalRecipes = (e) => {
         return setRecipesCarousel([recipe.mainImage, recipe.additionalImages])
     }
+
+    const handleDelete = async () => {
+        const shouldDelete = window.confirm(`Are you sure want to delete this?`)
+        if (!shouldDelete) return
+        try {
+            const res = await axios.delete(`${DELETE_RECIPE_URL}/${recipe._id}`)
+            if (res !== undefined)
+                history.push('/recipes')
+        } catch (error) {
+            console.error('error', error)
+        }
+
+    }
+
     return (<>
         <img src="/assets/bg-half-circle.png" alt="bg-half-circle" className="bg-half-circle" />
         {recipe ? (<>
             <div className="container-fluid detail-recipes content">
                 <div className="container">
                     <section className="row recipes-header">
-                        <h2 className="recipes-title">{recipe.title}</h2>
+                        <div className='d-flex align-items-center'>
+                            <h2 className="recipes-title">{recipe.title}</h2>
+                            {
+                                user?.userData?._id === recipe.userId._id && <AiFillDelete style={{ cursor: 'pointer' }} className='text-danger' onClick={handleDelete} />
+                            }
+                        </div>
                         <div className="recipes-author">
                             {
                                 recipe.userId.isUpdated || !recipe.userId.googleId ? (<img src={`${process.env.REACT_APP_BASE_URL_BACKEND}/${recipe.userId.imageUrl}`} alt="author" />) : (<img src={`${recipe.userId.imageUrl}`} alt="author" />)

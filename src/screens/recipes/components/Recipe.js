@@ -48,7 +48,7 @@ function Recipe({ search, setSearch, recipes }) {
                 </div>
               </div>))}
             </div>
-          </>) : !search ? (<p className="recipes-not-exist">Loading...</p>) : (<p className="recipes-not-exist">Recipes you searched do not exist, try another keyword</p>)}
+          </>) : (<p className="recipes-not-exist">Recipes not found</p>)}
         </section>
       </div>
     </div>

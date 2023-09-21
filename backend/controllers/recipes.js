@@ -84,3 +84,16 @@ export const getRecipesList = (req, res) => {
     }
     getRecipes()
 }
+
+export const deleteRecipeById = (req, res) => {
+    const { _id } = req.params
+    const deleteRecipe = async () => {
+        try {
+            await RECIPES.findByIdAndDelete(_id)
+            res.status(200).json({ success: true })
+        } catch (error) {
+            res.status(404).json({ success: false, msg: 'Recipe failed to delete' })
+        }
+    }
+    deleteRecipe()
+}

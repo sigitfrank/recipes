@@ -91,6 +91,10 @@
     font-weight: 100;
 }
 
+.detail-recipes .recipes-header div:first-child {
+    gap: 1rem;
+}
+
 .detail-recipes .recipes-header h2.recipes-title,
 .detail-recipes .recipes-author,
 .detail-recipes .card.recipes-property,

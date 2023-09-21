@@ -28,4 +28,5 @@ const RECIPES_URL = 'recipes'
 export const POST_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}`
 export const GET_USER_RECIPES_URL = `${BASE_URL}/api/${RECIPES_URL}/user`
 export const GET_SINGLE_RECIPE_URL = `${BASE_URL}/api/${RECIPES_URL}`
+export const DELETE_RECIPE_URL = `${BASE_URL}/api/${RECIPES_URL}`
 export const GET_RECIPES_LIST = `${BASE_URL}/api/${RECIPES_URL}/search`

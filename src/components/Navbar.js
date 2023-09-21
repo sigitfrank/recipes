@@ -43,9 +43,9 @@ function Navbar() {
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName='active' to="/blog">Blog</NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink className="nav-link" activeClassName='active' to="/about-us">About Us</NavLink>
-            </li>
+            </li> */}
           </ul>
           <form className="d-flex search-form" onSubmit={(e) => e.preventDefault()}>
             <div className="input-group me-3">
